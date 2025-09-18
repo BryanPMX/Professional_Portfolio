@@ -1,0 +1,9 @@
+# Ignore development files
+src/
+*.config.mjs
+tsconfig.json
+tailwind.config.mjs
+.astro/
+node_modules/
+.env*
+README.md

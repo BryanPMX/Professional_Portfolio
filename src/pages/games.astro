@@ -1,0 +1,158 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const games = [
+  {
+    title: "Space Invaders",
+    description: "A classic arcade-style space shooter game with smooth animations, power-ups, and increasing difficulty levels. Features collision detection, particle effects, and retro-style graphics.",
+    image: "/assets/project-1.png",
+    technologies: ["JavaScript", "HTML5 Canvas", "CSS3", "Game Physics"],
+    githubUrl: "https://github.com/BryanPMX/space-invaders",
+    gameUrl: "/games/space-invaders"
+  },
+  {
+    title: "Snake Game",
+    description: "The timeless Snake game with modern visuals and responsive controls. Includes score tracking, speed progression, and smooth gameplay mechanics.",
+    image: "/assets/project-2.jpeg",
+    technologies: ["JavaScript", "Canvas API", "Local Storage"],
+    githubUrl: "https://github.com/BryanPMX/snake-game",
+    gameUrl: "/games/snake"
+  },
+  {
+    title: "Tetris Clone",
+    description: "A fully functional Tetris implementation with piece rotation, line clearing, and level progression. Features intuitive controls and classic gameplay mechanics.",
+    image: "/assets/project-3.jpeg",
+    technologies: ["JavaScript", "Canvas", "Game Logic", "Animation"],
+    githubUrl: "https://github.com/BryanPMX/tetris-clone",
+    gameUrl: "/games/tetris"
+  },
+  {
+    title: "Breakout Game",
+    description: "A brick-breaking game with physics-based ball movement, paddle controls, and multiple levels. Includes power-ups and special effects.",
+    image: "/assets/project-1.png",
+    technologies: ["JavaScript", "Canvas", "Physics Engine"],
+    githubUrl: "https://github.com/BryanPMX/breakout",
+    gameUrl: "/games/breakout"
+  }
+];
+---
+
+<Layout title="Games - Bryan Perez">
+  <div class="min-h-screen">
+    <!-- Header Section -->
+    <section class="py-20 px-6">
+      <div class="max-w-6xl mx-auto text-center">
+        <h1 class="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-accent-purple to-accent bg-clip-text text-transparent">
+          Interactive Games
+        </h1>
+        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto mb-8">
+          Custom-built games showcasing interactive programming, game mechanics, and creative problem-solving. 
+          Each game is playable directly in your browser.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">JavaScript Games</span>
+          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Canvas Graphics</span>
+          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Play Instantly</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Games Grid -->
+    <section class="pb-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {games.map((game) => (
+            <ProjectCard
+              title={game.title}
+              description={game.description}
+              image={game.image}
+              technologies={game.technologies}
+              githubUrl={game.githubUrl}
+              gameUrl={game.gameUrl}
+              type="game"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Game Development Info -->
+    <section class="py-20 px-6 bg-dark-surface">
+      <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl lg:text-4xl font-bold mb-6">Game Development Approach</h2>
+          <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto">
+            Each game is built from scratch using vanilla JavaScript and HTML5 Canvas, 
+            demonstrating fundamental programming concepts and game development principles.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Game Physics -->
+          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
+            <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Game Physics</h3>
+            <p class="text-dark-text-secondary">
+              Collision detection, movement mechanics, and realistic physics simulations
+            </p>
+          </div>
+          
+          <!-- Animation -->
+          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
+            <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v18a1 1 0 01-1 1H4a1 1 0 01-1-1V1a1 1 0 011-1h2a1 1 0 011 1v3m0-4h8"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Smooth Animation</h3>
+            <p class="text-dark-text-secondary">
+              RequestAnimationFrame loops, sprite animations, and fluid visual effects
+            </p>
+          </div>
+          
+          <!-- User Interaction -->
+          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
+            <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center mb-4">
+              <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">User Interaction</h3>
+            <p class="text-dark-text-secondary">
+              Responsive controls, keyboard/mouse input handling, and intuitive gameplay
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 px-6">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Play?</h2>
+        <p class="text-xl text-dark-text-secondary mb-8 max-w-2xl mx-auto">
+          Click on any game above to start playing instantly. No downloads or installations required!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/projects" 
+            class="bg-accent hover:bg-accent-hover text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+          >
+            View Other Projects
+          </a>
+          <a 
+            href="/contact" 
+            class="border border-accent text-accent hover:bg-accent hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+          >
+            Discuss Game Ideas
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

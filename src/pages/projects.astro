@@ -1,0 +1,172 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    title: "CAF Admin Portal",
+    description: "A comprehensive full-stack web application for Centro De Apoyo A.C. featuring user management, donation tracking, and administrative tools. Built with modern web technologies and responsive design.",
+    image: "/assets/project-3.jpeg",
+    technologies: ["React", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
+    githubUrl: "https://github.com/BryanPMX/Centro_De_Apoyo_A.C._System",
+    liveUrl: "https://centro-de-apoyo-ac-system.vercel.app"
+  },
+  {
+    title: "Object-Oriented Banking App",
+    description: "A sophisticated banking application demonstrating advanced object-oriented programming principles. Features account management, transaction processing, and secure authentication systems.",
+    image: "/assets/project-2.jpeg",
+    technologies: ["Java", "Spring Boot", "MySQL", "JUnit", "Maven"],
+    githubUrl: "https://github.com/BryanPMX/UTEP_CS_Adv._Object_Oriented_Programming",
+    liveUrl: "https://banking-app-demo.vercel.app"
+  },
+  {
+    title: "Tic Tac Toe Game",
+    description: "An interactive Tic Tac Toe game with AI opponent, score tracking, and smooth animations. Demonstrates game logic implementation and user interface design.",
+    image: "/assets/project-1.png",
+    technologies: ["Python", "Tkinter", "AI Algorithm"],
+    githubUrl: "https://github.com/BryanPMX/Cisco_Networking_Academy/blob/main/tic_tac_toe.py",
+    liveUrl: "https://tictactoe-python-demo.vercel.app"
+  },
+  {
+    title: "E-Commerce Platform",
+    description: "A modern e-commerce platform with shopping cart functionality, payment integration, and inventory management. Features responsive design and seamless user experience.",
+    image: "/assets/project-1.png",
+    technologies: ["React", "Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
+    githubUrl: "https://github.com/BryanPMX/ecommerce-platform",
+    liveUrl: "https://ecommerce-platform-demo.vercel.app"
+  },
+  {
+    title: "Task Management System",
+    description: "A collaborative task management application with real-time updates, team collaboration features, and project tracking capabilities.",
+    image: "/assets/project-2.jpeg",
+    technologies: ["Vue.js", "Firebase", "Vuex", "Socket.io"],
+    githubUrl: "https://github.com/BryanPMX/task-management",
+    liveUrl: "https://task-management-demo.vercel.app"
+  },
+  {
+    title: "Weather Analytics Dashboard",
+    description: "A data visualization dashboard for weather analytics with interactive charts, historical data analysis, and location-based weather tracking.",
+    image: "/assets/project-3.jpeg",
+    technologies: ["React", "D3.js", "Node.js", "Weather API"],
+    githubUrl: "https://github.com/BryanPMX/weather-dashboard",
+    liveUrl: "https://weather-analytics-demo.vercel.app"
+  }
+];
+---
+
+<Layout title="Projects - Bryan Perez">
+  <div class="min-h-screen">
+    <!-- Header Section -->
+    <section class="py-20 px-6">
+      <div class="max-w-6xl mx-auto text-center">
+        <h1 class="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-dark-text to-dark-text-secondary bg-clip-text text-transparent">
+          My Projects
+        </h1>
+        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto mb-8">
+          A collection of full-stack applications and software solutions I've built. 
+          Each project demonstrates different technologies and problem-solving approaches.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mb-12">
+          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Full-Stack Development</span>
+          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">Live Demos Available</span>
+          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Open Source</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="pb-20 px-6">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project) => (
+            <ProjectCard
+              title={project.title}
+              description={project.description}
+              image={project.image}
+              technologies={project.technologies}
+              githubUrl={project.githubUrl}
+              liveUrl={project.liveUrl}
+              type="project"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-20 px-6 bg-dark-surface">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Interested in Working Together?</h2>
+        <p class="text-xl text-dark-text-secondary mb-8 max-w-2xl mx-auto">
+          I'm always excited to collaborate on interesting projects and explore new opportunities.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/contact" 
+            class="bg-accent hover:bg-accent-hover text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+          >
+            Get In Touch
+          </a>
+          <a 
+            href="/assets/Bryan Resume 2025.pdf" 
+            target="_blank"
+            class="border border-accent text-accent hover:bg-accent hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+          >
+            View Resume
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<!-- Modal for Live Demos -->
+<div id="modal-container"></div>
+
+<script>
+  import Modal from '../components/Modal.tsx';
+  import { createRoot } from 'react-dom/client';
+  import React from 'react';
+
+  // Modal state management
+  let modalRoot: any = null;
+  
+  function openModal(url: string, title: string) {
+    const container = document.getElementById('modal-container');
+    if (!container) return;
+    
+    if (!modalRoot) {
+      modalRoot = createRoot(container);
+    }
+    
+    const closeModal = () => {
+      modalRoot.render(React.createElement('div'));
+    };
+    
+    modalRoot.render(
+      React.createElement(Modal, {
+        isOpen: true,
+        onClose: closeModal,
+        title: title,
+        url: url
+      })
+    );
+  }
+  
+  // Add event listeners to live demo buttons
+  document.addEventListener('DOMContentLoaded', () => {
+    const liveDemoButtons = document.querySelectorAll('.live-demo-btn');
+    
+    liveDemoButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = (e.target as HTMLButtonElement).dataset.url;
+        const title = (e.target as HTMLButtonElement).dataset.title;
+        
+        if (url && title) {
+          openModal(url, title);
+        }
+      });
+    });
+  });
+</script>
