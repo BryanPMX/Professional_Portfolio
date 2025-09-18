@@ -9,7 +9,10 @@ export default defineConfig({
     react()
   ],
   output: 'static',
-  site: 'https://bryan-portfolio.vercel.app',
+  site: 'https://your-portfolio-name.vercel.app', // Update this after deployment
+  build: {
+    assets: 'assets'
+  },
   vite: {
     optimizeDeps: {
       include: ['react', 'react-dom']
