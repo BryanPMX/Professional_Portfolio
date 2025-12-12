@@ -24,36 +24,36 @@ const {
 
 <div class="bg-dark-card rounded-xl border border-dark-surface hover:border-accent/50 transition-all duration-300 hover:scale-105 overflow-hidden group flex flex-col h-full max-w-sm mx-auto">
   <!-- Project Image -->
-  <div class="relative overflow-hidden h-32">
+  <div class="relative overflow-hidden h-40">
     <img
       src={image}
       alt={title}
       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-dark-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-dark-card/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
   </div>
 
   <!-- Content -->
-  <div class="p-4 flex flex-col flex-1">
-    <h3 class="text-lg font-semibold mb-2 text-dark-text group-hover:text-accent transition-colors">
+  <div class="p-5 flex flex-col flex-1">
+    <h3 class="text-xl font-bold mb-3 text-dark-text group-hover:text-accent transition-colors leading-tight">
       {title}
     </h3>
 
-    <p class="text-dark-text-secondary mb-4 text-sm leading-relaxed flex-1">
+    <p class="text-dark-text-secondary mb-4 text-sm leading-relaxed line-clamp-4 flex-1">
       {description}
     </p>
 
     <!-- Technologies -->
-    <div class="flex flex-wrap gap-1 mb-4">
+    <div class="flex flex-wrap gap-2 mb-4">
       {technologies.map((tech) => (
-        <span class="px-2 py-1 bg-dark-bg rounded-full text-xs text-dark-text-secondary border border-dark-surface">
+        <span class="px-3 py-1 bg-dark-bg rounded-full text-xs text-dark-text-secondary border border-dark-surface font-medium">
           {tech}
         </span>
       ))}
     </div>
 
     <!-- Action Buttons -->
-    <div class={`flex gap-2 mt-auto ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
+    <div class={`flex gap-3 mt-auto ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
       {type === 'project' && (
         <>
           {githubUrl && (
@@ -62,7 +62,7 @@ const {
               target="_blank"
               rel="noopener noreferrer"
               class:list={[
-                'bg-dark-surface hover:bg-dark-bg text-dark-text px-3 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105 text-center border border-dark-surface hover:border-accent',
+                'bg-dark-surface hover:bg-dark-bg text-dark-text px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 text-center border border-dark-surface hover:border-accent shadow-sm',
                 liveUrl ? 'flex-1' : 'w-full'
               ]}
             >
@@ -72,7 +72,7 @@ const {
           {liveUrl && (
             <button
               class:list={[
-                'bg-accent hover:bg-accent-hover text-white px-3 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105 live-demo-btn',
+                'bg-accent hover:bg-accent-hover text-white px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 live-demo-btn shadow-sm',
                 githubUrl ? 'flex-1' : 'w-full'
               ]}
               data-url={liveUrl}

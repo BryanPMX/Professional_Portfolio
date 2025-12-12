@@ -5,32 +5,32 @@ import ProjectCard from '../components/ProjectCard.astro';
 const projects = [
   {
     title: "CAF Case Management System",
-    description: "Authorized demonstration of a comprehensive case management platform developed for Centro De Apoyo A.C., serving 200+ weekly clients. Features secure case intake, automated scheduling system, advanced analytics dashboard, and administrative tools. Built with clean architecture principles using Go (Gin, GORM) and PostgreSQL for scalable backend, with production-grade admin portal using Next.js 14 and TypeScript. Includes JWT Role-Based Access Control, authenticated WebSockets for real-time case updates, and comprehensive audit logging. Reduced case processing time by 40% through automated workflows and improved data accuracy by 95% with validation systems.",
+    description: "Comprehensive case management platform for Centro De Apoyo A.C. serving 200+ weekly clients. Features secure case intake, automated scheduling, analytics dashboard, and administrative tools. Built with Go backend (Gin, GORM) and PostgreSQL, Next.js 14 admin portal with TypeScript. Includes JWT authentication, WebSocket real-time updates, and audit logging. Reduced processing time by 40% through automated workflows.",
     image: "/assets/project-3.png",
-    technologies: ["Go", "Next.js", "PostgreSQL", "TypeScript", "WebSockets", "JWT", "Docker"],
+    technologies: ["Go", "Next.js", "PostgreSQL", "TypeScript", "WebSockets"],
     liveUrl: "#" // Video demo link will be provided
   },
   {
     title: "DEM Bravo (Docker Exploit Mapper)",
-    description: "Architected an enterprise-grade, offline-first cybersecurity platform for CS4311 Cybersecurity course, processing 500+ container vulnerabilities per scan. Built with FastAPI backend and Neo4j graph database to model complex container attack graphs with 99.2% accuracy in vulnerability correlation. Implemented asynchronous Docker SDK orchestration to stream live scan results, reducing scan time by 65%. Developed interactive visualization dashboard using SvelteKit and Cytoscape.js, enabling security analysts to explore 3D network topologies and vulnerability paths. Enforced STIG-compliant database security with custom Cypher query sanitizer, achieving 100% prevention of injection attacks while managing multi-tool data ingestion from Nessus, OpenVAS, and custom scanners.",
+    description: "Enterprise-grade cybersecurity platform processing 500+ container vulnerabilities per scan. Built with FastAPI backend and Neo4j graph database for accurate vulnerability correlation (99.2%). Features asynchronous Docker orchestration reducing scan time by 65%, and interactive SvelteKit dashboard with Cytoscape.js for network topology visualization. Implements STIG-compliant security with custom query sanitization.",
     image: "/assets/project-1.png",
-    technologies: ["FastAPI", "Neo4j", "SvelteKit", "Docker", "Python", "Cytoscape.js", "AsyncIO"],
+    technologies: ["FastAPI", "Neo4j", "SvelteKit", "Docker", "Python"],
     githubUrl: "https://github.com/ChristianDees/CS4311_DEM_Bravo_Fall2025",
     liveUrl: "#" // Will be provided later
   },
   {
     title: "Bank of Miners",
-    description: "Complete modernization of legacy banking CLI system into full-stack web application serving 10,000+ simulated accounts. Optimized data retrieval performance by 300% using custom Binary Search Tree (BST) implementation achieving O(log n) search efficiency. Engineered secure banking core with Java OOP principles and Strategy Design Pattern, supporting polymorphic account types (Checking, Savings, Credit) with dynamic credit limits and interest calculations. Implemented Write-Through caching strategy reducing database load by 75%. Containerized application using Docker and Nginx for production deployment, achieving 99.9% uptime. Established comprehensive CI/CD pipeline with GitHub Actions, automating JUnit test coverage (85%+) and multi-environment deployments.",
+    description: "Full-stack modernization of legacy banking CLI into web application serving 10,000+ accounts. Optimized performance by 300% using custom BST implementation (O(log n)). Built secure banking core with Java OOP and Strategy patterns, supporting polymorphic account types. Implemented Write-Through caching reducing database load by 75%. Containerized with Docker achieving 99.9% uptime, with comprehensive CI/CD pipeline and 85%+ test coverage.",
     image: "/assets/project-2.jpeg",
-    technologies: ["Java", "Spring Boot", "React", "Docker", "PostgreSQL", "JUnit", "GitHub Actions"],
+    technologies: ["Java", "Spring Boot", "React", "Docker", "PostgreSQL"],
     githubUrl: "https://github.com/BryanPMX/bank-system",
     liveUrl: "#" // Will be provided later
   },
   {
     title: "Zombie Survival Roguelite",
-    description: "Developed a complete top-down survival roguelite game for CS4398 Game Development course, featuring 15 unique enemy types and procedural level generation. Implemented advanced AI system with collision-aware wave orchestration using NavigationServer2D, achieving 60 FPS performance with 50+ simultaneous entities. Architected modular enemy behaviors using Finite State Machines (FSM) with 8 distinct states (Idle, Patrol, Chase, Attack, Flee, Stunned, Dead). Integrated persistent meta-progression system with 25+ unlockable upgrades across 12 play sessions. Utilized global SignalBus pattern for decoupled UI/game state communication, enabling seamless multiplayer spectator mode. Implemented comprehensive save system with JSON serialization, supporting cross-session progression tracking and replay analysis.",
+    description: "Complete top-down survival roguelite game with 15 unique enemy types and procedural generation. Features advanced AI with collision-aware wave orchestration (60 FPS, 50+ entities), modular FSM enemy behaviors, and persistent meta-progression with 25+ upgrades. Implements decoupled architecture using SignalBus pattern and comprehensive JSON save system for cross-session progression tracking.",
     image: "/assets/project-4.png",
-    technologies: ["Godot 4.5", "GDScript", "JSON", "NavigationServer2D", "FSM"],
+    technologies: ["Godot 4.5", "GDScript", "NavigationServer2D"],
     githubUrl: "https://github.com/construction-team7/zombie-game",
     liveUrl: "#" // Will be provided later
   }
