@@ -66,9 +66,10 @@ import Layout from '../layouts/Layout.astro';
             <div class="text-center lg:text-left">
               <h3 class="text-2xl font-bold mb-2">University of Texas at El Paso</h3>
               <p class="text-xl text-accent mb-2">Bachelor of Science in Computer Science</p>
-              <p class="text-lg text-accent-purple mb-4">Minor in Mathematics</p>
+              <p class="text-lg text-accent-purple mb-2">Minor in Mathematics</p>
+              <p class="text-sm text-dark-text-secondary mb-4">Expected Graduation: December 2025 • GPA: 3.6</p>
               <p class="text-dark-text-secondary">
-                Currently pursuing a comprehensive education in computer science fundamentals, 
+                Currently pursuing a comprehensive education in computer science fundamentals,
                 software engineering principles, and advanced programming concepts.
               </p>
             </div>
@@ -166,7 +167,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="mt-12 text-center">
           <h3 class="text-xl font-semibold mb-6">Additional Technologies</h3>
           <div class="flex flex-wrap justify-center gap-3">
-            {['Dart', 'Scala', 'C', 'Docker', 'Git', 'Linux', 'Astro', 'Node.js'].map((tech) => (
+            {['C', 'C++', 'Dart', 'Scala', 'HTML', 'CSS', 'SQL', 'Docker', 'AWS', 'GitHub Actions', 'Neo4j', 'JUnit 5', 'Postman', 'Linux', 'Astro', 'Node.js', 'Gin', 'GORM'].map((tech) => (
               <span class="px-4 py-2 bg-dark-surface border border-dark-card rounded-full text-dark-text-secondary hover:text-accent hover:border-accent transition-colors">
                 {tech}
               </span>
@@ -182,39 +183,40 @@ import Layout from '../layouts/Layout.astro';
         <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">Professional Experience</h2>
         
         <div class="space-y-8">
-          <!-- Backend Development -->
+          <!-- Centro de Apoyo para la Familia A.C. -->
           <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
             <div class="flex items-start gap-4">
               <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                 <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
               </div>
               <div>
-                <h3 class="text-xl font-semibold mb-2">Backend Development</h3>
-                <p class="text-accent mb-2">2+ Years Experience</p>
+                <h3 class="text-xl font-semibold mb-2">Centro de Apoyo para la Familia A.C.</h3>
+                <p class="text-accent mb-2">Full Stack Developer • 2023 - Present</p>
+                <p class="text-dark-text-secondary mb-3">
+                  Engineered a local-first case management platform using Go (Gin, GORM) and PostgreSQL, implementing clean architecture to support secure case intake, scheduling, and analytics.
+                </p>
                 <p class="text-dark-text-secondary">
-                  Specialized in server-side development, database design, and API creation. 
-                  Built scalable backend systems using modern technologies and best practices.
+                  Architected a production-grade Admin Portal with Next.js 14 and TypeScript, utilizing a custom dependency injection container and Ant Design to deliver RBAC-aware dashboards with JWT Role-Based Access Control and authenticated WebSockets.
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- Full-Stack Projects -->
+          <!-- Outlier.ai -->
           <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
             <div class="flex items-start gap-4">
               <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
                 <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                 </svg>
               </div>
               <div>
-                <h3 class="text-xl font-semibold mb-2">Full-Stack Development</h3>
-                <p class="text-accent-purple mb-2">Multiple Projects</p>
+                <h3 class="text-xl font-semibold mb-2">Outlier.ai</h3>
+                <p class="text-accent-purple mb-2">Remote AI Code Expert • 2024 - Present</p>
                 <p class="text-dark-text-secondary">
-                  Developed complete web applications from concept to deployment, including 
-                  the CAF Admin Portal and various personal projects with modern tech stacks.
+                  Evaluate and refine AI-generated code in Java and Python, ranking responses based on accuracy, time complexity, and adherence to clean coding standards to improve LLM reasoning. Author complex algorithmic solutions involving Data Structures (Trees, Graphs) and conduct rigorous code reviews to ensure security and logical correctness in training datasets.
                 </p>
               </div>
             </div>
