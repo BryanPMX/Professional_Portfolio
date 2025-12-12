@@ -4,6 +4,14 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 const projects = [
   {
+    title: "CAF Case Management System",
+    description: "Authorized demonstration of a comprehensive case management platform developed for Centro De Apoyo A.C. Features secure case intake, scheduling, analytics, and administrative tools. Built with clean architecture principles using Go (Gin, GORM) and PostgreSQL, with production-grade admin portal using Next.js 14 and TypeScript. Includes JWT Role-Based Access Control and authenticated WebSockets for real-time case updates.",
+    image: "/assets/project-3.jpeg",
+    technologies: ["Go", "Next.js", "PostgreSQL", "TypeScript", "WebSockets"],
+    githubUrl: "#", // Not publicly available
+    liveUrl: "#" // Video demo link will be provided
+  },
+  {
     title: "DEM Bravo (Docker Exploit Mapper)",
     description: "Architected an offline-first cybersecurity platform using FastAPI and Neo4j to model complex container attack graphs, implementing asynchronous Docker SDK orchestration to stream live scan results. Developed a reactive visualization dashboard with SvelteKit and Cytoscape to render real-time network topologies, enabling interactive visual analysis of vulnerability paths. Enforced STIG-compliant database security by building a custom query sanitizer for Cypher, preventing injection attacks while managing multi-tool data ingestion.",
     image: "/assets/project-1.png",
@@ -39,13 +47,14 @@ const projects = [
           My Projects
         </h1>
         <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto mb-8">
-          A collection of full-stack applications and software solutions I've built. 
-          Each project demonstrates different technologies and problem-solving approaches.
+          A showcase of software solutions including personal projects and authorized work demonstrations.
+          Each project highlights different technologies, architectures, and problem-solving approaches.
         </p>
         <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Cybersecurity</span>
-          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">Game Development</span>
-          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Full-Stack Solutions</span>
+          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Case Management</span>
+          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">Cybersecurity</span>
+          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Game Development</span>
+          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Full-Stack Solutions</span>
         </div>
       </div>
     </section>
@@ -53,7 +62,7 @@ const projects = [
     <!-- Projects Grid -->
     <section class="pb-20 px-6">
       <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-8">
           {projects.map((project) => (
             <ProjectCard
               title={project.title}
