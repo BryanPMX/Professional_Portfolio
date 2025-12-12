@@ -28,18 +28,18 @@ const {
     <img
       src={image}
       alt={title}
-      class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-dark-card/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
   </div>
 
   <!-- Content -->
-  <div class="p-5 flex flex-col flex-1">
+  <div class="p-5 flex flex-col flex-1 max-h-64 overflow-y-auto">
     <h3 class="text-xl font-bold mb-3 text-dark-text group-hover:text-accent transition-colors leading-tight">
       {title}
     </h3>
 
-    <p class="text-dark-text-secondary mb-4 text-sm leading-relaxed line-clamp-4 flex-1">
+    <p class="text-dark-text-secondary mb-4 text-sm leading-relaxed">
       {description}
     </p>
 
