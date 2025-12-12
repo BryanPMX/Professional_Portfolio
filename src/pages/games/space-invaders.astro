@@ -58,6 +58,59 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
+      <!-- Main Menu Overlay -->
+      <div id="mainMenu" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+        <div class="bg-dark-card p-8 rounded-xl border border-accent max-w-md w-full mx-4 text-center">
+          <h2 class="text-3xl font-bold text-accent-purple mb-4">Space Invaders</h2>
+          <p class="text-dark-text-secondary mb-6">
+            Defend Earth from the alien invasion! Shoot all aliens before they reach the bottom.
+          </p>
+          <div class="space-y-3 mb-6">
+            <div class="text-sm text-dark-text-secondary">
+              <strong>Controls:</strong><br>
+              ← → Arrow Keys to move<br>
+              SPACEBAR to shoot
+            </div>
+            <div class="text-sm text-dark-text-secondary">
+              <strong>Objective:</strong><br>
+              Destroy all aliens to advance levels!
+            </div>
+          </div>
+          <button
+            id="startGameBtn"
+            class="bg-accent-purple hover:bg-accent-purple-hover text-white px-8 py-3 rounded-lg font-semibold transition-colors text-lg"
+          >
+            Start Game
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Over Overlay -->
+      <div id="gameOver" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+        <div class="bg-dark-card p-8 rounded-xl border border-accent max-w-md w-full mx-4 text-center">
+          <h2 class="text-3xl font-bold text-red-400 mb-4">Game Over!</h2>
+          <div class="space-y-2 mb-6">
+            <p class="text-dark-text-secondary">Final Score: <span id="finalScore" class="text-accent-purple font-bold text-xl">0</span></p>
+            <p class="text-dark-text-secondary">Level Reached: <span id="finalLevel" class="text-accent font-bold text-xl">1</span></p>
+            <p class="text-dark-text-secondary">High Score: <span id="finalHighScore" class="text-accent font-bold text-xl">0</span></p>
+          </div>
+          <div class="flex gap-3 justify-center">
+            <button
+              id="playAgainBtn"
+              class="bg-accent hover:bg-accent-hover text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+            >
+              Play Again
+            </button>
+            <button
+              id="backToMenuBtn"
+              class="bg-dark-surface hover:bg-dark-bg text-dark-text px-6 py-2 rounded-lg font-semibold transition-colors border border-dark-surface"
+            >
+              Main Menu
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Game Instructions -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
@@ -136,6 +189,7 @@ import Layout from '../../layouts/Layout.astro';
       this.gameRunning = false;
       this.score = 0;
       this.level = 1;
+      this.gameState = 'menu'; // 'menu', 'playing', 'paused', 'gameOver'
 
       // Enhanced visual elements
       this.particles = [];
@@ -162,8 +216,31 @@ import Layout from '../../layouts/Layout.astro';
       this.keys = {};
       this.setupInput();
       this.createAliens();
+      this.showMainMenu();
     }
-    
+
+    showMainMenu() {
+      this.gameState = 'menu';
+      document.getElementById('mainMenu').classList.remove('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
+    hideMainMenu() {
+      document.getElementById('mainMenu').classList.add('hidden');
+    }
+
+    showGameOver() {
+      this.gameState = 'gameOver';
+      document.getElementById('finalScore').textContent = this.score;
+      document.getElementById('finalLevel').textContent = this.level;
+      document.getElementById('finalHighScore').textContent = Math.max(parseInt(localStorage.getItem('spaceInvadersHighScore') || '0'), this.score);
+      document.getElementById('gameOver').classList.remove('hidden');
+    }
+
+    hideGameOver() {
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
     setupInput() {
       document.addEventListener('keydown', (e) => {
         this.keys[e.key] = true;
@@ -226,7 +303,7 @@ import Layout from '../../layouts/Layout.astro';
             type: alienType,
             points: points,
             speed: speed,
-            shootTimer: Math.random() * 200 + 100, // Random shooting interval
+            shootTimer: Math.random() * 400 + 200, // Random shooting interval - increased for better difficulty
             animationFrame: 0
           });
         }
@@ -308,7 +385,7 @@ import Layout from '../../layouts/Layout.astro';
           alien.shootTimer--;
           if (alien.shootTimer <= 0 && alien.y > 50) {
             this.alienShoot(alien);
-            alien.shootTimer = Math.random() * 300 + 200; // Random interval
+            alien.shootTimer = Math.random() * 600 + 400; // Random interval - increased for better difficulty
           }
         }
       });
@@ -610,15 +687,6 @@ import Layout from '../../layouts/Layout.astro';
       this.ctx.fillText(`Level: ${this.level}`, 10, 45);
     }
     
-    drawStars() {
-      this.ctx.fillStyle = '#ffffff';
-      for (let i = 0; i < 50; i++) {
-        const x = Math.random() * this.canvas.width;
-        const y = Math.random() * this.canvas.height;
-        this.ctx.fillRect(x, y, 1, 1);
-      }
-    }
-    
     gameLoop() {
       this.update();
       this.draw();
@@ -630,10 +698,13 @@ import Layout from '../../layouts/Layout.astro';
     
     start() {
       this.gameRunning = true;
+      this.gameState = 'playing';
       this.player.health = 3;
       this.particles = [];
       this.explosions = [];
       this.powerUps = [];
+      this.hideMainMenu();
+      this.hideGameOver();
       this.updateHealth();
       this.updateLevel();
       this.gameLoop();
@@ -648,6 +719,7 @@ import Layout from '../../layouts/Layout.astro';
     
     reset() {
       this.gameRunning = false;
+      this.gameState = 'menu';
       this.score = 0;
       this.level = 1;
       this.player.health = 3;
@@ -662,6 +734,7 @@ import Layout from '../../layouts/Layout.astro';
       this.explosions = [];
       this.powerUps = [];
       this.createAliens();
+      this.showMainMenu();
     }
     
     nextLevel() {
@@ -696,6 +769,7 @@ import Layout from '../../layouts/Layout.astro';
     
     gameOver() {
       this.gameRunning = false;
+      this.gameState = 'gameOver';
 
       // Create dramatic game over explosion
       this.createExplosion(this.player.x + this.player.width/2, this.player.y + this.player.height/2, '#ff0000');
@@ -719,8 +793,7 @@ import Layout from '../../layouts/Layout.astro';
       }
 
       setTimeout(() => {
-        alert(`Game Over!\nFinal Score: ${this.score}\nLevel Reached: ${this.level}\nHigh Score: ${Math.max(highScore, this.score)}`);
-        this.reset();
+        this.showGameOver();
       }, 1000);
     }
     
@@ -759,7 +832,21 @@ import Layout from '../../layouts/Layout.astro';
     document.getElementById('pauseBtn').addEventListener('click', () => {
       game.pause();
     });
-    
+
+    // New menu buttons
+    document.getElementById('startGameBtn').addEventListener('click', () => {
+      game.start();
+    });
+
+    document.getElementById('playAgainBtn').addEventListener('click', () => {
+      game.reset();
+      game.start();
+    });
+
+    document.getElementById('backToMenuBtn').addEventListener('click', () => {
+      game.reset();
+    });
+
     // Initial draw
     game.draw();
   });

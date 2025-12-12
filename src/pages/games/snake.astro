@@ -60,6 +60,57 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
+      <!-- Main Menu Overlay -->
+      <div id="mainMenu" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+        <div class="bg-dark-card p-8 rounded-xl border border-accent max-w-md w-full mx-4 text-center">
+          <h2 class="text-3xl font-bold text-accent-purple mb-4">Snake Game</h2>
+          <p class="text-dark-text-secondary mb-6">
+            Eat the food to grow your snake! Avoid hitting walls or yourself.
+          </p>
+          <div class="space-y-3 mb-6">
+            <div class="text-sm text-dark-text-secondary">
+              <strong>Controls:</strong><br>
+              ← → ↑ ↓ Arrow Keys to move
+            </div>
+            <div class="text-sm text-dark-text-secondary">
+              <strong>Objective:</strong><br>
+              Grow as long as possible!
+            </div>
+          </div>
+          <button
+            id="startGameBtn"
+            class="bg-accent hover:bg-accent-hover text-white px-8 py-3 rounded-lg font-semibold transition-colors text-lg"
+          >
+            Start Game
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Over Overlay -->
+      <div id="gameOver" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+        <div class="bg-dark-card p-8 rounded-xl border border-accent max-w-md w-full mx-4 text-center">
+          <h2 class="text-3xl font-bold text-red-400 mb-4">Game Over!</h2>
+          <div class="space-y-2 mb-6">
+            <p class="text-dark-text-secondary">Final Score: <span id="finalScore" class="text-accent-purple font-bold text-xl">0</span></p>
+            <p class="text-dark-text-secondary">High Score: <span id="finalHighScore" class="text-accent font-bold text-xl">0</span></p>
+          </div>
+          <div class="flex gap-3 justify-center">
+            <button
+              id="playAgainBtn"
+              class="bg-accent hover:bg-accent-hover text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+            >
+              Play Again
+            </button>
+            <button
+              id="backToMenuBtn"
+              class="bg-dark-surface hover:bg-dark-bg text-dark-text px-6 py-2 rounded-lg font-semibold transition-colors border border-dark-surface"
+            >
+              Main Menu
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Game Instructions -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
@@ -147,6 +198,7 @@ import Layout from '../../layouts/Layout.astro';
       this.score = 0;
       this.gameRunning = false;
       this.gamePaused = false;
+      this.gameState = 'menu'; // 'menu', 'playing', 'paused', 'gameOver'
       this.powerUp = null;
       this.powerUpTimer = 0;
 
@@ -163,32 +215,58 @@ import Layout from '../../layouts/Layout.astro';
       this.setupInput();
       this.generateFood();
       this.createParticles();
+      this.showMainMenu();
     }
-    
+
+    showMainMenu() {
+      this.gameState = 'menu';
+      document.getElementById('mainMenu').classList.remove('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
+    hideMainMenu() {
+      document.getElementById('mainMenu').classList.add('hidden');
+    }
+
+    showGameOver() {
+      this.gameState = 'gameOver';
+      document.getElementById('finalScore').textContent = this.score;
+      document.getElementById('finalHighScore').textContent = this.highScore;
+      document.getElementById('gameOver').classList.remove('hidden');
+    }
+
+    hideGameOver() {
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
     setupInput() {
       document.addEventListener('keydown', (e) => {
         if (!this.gameRunning || this.gamePaused) return;
 
         switch(e.key) {
           case 'ArrowUp':
+            e.preventDefault(); // Prevent page scrolling
             if (this.dy !== 1) {
               this.dx = 0;
               this.dy = -1;
             }
             break;
           case 'ArrowDown':
+            e.preventDefault(); // Prevent page scrolling
             if (this.dy !== -1) {
               this.dx = 0;
               this.dy = 1;
             }
             break;
           case 'ArrowLeft':
+            e.preventDefault(); // Prevent page scrolling
             if (this.dx !== 1) {
               this.dx = -1;
               this.dy = 0;
             }
             break;
           case 'ArrowRight':
+            e.preventDefault(); // Prevent page scrolling
             if (this.dx !== -1) {
               this.dx = 1;
               this.dy = 0;
@@ -544,10 +622,13 @@ import Layout from '../../layouts/Layout.astro';
       if (!this.gameRunning) {
         this.gameRunning = true;
         this.gamePaused = false;
+        this.gameState = 'playing';
         this.dx = 1;
         this.dy = 0;
         this.powerUp = null;
         this.powerUpTimer = 0;
+        this.hideMainMenu();
+        this.hideGameOver();
         this.gameLoop();
       }
     }
@@ -562,6 +643,7 @@ import Layout from '../../layouts/Layout.astro';
     reset() {
       this.gameRunning = false;
       this.gamePaused = false;
+      this.gameState = 'menu';
       this.snake = [{ x: 10, y: 10 }];
       this.dx = 0;
       this.dy = 0;
@@ -572,19 +654,21 @@ import Layout from '../../layouts/Layout.astro';
       this.updateScore();
       this.generateFood();
       this.draw();
+      this.showMainMenu();
     }
     
     gameOver() {
       this.gameRunning = false;
-      
+      this.gameState = 'gameOver';
+
       // Update high score
       if (this.score > this.highScore) {
         this.highScore = this.score;
         localStorage.setItem('snakeHighScore', this.highScore.toString());
         this.updateHighScore();
       }
-      
-      alert(`Game Over! Final Score: ${this.score}`);
+
+      this.showGameOver();
     }
     
     updateScore() {
@@ -612,7 +696,21 @@ import Layout from '../../layouts/Layout.astro';
     document.getElementById('resetBtn').addEventListener('click', () => {
       game.reset();
     });
-    
+
+    // New menu buttons
+    document.getElementById('startGameBtn').addEventListener('click', () => {
+      game.start();
+    });
+
+    document.getElementById('playAgainBtn').addEventListener('click', () => {
+      game.reset();
+      game.start();
+    });
+
+    document.getElementById('backToMenuBtn').addEventListener('click', () => {
+      game.reset();
+    });
+
     // Initial draw
     game.draw();
   });
