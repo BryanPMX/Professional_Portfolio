@@ -256,7 +256,8 @@ import Layout from '../../layouts/Layout.astro';
     }
 
     handleInput(game, key) {
-      game.handleGameInput(key);
+      // Space Invaders handles input in update() method via inputManager
+      // Spacebar shooting is handled directly in InputManager
     }
   }
 
