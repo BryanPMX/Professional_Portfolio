@@ -892,6 +892,7 @@ import Layout from '../../layouts/Layout.astro';
       this.particles = [];
       this.explosions = [];
       this.powerUps = [];
+      this.alienBullets = []; // Clear any leftover bullets from previous game
       this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.PLAYING);
       this.gameLoop();
     }
