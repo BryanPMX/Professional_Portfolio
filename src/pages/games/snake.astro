@@ -181,99 +181,257 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <script>
-  // Snake Game Implementation
+  // Snake Game Implementation - Following Software Engineering Principles
+
+  // Configuration constants - Single Source of Truth
+  const SNAKE_CONFIG = {
+    GRID_SIZE: 20,
+    INITIAL_SNAKE: [{ x: 10, y: 10 }],
+    INITIAL_FOOD: { x: 15, y: 15 },
+    INITIAL_SPEED: 1,
+    POWER_UP_DURATION: 300, // frames
+    PARTICLE_COUNT: 50,
+    GAME_STATES: {
+      MENU: 'menu',
+      PLAYING: 'playing',
+      PAUSED: 'paused',
+      GAME_OVER: 'gameOver'
+    }
+  };
+
+  // Game State Manager - State Pattern Implementation
+  class GameStateManager {
+    constructor() {
+      this.currentState = SNAKE_CONFIG.GAME_STATES.MENU;
+      this.states = {
+        [SNAKE_CONFIG.GAME_STATES.MENU]: new MenuState(),
+        [SNAKE_CONFIG.GAME_STATES.PLAYING]: new PlayingState(),
+        [SNAKE_CONFIG.GAME_STATES.PAUSED]: new PausedState(),
+        [SNAKE_CONFIG.GAME_STATES.GAME_OVER]: new GameOverState()
+      };
+    }
+
+    setState(state) {
+      if (this.states[state]) {
+        this.currentState = state;
+        this.states[state].enter();
+      }
+    }
+
+    getCurrentState() {
+      return this.currentState;
+    }
+  }
+
+  // Abstract State Class - Template Method Pattern
+  class GameState {
+    enter() { /* Override in subclasses */ }
+    update(game) { /* Override in subclasses */ }
+    handleInput(game, key) { /* Override in subclasses */ }
+  }
+
+  class MenuState extends GameState {
+    enter() {
+      document.getElementById('mainMenu').classList.remove('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+  }
+
+  class PlayingState extends GameState {
+    update(game) {
+      game.updateGameLogic();
+    }
+
+    handleInput(game, key) {
+      game.handleGameInput(key);
+    }
+  }
+
+  class PausedState extends GameState {
+    enter() {
+      // Handle pause UI
+    }
+  }
+
+  class GameOverState extends GameState {
+    enter() {
+      document.getElementById('finalScore').textContent = game.score;
+      document.getElementById('finalHighScore').textContent = game.highScore;
+      document.getElementById('gameOver').classList.remove('hidden');
+    }
+  }
+
+  // UI Manager - Single Responsibility for UI operations
+  class UIManager {
+    static showMainMenu() {
+      document.getElementById('mainMenu').classList.remove('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
+    static hideMainMenu() {
+      document.getElementById('mainMenu').classList.add('hidden');
+    }
+
+    static showGameOver(score, highScore) {
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('finalHighScore').textContent = highScore;
+      document.getElementById('gameOver').classList.remove('hidden');
+    }
+
+    static hideGameOver() {
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
+    static updateScore(score) {
+      document.getElementById('score').textContent = score;
+    }
+
+    static updateHighScore(highScore) {
+      document.getElementById('highScore').textContent = highScore;
+    }
+  }
+
+  // Input Manager - Handles all input operations
+  class InputManager {
+    constructor(game) {
+      this.game = game;
+      this.keys = {};
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+      document.addEventListener('keyup', (e) => this.handleKeyUp(e));
+    }
+
+    handleKeyDown(e) {
+      this.keys[e.key] = true;
+
+      // Prevent default for game control keys when playing
+      if (this.game.stateManager.getCurrentState() === SNAKE_CONFIG.GAME_STATES.PLAYING) {
+        switch(e.key) {
+          case 'ArrowUp':
+          case 'ArrowDown':
+          case 'ArrowLeft':
+          case 'ArrowRight':
+            e.preventDefault();
+            break;
+        }
+      }
+
+      this.game.stateManager.states[this.game.stateManager.getCurrentState()].handleInput(this.game, e.key);
+    }
+
+    handleKeyUp(e) {
+      this.keys[e.key] = false;
+    }
+
+    isKeyPressed(key) {
+      return !!this.keys[key];
+    }
+  }
+
+  // Storage Manager - Handles localStorage operations
+  class StorageManager {
+    static getHighScore() {
+      return parseInt(localStorage.getItem('snakeHighScore') || '0');
+    }
+
+    static setHighScore(score) {
+      localStorage.setItem('snakeHighScore', score.toString());
+    }
+  }
+
+  // Main Snake Game Class - Now focused on core game logic
   class SnakeGame {
     constructor(canvas) {
+      // Validate input parameters
+      if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
+        throw new Error('Valid canvas element required');
+      }
+
+      // Core game properties
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
-      this.gridSize = 20;
+      this.gridSize = SNAKE_CONFIG.GRID_SIZE;
       this.tileCount = canvas.width / this.gridSize;
 
-      this.snake = [
-        { x: 10, y: 10 }
-      ];
-      this.food = { x: 15, y: 15 };
+      // Game state - using State pattern
+      this.stateManager = new GameStateManager();
+      this.inputManager = new InputManager(this);
+
+      // Game entities
+      this.snake = [...SNAKE_CONFIG.INITIAL_SNAKE];
+      this.food = { ...SNAKE_CONFIG.INITIAL_FOOD };
       this.dx = 0;
       this.dy = 0;
       this.score = 0;
-      this.gameRunning = false;
-      this.gamePaused = false;
-      this.gameState = 'menu'; // 'menu', 'playing', 'paused', 'gameOver'
       this.powerUp = null;
       this.powerUpTimer = 0;
 
-      // Enhanced visual elements
+      // Visual elements
       this.particles = [];
       this.gradientBg = this.createGradientBackground();
       this.foodGlow = 0;
       this.snakeSegments = [];
 
-      // Load high score from localStorage
-      this.highScore = parseInt(localStorage.getItem('snakeHighScore') || '0');
-      this.updateHighScore();
+      // Load persistent data
+      this.highScore = StorageManager.getHighScore();
+      UIManager.updateHighScore(this.highScore);
 
-      this.setupInput();
+      // Initialize game
       this.generateFood();
       this.createParticles();
-      this.showMainMenu();
+      this.stateManager.setState(SNAKE_CONFIG.GAME_STATES.MENU);
     }
 
+    // UI Management - Delegated to UIManager
     showMainMenu() {
-      this.gameState = 'menu';
-      document.getElementById('mainMenu').classList.remove('hidden');
-      document.getElementById('gameOver').classList.add('hidden');
+      UIManager.showMainMenu();
     }
 
     hideMainMenu() {
-      document.getElementById('mainMenu').classList.add('hidden');
+      UIManager.hideMainMenu();
     }
 
     showGameOver() {
-      this.gameState = 'gameOver';
-      document.getElementById('finalScore').textContent = this.score;
-      document.getElementById('finalHighScore').textContent = this.highScore;
-      document.getElementById('gameOver').classList.remove('hidden');
+      UIManager.showGameOver(this.score, this.highScore);
     }
 
     hideGameOver() {
-      document.getElementById('gameOver').classList.add('hidden');
+      UIManager.hideGameOver();
     }
 
-    setupInput() {
-      document.addEventListener('keydown', (e) => {
-        if (!this.gameRunning || this.gamePaused) return;
+    // Input handling - Delegated to InputManager
+    handleGameInput(key) {
+      if (this.stateManager.getCurrentState() !== SNAKE_CONFIG.GAME_STATES.PLAYING) return;
 
-        switch(e.key) {
-          case 'ArrowUp':
-            e.preventDefault(); // Prevent page scrolling
-            if (this.dy !== 1) {
-              this.dx = 0;
-              this.dy = -1;
-            }
-            break;
-          case 'ArrowDown':
-            e.preventDefault(); // Prevent page scrolling
-            if (this.dy !== -1) {
-              this.dx = 0;
-              this.dy = 1;
-            }
-            break;
-          case 'ArrowLeft':
-            e.preventDefault(); // Prevent page scrolling
-            if (this.dx !== 1) {
-              this.dx = -1;
-              this.dy = 0;
-            }
-            break;
-          case 'ArrowRight':
-            e.preventDefault(); // Prevent page scrolling
-            if (this.dx !== -1) {
-              this.dx = 1;
-              this.dy = 0;
-            }
-            break;
-        }
-      });
+      switch(key) {
+        case 'ArrowUp':
+          if (this.dy !== SNAKE_CONFIG.INITIAL_SPEED) {
+            this.dx = 0;
+            this.dy = -SNAKE_CONFIG.INITIAL_SPEED;
+          }
+          break;
+        case 'ArrowDown':
+          if (this.dy !== -SNAKE_CONFIG.INITIAL_SPEED) {
+            this.dx = 0;
+            this.dy = SNAKE_CONFIG.INITIAL_SPEED;
+          }
+          break;
+        case 'ArrowLeft':
+          if (this.dx !== SNAKE_CONFIG.INITIAL_SPEED) {
+            this.dx = -SNAKE_CONFIG.INITIAL_SPEED;
+            this.dy = 0;
+          }
+          break;
+        case 'ArrowRight':
+          if (this.dx !== -SNAKE_CONFIG.INITIAL_SPEED) {
+            this.dx = SNAKE_CONFIG.INITIAL_SPEED;
+            this.dy = 0;
+          }
+          break;
+      }
     }
 
     createGradientBackground() {
@@ -619,18 +777,12 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     start() {
-      if (!this.gameRunning) {
-        this.gameRunning = true;
-        this.gamePaused = false;
-        this.gameState = 'playing';
-        this.dx = 1;
-        this.dy = 0;
-        this.powerUp = null;
-        this.powerUpTimer = 0;
-        this.hideMainMenu();
-        this.hideGameOver();
-        this.gameLoop();
-      }
+      this.dx = SNAKE_CONFIG.INITIAL_SPEED;
+      this.dy = 0;
+      this.powerUp = null;
+      this.powerUpTimer = 0;
+      this.stateManager.setState(SNAKE_CONFIG.GAME_STATES.PLAYING);
+      this.gameLoop();
     }
 
     pause() {
@@ -641,42 +793,44 @@ import Layout from '../../layouts/Layout.astro';
     }
 
     reset() {
-      this.gameRunning = false;
-      this.gamePaused = false;
-      this.gameState = 'menu';
-      this.snake = [{ x: 10, y: 10 }];
+      // Reset game state
+      this.snake = [...SNAKE_CONFIG.INITIAL_SNAKE];
       this.dx = 0;
       this.dy = 0;
       this.score = 0;
       this.powerUp = null;
       this.powerUpTimer = 0;
-      this.particles = this.particles.filter(p => p.life === undefined); // Keep only background particles
+
+      // Reset visual elements (keep background particles)
+      this.particles = this.particles.filter(p => p.life === undefined);
+      this.foodGlow = 0;
+
+      // Reset UI
       this.updateScore();
       this.generateFood();
       this.draw();
-      this.showMainMenu();
+
+      // Return to menu state
+      this.stateManager.setState(SNAKE_CONFIG.GAME_STATES.MENU);
     }
     
     gameOver() {
-      this.gameRunning = false;
-      this.gameState = 'gameOver';
+      this.stateManager.setState(SNAKE_CONFIG.GAME_STATES.GAME_OVER);
 
       // Update high score
       if (this.score > this.highScore) {
         this.highScore = this.score;
-        localStorage.setItem('snakeHighScore', this.highScore.toString());
-        this.updateHighScore();
+        StorageManager.setHighScore(this.highScore);
+        UIManager.updateHighScore(this.highScore);
       }
-
-      this.showGameOver();
     }
     
     updateScore() {
-      document.getElementById('score').textContent = this.score;
+      UIManager.updateScore(this.score);
     }
-    
+
     updateHighScore() {
-      document.getElementById('highScore').textContent = this.highScore;
+      UIManager.updateHighScore(this.highScore);
     }
   }
   
