@@ -406,6 +406,7 @@ import Layout from '../../layouts/Layout.astro';
       this.aliens = [];
       this.alienBullets = [];
       this.powerUps = [];
+      this.alienDirection = 1; // 1 for right, -1 for left
 
       // Initialize game
       this.createAliens();
@@ -560,15 +561,18 @@ import Layout from '../../layouts/Layout.astro';
 
       // Update aliens with enhanced movement and shooting
       let moveDown = false;
-      let direction = 1;
+      let hitLeftEdge = false;
+      let hitRightEdge = false;
 
       this.aliens.forEach(alien => {
         if (alien.alive) {
           alien.animationFrame += 0.1;
 
-          // Check if alien should move down
-          if (alien.x <= 0 || alien.x >= this.canvas.width - alien.width) {
-            moveDown = true;
+          // Check if alien hits edges
+          if (alien.x <= 0) {
+            hitLeftEdge = true;
+          } else if (alien.x >= this.canvas.width - alien.width) {
+            hitRightEdge = true;
           }
 
           // Alien shooting logic
@@ -580,12 +584,21 @@ import Layout from '../../layouts/Layout.astro';
         }
       });
 
+      // Determine if aliens should move down and change direction
+      if (hitRightEdge) {
+        moveDown = true;
+        this.alienDirection = -1; // Change to left
+      } else if (hitLeftEdge) {
+        moveDown = true;
+        this.alienDirection = 1; // Change to right
+      }
+
       this.aliens.forEach(alien => {
         if (alien.alive) {
           if (moveDown) {
             alien.y += 15 + this.level * 2;
           } else {
-            alien.x += direction * alien.speed;
+            alien.x += this.alienDirection * alien.speed;
           }
         }
       });
@@ -605,8 +618,9 @@ import Layout from '../../layouts/Layout.astro';
         this.nextLevel();
       }
 
-      if (aliveAliens.some(alien => alien.y + alien.height >= this.player.y)) {
-        this.playerHit();
+      // Game over if aliens reach the bottom of the screen (traditional Space Invaders behavior)
+      if (aliveAliens.some(alien => alien.y + alien.height >= this.canvas.height - 50)) {
+        this.gameOver();
       }
 
       // Check if player is hit by alien bullets
@@ -910,6 +924,7 @@ import Layout from '../../layouts/Layout.astro';
       this.level = 1;
       this.player.health = SPACE_INVADERS_CONFIG.PLAYER_HEALTH;
       this.player.x = this.canvas.width / 2 - 25;
+      this.alienDirection = 1; // Reset to moving right
 
       // Reset game entities
       this.bullets = [];
