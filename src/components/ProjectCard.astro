@@ -61,14 +61,20 @@ const {
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class={`${liveUrl ? 'flex-1' : 'w-full'} bg-dark-surface hover:bg-dark-bg text-dark-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-center border border-dark-surface hover:border-accent`}
+              class:list={[
+                'bg-dark-surface hover:bg-dark-bg text-dark-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-center border border-dark-surface hover:border-accent',
+                liveUrl ? 'flex-1' : 'w-full'
+              ]}
             >
               View Code
             </a>
           )}
           {liveUrl && (
             <button
-              class={`${githubUrl ? 'flex-1' : 'w-full'} bg-accent hover:bg-accent-hover text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 live-demo-btn`}
+              class:list={[
+                'bg-accent hover:bg-accent-hover text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 live-demo-btn',
+                githubUrl ? 'flex-1' : 'w-full'
+              ]}
               data-url={liveUrl}
               data-title={title}
             >
