@@ -208,7 +208,8 @@ import Layout from '../../layouts/Layout.astro';
 
   // Game State Manager - State Pattern Implementation
   class SpaceInvadersStateManager {
-    constructor() {
+    constructor(game) {
+      this.game = game;
       this.currentState = SPACE_INVADERS_CONFIG.GAME_STATES.MENU;
       this.states = {
         [SPACE_INVADERS_CONFIG.GAME_STATES.MENU]: new SpaceInvadersMenuState(),
@@ -221,7 +222,7 @@ import Layout from '../../layouts/Layout.astro';
     setState(state) {
       if (this.states[state]) {
         this.currentState = state;
-        this.states[state].enter();
+        this.states[state].enter(this.game);
       }
     }
 
@@ -232,7 +233,7 @@ import Layout from '../../layouts/Layout.astro';
 
   // Abstract State Class - Template Method Pattern
   class SpaceInvadersGameState {
-    enter() { /* Override in subclasses */ }
+    enter(game) { /* Override in subclasses */ }
     update(game) { /* Override in subclasses */ }
     handleInput(game, key) { /* Override in subclasses */ }
   }
@@ -261,12 +262,8 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   class SpaceInvadersGameOverState extends SpaceInvadersGameState {
-    enter() {
-      const highScore = StorageManager.getHighScore('spaceInvadersHighScore');
-      document.getElementById('finalScore').textContent = game.score;
-      document.getElementById('finalLevel').textContent = game.level;
-      document.getElementById('finalHighScore').textContent = Math.max(highScore, game.score);
-      document.getElementById('gameOver').classList.remove('hidden');
+    enter(game) {
+      SpaceInvadersUIManager.showGameOver(game.score, game.level, Math.max(StorageManager.getHighScore('spaceInvadersHighScore'), game.score));
     }
   }
 
@@ -381,7 +378,7 @@ import Layout from '../../layouts/Layout.astro';
       this.level = 1;
 
       // Game state - using State pattern
-      this.stateManager = new SpaceInvadersStateManager();
+      this.stateManager = new SpaceInvadersStateManager(this);
       this.inputManager = new SpaceInvadersInputManager(this);
 
       // Enhanced visual elements

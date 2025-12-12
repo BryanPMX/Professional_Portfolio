@@ -201,7 +201,8 @@ import Layout from '../../layouts/Layout.astro';
 
   // Game State Manager - State Pattern Implementation
   class GameStateManager {
-    constructor() {
+    constructor(game) {
+      this.game = game;
       this.currentState = SNAKE_CONFIG.GAME_STATES.MENU;
       this.states = {
         [SNAKE_CONFIG.GAME_STATES.MENU]: new MenuState(),
@@ -214,7 +215,7 @@ import Layout from '../../layouts/Layout.astro';
     setState(state) {
       if (this.states[state]) {
         this.currentState = state;
-        this.states[state].enter();
+        this.states[state].enter(this.game);
       }
     }
 
@@ -225,15 +226,14 @@ import Layout from '../../layouts/Layout.astro';
 
   // Abstract State Class - Template Method Pattern
   class GameState {
-    enter() { /* Override in subclasses */ }
+    enter(game) { /* Override in subclasses */ }
     update(game) { /* Override in subclasses */ }
     handleInput(game, key) { /* Override in subclasses */ }
   }
 
   class MenuState extends GameState {
-    enter() {
-      document.getElementById('mainMenu').classList.remove('hidden');
-      document.getElementById('gameOver').classList.add('hidden');
+    enter(game) {
+      UIManager.showMainMenu();
     }
   }
 
@@ -254,10 +254,8 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   class GameOverState extends GameState {
-    enter() {
-      document.getElementById('finalScore').textContent = game.score;
-      document.getElementById('finalHighScore').textContent = game.highScore;
-      document.getElementById('gameOver').classList.remove('hidden');
+    enter(game) {
+      UIManager.showGameOver(game.score, game.highScore);
     }
   }
 
@@ -357,7 +355,7 @@ import Layout from '../../layouts/Layout.astro';
       this.tileCount = canvas.width / this.gridSize;
 
       // Game state - using State pattern
-      this.stateManager = new GameStateManager();
+      this.stateManager = new GameStateManager(this);
       this.inputManager = new InputManager(this);
 
       // Game entities
