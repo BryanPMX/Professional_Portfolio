@@ -238,6 +238,11 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   class PlayingState extends GameState {
+    enter(game) {
+      UIManager.hideMainMenu();
+      UIManager.hideGameOver();
+    }
+
     update(game) {
       game.updateGameLogic();
     }

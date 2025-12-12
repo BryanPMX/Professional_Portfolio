@@ -246,6 +246,11 @@ import Layout from '../../layouts/Layout.astro';
   }
 
   class SpaceInvadersPlayingState extends SpaceInvadersGameState {
+    enter(game) {
+      SpaceInvadersUIManager.hideMainMenu();
+      SpaceInvadersUIManager.hideGameOver();
+    }
+
     update(game) {
       game.updateGameLogic();
     }
