@@ -811,9 +811,6 @@ import Layout from '../../layouts/Layout.astro';
         this.ctx.fillRect(powerUp.x, powerUp.y, powerUp.width, powerUp.height);
         this.ctx.restore();
       });
-
-      // Draw HUD
-      this.drawHUD();
     }
 
     drawStars() {
@@ -885,13 +882,6 @@ import Layout from '../../layouts/Layout.astro';
       this.ctx.fillRect(x + width - 12 + wobble, y + 10, 2, 2);
     }
 
-    drawHUD() {
-      // Health indicator
-      this.ctx.fillStyle = '#ffffff';
-      this.ctx.font = '16px monospace';
-      this.ctx.fillText(`Health: ${this.player.health}`, 10, 25);
-      this.ctx.fillText(`Level: ${this.level}`, 10, 45);
-    }
     
     gameLoop() {
       this.update();
