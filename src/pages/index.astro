@@ -5,9 +5,24 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Bryan Perez - Full-Stack Engineer & Creative Developer">
   <!-- Hero Section -->
   <section class="min-h-screen flex items-center justify-center px-6">
-    <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <!-- Text Content -->
-      <div class="text-center lg:text-left animate-fade-in">
+    <div class="max-w-6xl mx-auto">
+      <!-- Hero Content -->
+      <div class="text-center animate-fade-in">
+        <!-- Profile Image -->
+        <div class="flex justify-center mb-6">
+          <div class="relative">
+            <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-accent shadow-lg shadow-accent/10">
+              <img
+                src="/assets/profile-pic.png"
+                alt="Bryan Perez"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <!-- Subtle decorative element -->
+            <div class="absolute -top-2 -right-2 w-8 h-8 bg-accent/20 rounded-full blur-md animate-pulse"></div>
+          </div>
+        </div>
+
         <p class="text-accent font-medium mb-4 tracking-wide">Hello, I'm</p>
         <h1 class="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-dark-text to-dark-text-secondary bg-clip-text text-transparent">
           Bryan Perez
@@ -15,14 +30,14 @@ import Layout from '../layouts/Layout.astro';
         <h2 class="text-2xl lg:text-3xl font-semibold mb-6 text-accent">
           Full-Stack Engineer & Creative Developer
         </h2>
-        <p class="text-lg text-dark-text-secondary mb-8 max-w-2xl">
+        <p class="text-lg text-dark-text-secondary mb-8 max-w-3xl mx-auto">
           Computer Science student passionate about building innovative software solutions. 
           I create interactive web applications, develop custom games, and solve complex problems 
           with modern technologies.
         </p>
         
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href="/projects" 
             class="bg-accent hover:bg-accent-hover text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 hover:shadow-lg hover:shadow-accent/25"
@@ -39,7 +54,7 @@ import Layout from '../layouts/Layout.astro';
         </div>
         
         <!-- Social Links -->
-        <div class="flex gap-6 mt-8 justify-center lg:justify-start">
+        <div class="flex gap-6 mt-8 justify-center">
           <a 
             href="https://github.com/BryanPMX" 
             target="_blank"
@@ -58,22 +73,6 @@ import Layout from '../layouts/Layout.astro';
               <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
             </svg>
           </a>
-        </div>
-      </div>
-      
-      <!-- Profile Image -->
-      <div class="flex justify-center lg:justify-end animate-slide-up">
-        <div class="relative">
-          <div class="w-80 h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden border-4 border-accent shadow-2xl shadow-accent/20 animate-float">
-            <img 
-              src="/assets/profile-pic.png" 
-              alt="Bryan Perez" 
-              class="w-full h-full object-cover"
-            />
-          </div>
-          <!-- Decorative elements -->
-          <div class="absolute -top-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-xl animate-pulse"></div>
-          <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-accent-purple/20 rounded-full blur-xl animate-pulse delay-1000"></div>
         </div>
       </div>
     </div>
