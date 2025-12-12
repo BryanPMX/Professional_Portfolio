@@ -780,6 +780,8 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     start() {
+      this.gameRunning = true;
+      this.gamePaused = false;
       this.dx = SNAKE_CONFIG.INITIAL_SPEED;
       this.dy = 0;
       this.powerUp = null;
@@ -818,6 +820,7 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     gameOver() {
+      this.gameRunning = false;
       this.stateManager.setState(SNAKE_CONFIG.GAME_STATES.GAME_OVER);
 
       // Update high score

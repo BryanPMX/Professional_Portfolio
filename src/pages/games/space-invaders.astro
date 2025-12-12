@@ -887,6 +887,7 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     start() {
+      this.gameRunning = true;
       this.player.health = SPACE_INVADERS_CONFIG.PLAYER_HEALTH;
       this.particles = [];
       this.explosions = [];
@@ -960,6 +961,7 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     gameOver() {
+      this.gameRunning = false;
       this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.GAME_OVER);
 
       // Create dramatic game over explosion
