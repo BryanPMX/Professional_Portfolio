@@ -4,52 +4,28 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 const projects = [
   {
-    title: "CAF Admin Portal",
-    description: "A comprehensive full-stack web application for Centro De Apoyo A.C. featuring user management, donation tracking, and administrative tools. Built with modern web technologies and responsive design.",
-    image: "/assets/project-3.jpeg",
-    technologies: ["React", "Node.js", "Express", "PostgreSQL", "Tailwind CSS"],
-    githubUrl: "https://github.com/BryanPMX/Centro_De_Apoyo_A.C._System",
-    liveUrl: "https://centro-de-apoyo-ac-system.vercel.app"
-  },
-  {
-    title: "Object-Oriented Banking App",
-    description: "A sophisticated banking application demonstrating advanced object-oriented programming principles. Features account management, transaction processing, and secure authentication systems.",
-    image: "/assets/project-2.jpeg",
-    technologies: ["Java", "Spring Boot", "MySQL", "JUnit", "Maven"],
-    githubUrl: "https://github.com/BryanPMX/UTEP_CS_Adv._Object_Oriented_Programming",
-    liveUrl: "https://banking-app-demo.vercel.app"
-  },
-  {
-    title: "Tic Tac Toe Game",
-    description: "An interactive Tic Tac Toe game with AI opponent, score tracking, and smooth animations. Demonstrates game logic implementation and user interface design.",
+    title: "DEM Bravo (Docker Exploit Mapper)",
+    description: "Architected an offline-first cybersecurity platform using FastAPI and Neo4j to model complex container attack graphs, implementing asynchronous Docker SDK orchestration to stream live scan results. Developed a reactive visualization dashboard with SvelteKit and Cytoscape to render real-time network topologies, enabling interactive visual analysis of vulnerability paths. Enforced STIG-compliant database security by building a custom query sanitizer for Cypher, preventing injection attacks while managing multi-tool data ingestion.",
     image: "/assets/project-1.png",
-    technologies: ["Python", "Tkinter", "AI Algorithm"],
-    githubUrl: "https://github.com/BryanPMX/Cisco_Networking_Academy/blob/main/tic_tac_toe.py",
-    liveUrl: "https://tictactoe-python-demo.vercel.app"
+    technologies: ["FastAPI", "Neo4j", "SvelteKit", "Docker", "Python"],
+    githubUrl: "#", // Will be provided later
+    liveUrl: "#" // Will be provided later
   },
   {
-    title: "E-Commerce Platform",
-    description: "A modern e-commerce platform with shopping cart functionality, payment integration, and inventory management. Features responsive design and seamless user experience.",
-    image: "/assets/project-1.png",
-    technologies: ["React", "Next.js", "Stripe", "MongoDB", "Tailwind CSS"],
-    githubUrl: "https://github.com/BryanPMX/ecommerce-platform",
-    liveUrl: "https://ecommerce-platform-demo.vercel.app"
-  },
-  {
-    title: "Task Management System",
-    description: "A collaborative task management application with real-time updates, team collaboration features, and project tracking capabilities.",
+    title: "Bank of Miners",
+    description: "Refactored a legacy CLI tool into a web app, optimizing data retrieval with a custom Binary Search Tree (BST) for O(log n) efficiency and Write-Through persistence. Engineered a secure banking core using Java OOP and Strategy Design Patterns to enforce polymorphic account behaviors and dynamic credit limits. Containerized the application using Docker and Nginx while establishing a GitHub Actions CI/CD pipeline to automate JUnit testing and builds.",
     image: "/assets/project-2.jpeg",
-    technologies: ["Vue.js", "Firebase", "Vuex", "Socket.io"],
-    githubUrl: "https://github.com/BryanPMX/task-management",
-    liveUrl: "https://task-management-demo.vercel.app"
+    technologies: ["Java", "Spring Boot", "React", "Docker"],
+    githubUrl: "#", // Will be provided later
+    liveUrl: "#" // Will be provided later
   },
   {
-    title: "Weather Analytics Dashboard",
-    description: "A data visualization dashboard for weather analytics with interactive charts, historical data analysis, and location-based weather tracking.",
+    title: "Zombie Survival Roguelite",
+    description: "Developed a top-down survival game featuring persistent meta-progression and a collision-aware wave orchestration system using NavigationServer2D. Architected modular behaviors using Finite State Machines (FSM) for entity logic and a global SignalBus pattern to decouple UI and game state.",
     image: "/assets/project-3.jpeg",
-    technologies: ["React", "D3.js", "Node.js", "Weather API"],
-    githubUrl: "https://github.com/BryanPMX/weather-dashboard",
-    liveUrl: "https://weather-analytics-demo.vercel.app"
+    technologies: ["Godot 4.5", "GDScript", "JSON"],
+    githubUrl: "#", // Will be provided later
+    liveUrl: "#" // Will be provided later
   }
 ];
 ---
@@ -67,9 +43,9 @@ const projects = [
           Each project demonstrates different technologies and problem-solving approaches.
         </p>
         <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Full-Stack Development</span>
-          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">Live Demos Available</span>
-          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Open Source</span>
+          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Cybersecurity</span>
+          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">Game Development</span>
+          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Full-Stack Solutions</span>
         </div>
       </div>
     </section>
