@@ -34,17 +34,20 @@ const {
   </div>
 
   <!-- Content -->
-  <div class="p-5 flex flex-col flex-1 max-h-64 overflow-y-auto">
-    <h3 class="text-xl font-bold mb-3 text-dark-text group-hover:text-accent transition-colors leading-tight">
+  <div class="p-5 flex flex-col flex-1">
+    <h3 class="text-xl font-bold mb-3 text-dark-text group-hover:text-accent transition-colors leading-tight flex-shrink-0">
       {title}
     </h3>
 
-    <p class="text-dark-text-secondary mb-4 text-sm leading-relaxed">
-      {description}
-    </p>
+    <!-- Scrollable Description -->
+    <div class="flex-1 min-h-0 mb-4">
+      <p class="text-dark-text-secondary text-sm leading-relaxed overflow-y-auto max-h-32">
+        {description}
+      </p>
+    </div>
 
-    <!-- Technologies -->
-    <div class="flex flex-wrap gap-2 mb-4">
+    <!-- Technologies - Always Visible -->
+    <div class="flex flex-wrap gap-2 mb-4 flex-shrink-0">
       {technologies.map((tech) => (
         <span class="px-3 py-1 bg-dark-bg rounded-full text-xs text-dark-text-secondary border border-dark-surface font-medium">
           {tech}
@@ -52,8 +55,8 @@ const {
       ))}
     </div>
 
-    <!-- Action Buttons -->
-    <div class={`flex gap-3 mt-auto ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
+    <!-- Action Buttons - Always Visible -->
+    <div class={`flex gap-3 flex-shrink-0 ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
       {type === 'project' && (
         <>
           {githubUrl && (
