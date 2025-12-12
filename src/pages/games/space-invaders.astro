@@ -514,7 +514,11 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     update() {
-      if (!this.gameRunning) return;
+      console.log('Space Invaders: update() called, gameRunning:', this.gameRunning);
+      if (!this.gameRunning) {
+        console.log('Space Invaders: update skipped because gameRunning is false');
+        return;
+      }
 
       // Update stars for twinkling effect
       this.stars.forEach(star => {
@@ -614,12 +618,17 @@ import Layout from '../../layouts/Layout.astro';
 
       // Check win/lose conditions
       const aliveAliens = this.aliens.filter(alien => alien.alive);
+      console.log('Space Invaders: aliveAliens count:', aliveAliens.length);
+
       if (aliveAliens.length === 0) {
+        console.log('Space Invaders: all aliens dead, next level');
         this.nextLevel();
       }
 
       // Game over if aliens reach the bottom of the screen (traditional Space Invaders behavior)
-      if (aliveAliens.some(alien => alien.y + alien.height >= this.canvas.height - 50)) {
+      const bottomAliens = aliveAliens.filter(alien => alien.y + alien.height >= this.canvas.height - 50);
+      if (bottomAliens.length > 0) {
+        console.log('Space Invaders: aliens reached bottom, game over. Alien positions:', aliveAliens.map(a => ({x: a.x, y: a.y})));
         this.gameOver();
       }
 
@@ -892,22 +901,30 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     gameLoop() {
+      console.log('Space Invaders: gameLoop called, gameRunning:', this.gameRunning);
       this.update();
       this.draw();
-      
+
       if (this.gameRunning) {
+        console.log('Space Invaders: scheduling next frame');
         requestAnimationFrame(() => this.gameLoop());
+      } else {
+        console.log('Space Invaders: gameRunning is false, stopping loop');
       }
     }
     
     start() {
+      console.log('Space Invaders: start() called');
       this.gameRunning = true;
+      console.log('Space Invaders: gameRunning set to', this.gameRunning);
       this.player.health = SPACE_INVADERS_CONFIG.PLAYER_HEALTH;
       this.particles = [];
       this.explosions = [];
       this.powerUps = [];
       this.alienBullets = []; // Clear any leftover bullets from previous game
+      console.log('Space Invaders: cleared game state, aliens count:', this.aliens.length);
       this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.PLAYING);
+      console.log('Space Invaders: state set to PLAYING, calling gameLoop');
       this.gameLoop();
     }
     
@@ -977,7 +994,9 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     gameOver() {
+      console.log('Space Invaders: gameOver() called');
       this.gameRunning = false;
+      console.log('Space Invaders: gameRunning set to false');
       this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.GAME_OVER);
 
       // Create dramatic game over explosion
@@ -1034,6 +1053,7 @@ import Layout from '../../layouts/Layout.astro';
 
     // New menu buttons
     document.getElementById('startGameBtn').addEventListener('click', () => {
+      console.log('Space Invaders: Start Game button clicked');
       game.start();
     });
 
