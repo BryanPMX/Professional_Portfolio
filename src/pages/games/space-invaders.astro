@@ -645,6 +645,7 @@ import Layout from '../../layouts/Layout.astro';
 
     playerHit() {
       this.player.health--;
+      this.updateHealth(); // Update UI after health change
       this.createExplosion(this.player.x + this.player.width/2, this.player.y + this.player.height/2, '#ff4444');
 
       if (this.player.health <= 0) {
