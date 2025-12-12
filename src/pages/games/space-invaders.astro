@@ -58,6 +58,59 @@ import Layout from '../../layouts/Layout.astro';
         </div>
       </div>
 
+      <!-- Main Menu Overlay -->
+      <div id="mainMenu" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50">
+        <div class="bg-dark-card p-8 rounded-xl border border-accent max-w-md w-full mx-4 text-center">
+          <h2 class="text-3xl font-bold text-accent-purple mb-4">Space Invaders</h2>
+          <p class="text-dark-text-secondary mb-6">
+            Defend Earth from the alien invasion! Shoot all aliens before they reach the bottom.
+          </p>
+          <div class="space-y-3 mb-6">
+            <div class="text-sm text-dark-text-secondary">
+              <strong>Controls:</strong><br>
+              ← → Arrow Keys to move<br>
+              SPACEBAR to shoot
+            </div>
+            <div class="text-sm text-dark-text-secondary">
+              <strong>Objective:</strong><br>
+              Destroy all aliens to advance levels!
+            </div>
+          </div>
+          <button
+            id="startGameBtn"
+            class="bg-accent-purple hover:bg-accent-purple-hover text-white px-8 py-3 rounded-lg font-semibold transition-colors text-lg"
+          >
+            Start Game
+          </button>
+        </div>
+      </div>
+
+      <!-- Game Over Overlay -->
+      <div id="gameOver" class="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 hidden">
+        <div class="bg-dark-card p-8 rounded-xl border border-accent max-w-md w-full mx-4 text-center">
+          <h2 class="text-3xl font-bold text-red-400 mb-4">Game Over!</h2>
+          <div class="space-y-2 mb-6">
+            <p class="text-dark-text-secondary">Final Score: <span id="finalScore" class="text-accent-purple font-bold text-xl">0</span></p>
+            <p class="text-dark-text-secondary">Level Reached: <span id="finalLevel" class="text-accent font-bold text-xl">1</span></p>
+            <p class="text-dark-text-secondary">High Score: <span id="finalHighScore" class="text-accent font-bold text-xl">0</span></p>
+          </div>
+          <div class="flex gap-3 justify-center">
+            <button
+              id="playAgainBtn"
+              class="bg-accent hover:bg-accent-hover text-white px-6 py-2 rounded-lg font-semibold transition-colors"
+            >
+              Play Again
+            </button>
+            <button
+              id="backToMenuBtn"
+              class="bg-dark-surface hover:bg-dark-bg text-dark-text px-6 py-2 rounded-lg font-semibold transition-colors border border-dark-surface"
+            >
+              Main Menu
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Game Instructions -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
@@ -128,14 +181,211 @@ import Layout from '../../layouts/Layout.astro';
 </Layout>
 
 <script>
-  // Space Invaders Game Implementation
+  // Space Invaders Game Implementation - Following Software Engineering Principles - v2.1
+
+  // Configuration constants - Single Source of Truth
+  const SPACE_INVADERS_CONFIG = {
+    PLAYER_SPEED: 5,
+    PLAYER_HEALTH: 3,
+    BULLET_SPEED: 7,
+    ALIEN_BULLET_SPEED: 3,
+    ALIEN_ROWS: 5,
+    ALIEN_SPEED_BASE: 0.5,
+    SHOOTING_INTERVAL_MIN: 200, // frames
+    SHOOTING_INTERVAL_MAX: 400, // frames
+    SHOOTING_RESET_MIN: 400,    // frames
+    SHOOTING_RESET_MAX: 1000,   // frames
+    EXPLOSION_DURATION: 15,      // frames
+    PARTICLE_COUNT: 20,
+    STAR_COUNT: 100,
+    GAME_STATES: {
+      MENU: 'menu',
+      PLAYING: 'playing',
+      PAUSED: 'paused',
+      GAME_OVER: 'gameOver'
+    }
+  };
+
+  // Game State Manager - State Pattern Implementation
+  class SpaceInvadersStateManager {
+    constructor(game) {
+      this.game = game;
+      this.currentState = SPACE_INVADERS_CONFIG.GAME_STATES.MENU;
+      this.states = {
+        [SPACE_INVADERS_CONFIG.GAME_STATES.MENU]: new SpaceInvadersMenuState(),
+        [SPACE_INVADERS_CONFIG.GAME_STATES.PLAYING]: new SpaceInvadersPlayingState(),
+        [SPACE_INVADERS_CONFIG.GAME_STATES.PAUSED]: new SpaceInvadersPausedState(),
+        [SPACE_INVADERS_CONFIG.GAME_STATES.GAME_OVER]: new SpaceInvadersGameOverState()
+      };
+    }
+
+    setState(state) {
+      if (this.states[state]) {
+        this.currentState = state;
+        this.states[state].enter(this.game);
+      }
+    }
+
+    getCurrentState() {
+      return this.currentState;
+    }
+  }
+
+  // Abstract State Class - Template Method Pattern
+  class SpaceInvadersGameState {
+    enter(game) { /* Override in subclasses */ }
+    update(game) { /* Override in subclasses */ }
+    handleInput(game, key) { /* Override in subclasses */ }
+  }
+
+  class SpaceInvadersMenuState extends SpaceInvadersGameState {
+    enter() {
+      document.getElementById('mainMenu').classList.remove('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+  }
+
+  class SpaceInvadersPlayingState extends SpaceInvadersGameState {
+    enter(game) {
+      SpaceInvadersUIManager.hideMainMenu();
+      SpaceInvadersUIManager.hideGameOver();
+    }
+
+    update(game) {
+      game.updateGameLogic();
+    }
+
+    handleInput(game, key) {
+      // Space Invaders handles input in update() method via inputManager
+      // Spacebar shooting is handled directly in InputManager
+    }
+  }
+
+  class SpaceInvadersPausedState extends SpaceInvadersGameState {
+    enter() {
+      // Handle pause UI
+    }
+  }
+
+  class SpaceInvadersGameOverState extends SpaceInvadersGameState {
+    enter(game) {
+      SpaceInvadersUIManager.showGameOver(game.score, game.level, Math.max(StorageManager.getHighScore('spaceInvadersHighScore'), game.score));
+    }
+  }
+
+  // UI Manager for Space Invaders - Single Responsibility for UI operations
+  class SpaceInvadersUIManager {
+    static showMainMenu() {
+      document.getElementById('mainMenu').classList.remove('hidden');
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
+    static hideMainMenu() {
+      document.getElementById('mainMenu').classList.add('hidden');
+    }
+
+    static showGameOver(score, level, highScore) {
+      document.getElementById('finalScore').textContent = score;
+      document.getElementById('finalLevel').textContent = level;
+      document.getElementById('finalHighScore').textContent = highScore;
+      document.getElementById('gameOver').classList.remove('hidden');
+    }
+
+    static hideGameOver() {
+      document.getElementById('gameOver').classList.add('hidden');
+    }
+
+    static updateScore(score) {
+      document.getElementById('score').textContent = score;
+    }
+
+    static updateLevel(level) {
+      document.getElementById('level').textContent = level;
+    }
+
+    static updateHealth(health) {
+      const healthElement = document.getElementById('health');
+
+      // Color code health
+      if (health === 3) {
+        healthElement.className = 'text-green-400 font-bold text-lg';
+      } else if (health === 2) {
+        healthElement.className = 'text-yellow-400 font-bold text-lg';
+      } else {
+        healthElement.className = 'text-red-400 font-bold text-lg';
+      }
+
+      healthElement.textContent = health;
+    }
+  }
+
+  // Input Manager for Space Invaders - Handles all input operations
+  class SpaceInvadersInputManager {
+    constructor(game) {
+      this.game = game;
+      this.keys = {};
+      this.setupEventListeners();
+    }
+
+    setupEventListeners() {
+      document.addEventListener('keydown', (e) => this.handleKeyDown(e));
+      document.addEventListener('keyup', (e) => this.handleKeyUp(e));
+    }
+
+    handleKeyDown(e) {
+      this.keys[e.key] = true;
+
+      // Handle spacebar for shooting
+      if (e.key === ' ') {
+        e.preventDefault();
+        if (this.game.stateManager.getCurrentState() === SPACE_INVADERS_CONFIG.GAME_STATES.PLAYING) {
+          this.game.shoot();
+        }
+      }
+
+      // Delegate other input to current state
+      if (this.game.stateManager.getCurrentState() === SPACE_INVADERS_CONFIG.GAME_STATES.PLAYING) {
+        this.game.stateManager.states[this.game.stateManager.getCurrentState()].handleInput(this.game, e.key);
+      }
+    }
+
+    handleKeyUp(e) {
+      this.keys[e.key] = false;
+    }
+
+    isKeyPressed(key) {
+      return !!this.keys[key];
+    }
+  }
+
+  // Storage Manager - Handles localStorage operations (extended for different games)
+  class StorageManager {
+    static getHighScore(gameKey) {
+      return parseInt(localStorage.getItem(gameKey) || '0');
+    }
+
+    static setHighScore(gameKey, score) {
+      localStorage.setItem(gameKey, score.toString());
+    }
+  }
+
+  // Main Space Invaders Game Class - Now focused on core game logic
   class SpaceInvaders {
     constructor(canvas) {
+      // Validate input parameters
+      if (!canvas || !(canvas instanceof HTMLCanvasElement)) {
+        throw new Error('Valid canvas element required');
+      }
+
+      // Core game properties
       this.canvas = canvas;
       this.ctx = canvas.getContext('2d');
-      this.gameRunning = false;
       this.score = 0;
       this.level = 1;
+
+      // Game state - using State pattern
+      this.stateManager = new SpaceInvadersStateManager(this);
+      this.inputManager = new SpaceInvadersInputManager(this);
 
       // Enhanced visual elements
       this.particles = [];
@@ -143,27 +393,46 @@ import Layout from '../../layouts/Layout.astro';
       this.explosions = [];
       this.createStarfield();
 
-      // Game objects
+      // Game entities
       this.player = {
         x: canvas.width / 2 - 25,
         y: canvas.height - 60,
         width: 50,
         height: 30,
-        speed: 5,
-        health: 3
+        speed: SPACE_INVADERS_CONFIG.PLAYER_SPEED,
+        health: SPACE_INVADERS_CONFIG.PLAYER_HEALTH
       };
 
       this.bullets = [];
       this.aliens = [];
       this.alienBullets = [];
       this.powerUps = [];
+      this.alienDirection = 1; // 1 for right, -1 for left
 
-      // Input handling
-      this.keys = {};
-      this.setupInput();
+      // Initialize game
       this.createAliens();
+      this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.MENU);
     }
-    
+
+    // UI Management - Delegated to UIManager
+    showMainMenu() {
+      SpaceInvadersUIManager.showMainMenu();
+    }
+
+    hideMainMenu() {
+      SpaceInvadersUIManager.hideMainMenu();
+    }
+
+    showGameOver() {
+      const highScore = StorageManager.getHighScore('spaceInvadersHighScore');
+      const finalHighScore = Math.max(highScore, this.score);
+      SpaceInvadersUIManager.showGameOver(this.score, this.level, finalHighScore);
+    }
+
+    hideGameOver() {
+      SpaceInvadersUIManager.hideGameOver();
+    }
+
     setupInput() {
       document.addEventListener('keydown', (e) => {
         this.keys[e.key] = true;
@@ -192,7 +461,7 @@ import Layout from '../../layouts/Layout.astro';
     
     createAliens() {
       this.aliens = [];
-      const rows = 5;
+      const rows = SPACE_INVADERS_CONFIG.ALIEN_ROWS;
       const cols = Math.min(10, 8 + Math.floor(this.level / 2)); // More aliens as level increases
       const alienWidth = 35;
       const alienHeight = 25;
@@ -226,7 +495,7 @@ import Layout from '../../layouts/Layout.astro';
             type: alienType,
             points: points,
             speed: speed,
-            shootTimer: Math.random() * 200 + 100, // Random shooting interval
+            shootTimer: Math.random() * (SPACE_INVADERS_CONFIG.SHOOTING_INTERVAL_MAX - SPACE_INVADERS_CONFIG.SHOOTING_INTERVAL_MIN) + SPACE_INVADERS_CONFIG.SHOOTING_INTERVAL_MIN,
             animationFrame: 0
           });
         }
@@ -272,10 +541,10 @@ import Layout from '../../layouts/Layout.astro';
       });
 
       // Move player
-      if (this.keys['ArrowLeft'] && this.player.x > 0) {
+      if (this.inputManager.isKeyPressed('ArrowLeft') && this.player.x > 0) {
         this.player.x -= this.player.speed;
       }
-      if (this.keys['ArrowRight'] && this.player.x < this.canvas.width - this.player.width) {
+      if (this.inputManager.isKeyPressed('ArrowRight') && this.player.x < this.canvas.width - this.player.width) {
         this.player.x += this.player.speed;
       }
 
@@ -293,32 +562,44 @@ import Layout from '../../layouts/Layout.astro';
 
       // Update aliens with enhanced movement and shooting
       let moveDown = false;
-      let direction = 1;
+      let hitLeftEdge = false;
+      let hitRightEdge = false;
 
       this.aliens.forEach(alien => {
         if (alien.alive) {
           alien.animationFrame += 0.1;
 
-          // Check if alien should move down
-          if (alien.x <= 0 || alien.x >= this.canvas.width - alien.width) {
-            moveDown = true;
+          // Check if alien hits edges
+          if (alien.x <= 0) {
+            hitLeftEdge = true;
+          } else if (alien.x >= this.canvas.width - alien.width) {
+            hitRightEdge = true;
           }
 
           // Alien shooting logic
           alien.shootTimer--;
           if (alien.shootTimer <= 0 && alien.y > 50) {
             this.alienShoot(alien);
-            alien.shootTimer = Math.random() * 300 + 200; // Random interval
+            alien.shootTimer = Math.random() * (SPACE_INVADERS_CONFIG.SHOOTING_RESET_MAX - SPACE_INVADERS_CONFIG.SHOOTING_RESET_MIN) + SPACE_INVADERS_CONFIG.SHOOTING_RESET_MIN;
           }
         }
       });
+
+      // Determine if aliens should move down and change direction
+      if (hitRightEdge) {
+        moveDown = true;
+        this.alienDirection = -1; // Change to left
+      } else if (hitLeftEdge) {
+        moveDown = true;
+        this.alienDirection = 1; // Change to right
+      }
 
       this.aliens.forEach(alien => {
         if (alien.alive) {
           if (moveDown) {
             alien.y += 15 + this.level * 2;
           } else {
-            alien.x += direction * alien.speed;
+            alien.x += this.alienDirection * alien.speed;
           }
         }
       });
@@ -338,8 +619,9 @@ import Layout from '../../layouts/Layout.astro';
         this.nextLevel();
       }
 
-      if (aliveAliens.some(alien => alien.y + alien.height >= this.player.y)) {
-        this.playerHit();
+      // Game over if aliens reach the bottom of the screen (traditional Space Invaders behavior)
+      if (aliveAliens.some(alien => alien.y + alien.height >= this.canvas.height - 50)) {
+        this.gameOver();
       }
 
       // Check if player is hit by alien bullets
@@ -363,6 +645,7 @@ import Layout from '../../layouts/Layout.astro';
 
     playerHit() {
       this.player.health--;
+      this.updateHealth(); // Update UI after health change
       this.createExplosion(this.player.x + this.player.width/2, this.player.y + this.player.height/2, '#ff4444');
 
       if (this.player.health <= 0) {
@@ -610,19 +893,10 @@ import Layout from '../../layouts/Layout.astro';
       this.ctx.fillText(`Level: ${this.level}`, 10, 45);
     }
     
-    drawStars() {
-      this.ctx.fillStyle = '#ffffff';
-      for (let i = 0; i < 50; i++) {
-        const x = Math.random() * this.canvas.width;
-        const y = Math.random() * this.canvas.height;
-        this.ctx.fillRect(x, y, 1, 1);
-      }
-    }
-    
     gameLoop() {
       this.update();
       this.draw();
-      
+
       if (this.gameRunning) {
         requestAnimationFrame(() => this.gameLoop());
       }
@@ -630,12 +904,12 @@ import Layout from '../../layouts/Layout.astro';
     
     start() {
       this.gameRunning = true;
-      this.player.health = 3;
+      this.player.health = SPACE_INVADERS_CONFIG.PLAYER_HEALTH;
       this.particles = [];
       this.explosions = [];
       this.powerUps = [];
-      this.updateHealth();
-      this.updateLevel();
+      this.alienBullets = []; // Clear any leftover bullets from previous game
+      this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.PLAYING);
       this.gameLoop();
     }
     
@@ -647,21 +921,31 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     reset() {
-      this.gameRunning = false;
+      // Reset game state
       this.score = 0;
       this.level = 1;
-      this.player.health = 3;
+      this.player.health = SPACE_INVADERS_CONFIG.PLAYER_HEALTH;
       this.player.x = this.canvas.width / 2 - 25;
-      this.updateScore();
-      this.updateLevel();
-      this.updateHealth();
+      this.alienDirection = 1; // Reset to moving right
+
+      // Reset game entities
       this.bullets = [];
       this.alienBullets = [];
       this.aliens = [];
       this.particles = [];
       this.explosions = [];
       this.powerUps = [];
+
+      // Reset UI
+      SpaceInvadersUIManager.updateScore(this.score);
+      SpaceInvadersUIManager.updateLevel(this.level);
+      SpaceInvadersUIManager.updateHealth(this.player.health);
+
+      // Recreate aliens
       this.createAliens();
+
+      // Return to menu state
+      this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.MENU);
     }
     
     nextLevel() {
@@ -696,6 +980,7 @@ import Layout from '../../layouts/Layout.astro';
     
     gameOver() {
       this.gameRunning = false;
+      this.stateManager.setState(SPACE_INVADERS_CONFIG.GAME_STATES.GAME_OVER);
 
       // Create dramatic game over explosion
       this.createExplosion(this.player.x + this.player.width/2, this.player.y + this.player.height/2, '#ff0000');
@@ -713,37 +998,26 @@ import Layout from '../../layouts/Layout.astro';
       }
 
       // Check and update high score
-      const highScore = parseInt(localStorage.getItem('spaceInvadersHighScore') || '0');
+      const highScore = StorageManager.getHighScore('spaceInvadersHighScore');
       if (this.score > highScore) {
-        localStorage.setItem('spaceInvadersHighScore', this.score.toString());
+        StorageManager.setHighScore('spaceInvadersHighScore', this.score);
       }
 
       setTimeout(() => {
-        alert(`Game Over!\nFinal Score: ${this.score}\nLevel Reached: ${this.level}\nHigh Score: ${Math.max(highScore, this.score)}`);
-        this.reset();
+        this.showGameOver();
       }, 1000);
     }
     
     updateScore() {
-      document.getElementById('score').textContent = this.score;
+      SpaceInvadersUIManager.updateScore(this.score);
     }
 
     updateLevel() {
-      document.getElementById('level').textContent = this.level;
+      SpaceInvadersUIManager.updateLevel(this.level);
     }
 
     updateHealth() {
-      const healthElement = document.getElementById('health');
-      healthElement.textContent = this.player.health;
-
-      // Color code health
-      if (this.player.health === 3) {
-        healthElement.className = 'text-green-400 font-bold text-lg';
-      } else if (this.player.health === 2) {
-        healthElement.className = 'text-yellow-400 font-bold text-lg';
-      } else {
-        healthElement.className = 'text-red-400 font-bold text-lg';
-      }
+      SpaceInvadersUIManager.updateHealth(this.player.health);
     }
   }
   
@@ -759,7 +1033,21 @@ import Layout from '../../layouts/Layout.astro';
     document.getElementById('pauseBtn').addEventListener('click', () => {
       game.pause();
     });
-    
+
+    // New menu buttons
+    document.getElementById('startGameBtn').addEventListener('click', () => {
+      game.start();
+    });
+
+    document.getElementById('playAgainBtn').addEventListener('click', () => {
+      game.reset();
+      game.start();
+    });
+
+    document.getElementById('backToMenuBtn').addEventListener('click', () => {
+      game.reset();
+    });
+
     // Initial draw
     game.draw();
   });
