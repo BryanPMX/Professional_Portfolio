@@ -22,7 +22,7 @@ const {
 } = Astro.props;
 ---
 
-<div class="bg-dark-card rounded-xl border border-dark-surface hover:border-accent/50 transition-all duration-300 hover:scale-105 overflow-hidden group">
+<div class="bg-dark-card rounded-xl border border-dark-surface hover:border-accent/50 transition-all duration-300 hover:scale-105 overflow-hidden group flex flex-col h-full">
   <!-- Project Image -->
   <div class="relative overflow-hidden aspect-square">
     <img
@@ -32,17 +32,17 @@ const {
     />
     <div class="absolute inset-0 bg-gradient-to-t from-dark-card/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
   </div>
-  
+
   <!-- Content -->
-  <div class="p-6">
+  <div class="p-6 flex flex-col flex-1">
     <h3 class="text-xl font-semibold mb-2 text-dark-text group-hover:text-accent transition-colors">
       {title}
     </h3>
-    
-    <p class="text-dark-text-secondary mb-4 line-clamp-3">
+
+    <p class="text-dark-text-secondary mb-4 line-clamp-3 flex-1">
       {description}
     </p>
-    
+
     <!-- Technologies -->
     <div class="flex flex-wrap gap-2 mb-6">
       {technologies.map((tech) => (
@@ -51,9 +51,9 @@ const {
         </span>
       ))}
     </div>
-    
+
     <!-- Action Buttons -->
-    <div class={`flex gap-3 ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
+    <div class={`flex gap-3 mt-auto ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
       {type === 'project' && (
         <>
           {githubUrl && (
