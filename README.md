@@ -1,4 +1,4 @@
-# 🚀 Bryan Perez - Professional Portfolio
+# Bryan Perez - Professional Portfolio
 
 > A modern, high-performance portfolio website showcasing full-stack development skills, interactive games, and professional projects.
 
@@ -7,16 +7,16 @@
 [![React](https://img.shields.io/badge/React-18.3.0-61dafb?style=flat&logo=react)](https://reactjs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5.0-3178c6?style=flat&logo=typescript)](https://www.typescriptlang.org)
 
-## ✨ Features
+## Features
 
-🎮 **Interactive Games** - Play custom-built JavaScript games directly in your browser  
-🖥️ **Live Project Demos** - Experience projects through embedded iframe demonstrations  
-🌙 **Professional Dark Theme** - Sleek design with electric blue and purple accents  
-📱 **Fully Responsive** - Optimized for desktop, tablet, and mobile devices  
-⚡ **High Performance** - Built with Astro's island architecture for minimal JavaScript  
-♿ **Accessible** - WCAG compliant with keyboard navigation and screen reader support
+**Interactive Games** - Play custom-built JavaScript games directly in your browser
+**Live Project Demos** - Experience projects through embedded iframe demonstrations
+**Professional Dark Theme** - Sleek design with electric blue and purple accents
+**Fully Responsive** - Optimized for desktop, tablet, and mobile devices
+**High Performance** - Built with Astro's island architecture for minimal JavaScript
+**Accessible** - WCAG compliant with keyboard navigation and screen reader support
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category | Technologies |
 |----------|-------------|
@@ -25,7 +25,7 @@
 | **Games** | HTML5 Canvas, Vanilla JavaScript |
 | **Tools** | Vite, npm, Git |
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
 # Clone the repository
@@ -44,73 +44,73 @@ npm run build
 
 Visit `http://localhost:4321` to see the portfolio in action!
 
-## 📂 Project Structure
+## Project Structure
 
 ```
-📁 Professional_Portfolio/
-├── 📁 src/
-│   ├── 📁 components/
-│   │   ├── 📄 Modal.tsx           # Live demo modal
-│   │   └── 📄 ProjectCard.astro   # Reusable project cards
-│   ├── 📁 layouts/
-│   │   └── 📄 Layout.astro        # Base layout with navigation
-│   ├── 📁 pages/
-│   │   ├── 📄 index.astro         # 🏠 Home page
-│   │   ├── 📄 projects.astro      # 💼 Projects gallery
-│   │   ├── 📄 games.astro         # 🎮 Games showcase
-│   │   ├── 📄 about.astro         # 👨‍💻 About me
-│   │   ├── 📄 contact.astro       # 📞 Contact form
-│   │   └── 📁 games/
-│   │       ├── 📄 space-invaders.astro
-│   │       └── 📄 snake.astro
-│   └── 📁 styles/
-│       └── 📄 global.css          # Custom styles
-├── 📁 public/
-│   ├── 📁 assets/                 # Images and documents
-│   └── 📄 favicon.svg
-└── 📄 package.json
+Professional_Portfolio/
+├── src/
+│   ├── components/
+│   │   ├── Modal.tsx           # Live demo modal
+│   │   └── ProjectCard.astro   # Reusable project cards
+│   ├── layouts/
+│   │   └── Layout.astro        # Base layout with navigation
+│   ├── pages/
+│   │   ├── index.astro         # Home page
+│   │   ├── projects.astro      # Projects gallery
+│   │   ├── games.astro         # Games showcase
+│   │   ├── about.astro         # About me
+│   │   ├── contact.astro       # Contact form
+│   │   └── games/
+│   │       ├── space-invaders.astro
+│   │       └── snake.astro
+│   └── styles/
+│       └── global.css          # Custom styles
+├── public/
+│   ├── assets/                 # Images and documents
+│   └── favicon.svg
+└── package.json
 ```
 
-## 🎮 Featured Games
+## Featured Games
 
-### 🚀 Space Invaders
+### Space Invaders
 Classic arcade shooter with modern visuals
 - **Controls**: Arrow keys + Spacebar
 - **Features**: Collision detection, progressive difficulty, particle effects
 
-### 🐍 Snake Game
+### Snake Game
 Nostalgic Snake with contemporary design
 - **Controls**: Arrow keys
 - **Features**: High score tracking, speed progression, smooth animations
 
-## 💼 Featured Projects
+## Featured Projects
 
-### 🏢 CAF Admin Portal
+### CAF Admin Portal
 Full-stack web application for nonprofit management
 - **Stack**: React, Node.js, PostgreSQL
 - **Features**: User management, donation tracking, admin dashboard
 
-### 🏦 Banking Application
+### Banking Application
 Object-oriented banking system demonstration
 - **Stack**: Java, Spring Boot, MySQL
 - **Features**: Account management, secure transactions, authentication
 
-## 🎨 Design Philosophy
+## Design Philosophy
 
 - **Dark Theme**: Professional appearance with reduced eye strain
 - **Minimalist**: Clean, focused design that highlights content
 - **Interactive**: Engaging animations and hover effects
 - **Performance-First**: Optimized for speed and user experience
 
-## 📱 Responsive Design
+## Responsive Design
 
 | Device | Breakpoint | Features |
 |--------|------------|----------|
-| 📱 Mobile | < 768px | Touch-friendly, collapsible navigation |
-| 📟 Tablet | 768px - 1024px | Optimized layouts, touch interactions |
-| 🖥️ Desktop | > 1024px | Full features, hover effects |
+| Mobile | < 768px | Touch-friendly, collapsible navigation |
+| Tablet | 768px - 1024px | Optimized layouts, touch interactions |
+| Desktop | > 1024px | Full features, hover effects |
 
-## 🚀 Deployment
+## Deployment
 
 The portfolio is optimized for deployment on:
 
@@ -121,14 +121,14 @@ The portfolio is optimized for deployment on:
 
 Simply connect your repository and deploy!
 
-## 📊 Performance
+## Performance
 
-- ⚡ **Lighthouse Score**: 100/100
-- 🏃‍♂️ **First Contentful Paint**: < 1.5s
-- 📦 **Bundle Size**: < 50KB (gzipped)
-- 🌊 **Island Architecture**: Minimal JavaScript hydration
+- **Lighthouse Score**: 100/100
+- **First Contentful Paint**: < 1.5s
+- **Bundle Size**: < 50KB (gzipped)
+- **Island Architecture**: Minimal JavaScript hydration
 
-## 🤝 Contributing
+## Contributing
 
 Interested in contributing? Great! Here's how:
 
@@ -138,11 +138,11 @@ Interested in contributing? Great! Here's how:
 4. Push to branch: `git push origin feature/amazing-feature`
 5. Open a Pull Request
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📞 Connect With Me
+## Connect With Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-brpmx-0077b5?style=flat&logo=linkedin)](https://linkedin.com/in/brpmx)
 [![GitHub](https://img.shields.io/badge/GitHub-BryanPMX-333?style=flat&logo=github)](https://github.com/BryanPMX)
@@ -152,7 +152,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**Built with ❤️ by Bryan Perez**
+**Built with love by Bryan Perez**
 
 *Computer Science Student | Full-Stack Developer | Game Enthusiast*
 
