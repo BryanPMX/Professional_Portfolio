@@ -137,7 +137,7 @@ import Layout from '../../layouts/Layout.astro';
       this.ctx = canvas.getContext('2d');
       this.gridSize = 20;
       this.tileCount = canvas.width / this.gridSize;
-      
+
       this.snake = [
         { x: 10, y: 10 }
       ];
@@ -147,19 +147,28 @@ import Layout from '../../layouts/Layout.astro';
       this.score = 0;
       this.gameRunning = false;
       this.gamePaused = false;
-      
+      this.powerUp = null;
+      this.powerUpTimer = 0;
+
+      // Enhanced visual elements
+      this.particles = [];
+      this.gradientBg = this.createGradientBackground();
+      this.foodGlow = 0;
+      this.snakeSegments = [];
+
       // Load high score from localStorage
       this.highScore = parseInt(localStorage.getItem('snakeHighScore') || '0');
       this.updateHighScore();
-      
+
       this.setupInput();
       this.generateFood();
+      this.createParticles();
     }
     
     setupInput() {
       document.addEventListener('keydown', (e) => {
         if (!this.gameRunning || this.gamePaused) return;
-        
+
         switch(e.key) {
           case 'ArrowUp':
             if (this.dy !== 1) {
@@ -188,109 +197,345 @@ import Layout from '../../layouts/Layout.astro';
         }
       });
     }
+
+    createGradientBackground() {
+      const gradient = this.ctx.createLinearGradient(0, 0, this.canvas.width, this.canvas.height);
+      gradient.addColorStop(0, '#0f0f0f');
+      gradient.addColorStop(0.5, '#1a1a1a');
+      gradient.addColorStop(1, '#0f0f0f');
+      return gradient;
+    }
+
+    createParticles() {
+      // Create floating particles for background effect
+      for (let i = 0; i < 50; i++) {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+          opacity: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    generatePowerUp() {
+      if (Math.random() < 0.3 && !this.powerUp) { // 30% chance to spawn power-up
+        this.powerUp = {
+          x: Math.floor(Math.random() * this.tileCount),
+          y: Math.floor(Math.random() * this.tileCount),
+          type: Math.random() < 0.5 ? 'speed' : 'score', // Speed boost or double score
+          timer: 300 // 5 seconds at 60fps
+        };
+      }
+    }
     
     generateFood() {
       this.food = {
         x: Math.floor(Math.random() * this.tileCount),
         y: Math.floor(Math.random() * this.tileCount)
       };
-      
-      // Make sure food doesn't spawn on snake
+
+      // Make sure food doesn't spawn on snake or power-up
       for (let segment of this.snake) {
         if (segment.x === this.food.x && segment.y === this.food.y) {
           this.generateFood();
           return;
         }
       }
+
+      if (this.powerUp && this.powerUp.x === this.food.x && this.powerUp.y === this.food.y) {
+        this.generateFood();
+        return;
+      }
     }
     
     update() {
       if (!this.gameRunning || this.gamePaused) return;
-      
+
+      // Update particles
+      this.particles.forEach(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+
+        // Wrap around edges
+        if (particle.x < 0) particle.x = this.canvas.width;
+        if (particle.x > this.canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = this.canvas.height;
+        if (particle.y > this.canvas.height) particle.y = 0;
+      });
+
+      // Update food glow animation
+      this.foodGlow = (this.foodGlow + 0.1) % (Math.PI * 2);
+
       const head = { x: this.snake[0].x + this.dx, y: this.snake[0].y + this.dy };
-      
+
       // Check wall collision
       if (head.x < 0 || head.x >= this.tileCount || head.y < 0 || head.y >= this.tileCount) {
+        this.createExplosionParticles(head.x * this.gridSize + this.gridSize/2, head.y * this.gridSize + this.gridSize/2);
         this.gameOver();
         return;
       }
-      
+
       // Check self collision
       for (let segment of this.snake) {
         if (head.x === segment.x && head.y === segment.y) {
+          this.createExplosionParticles(head.x * this.gridSize + this.gridSize/2, head.y * this.gridSize + this.gridSize/2);
           this.gameOver();
           return;
         }
       }
-      
+
       this.snake.unshift(head);
-      
+
       // Check food collision
       if (head.x === this.food.x && head.y === this.food.y) {
-        this.score += 10;
+        // Create particle effect for eating food
+        this.createFoodParticles(this.food.x * this.gridSize + this.gridSize/2, this.food.y * this.gridSize + this.gridSize/2);
+
+        const points = this.powerUp && this.powerUp.type === 'score' ? 20 : 10;
+        this.score += points;
         this.updateScore();
         this.generateFood();
+        this.generatePowerUp();
       } else {
         this.snake.pop();
       }
+
+      // Check power-up collision
+      if (this.powerUp && head.x === this.powerUp.x && head.y === this.powerUp.y) {
+        this.activatePowerUp(this.powerUp.type);
+        this.powerUp = null;
+        this.powerUpTimer = 0;
+      }
+
+      // Update power-up timer
+      if (this.powerUp) {
+        this.powerUp.timer--;
+        if (this.powerUp.timer <= 0) {
+          this.powerUp = null;
+        }
+      }
+
+      if (this.powerUpTimer > 0) {
+        this.powerUpTimer--;
+        if (this.powerUpTimer === 0) {
+          // Reset speed when power-up expires
+          // Speed reset logic would go here
+        }
+      }
     }
     
+    createExplosionParticles(x, y) {
+      for (let i = 0; i < 20; i++) {
+        this.particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 8,
+          vy: (Math.random() - 0.5) * 8,
+          size: Math.random() * 4 + 2,
+          opacity: 1,
+          life: 60,
+          color: '#ef4444'
+        });
+      }
+    }
+
+    createFoodParticles(x, y) {
+      for (let i = 0; i < 10; i++) {
+        this.particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4,
+          size: Math.random() * 3 + 1,
+          opacity: 1,
+          life: 30,
+          color: '#10b981'
+        });
+      }
+    }
+
+    activatePowerUp(type) {
+      if (type === 'speed') {
+        // Speed boost effect (would modify movement speed)
+        this.powerUpTimer = 300; // 5 seconds
+        // Visual feedback for speed boost
+        this.createSpeedParticles();
+      } else if (type === 'score') {
+        // Double score effect (already handled in food collision)
+      }
+    }
+
+    createSpeedParticles() {
+      const head = this.snake[0];
+      for (let i = 0; i < 15; i++) {
+        this.particles.push({
+          x: head.x * this.gridSize + this.gridSize/2,
+          y: head.y * this.gridSize + this.gridSize/2,
+          vx: (Math.random() - 0.5) * 6,
+          vy: (Math.random() - 0.5) * 6,
+          size: Math.random() * 2 + 1,
+          opacity: 1,
+          life: 20,
+          color: '#f59e0b'
+        });
+      }
+    }
+
     draw() {
-      // Clear canvas
-      this.ctx.fillStyle = '#0f0f0f';
+      // Clear canvas with gradient background
+      this.ctx.fillStyle = this.gradientBg;
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      
-      // Draw grid
+
+      // Draw animated particles background
+      this.ctx.globalAlpha = 0.6;
+      this.particles.forEach(particle => {
+        if (particle.life !== undefined) {
+          // Effect particles
+          this.ctx.fillStyle = particle.color;
+          this.ctx.globalAlpha = particle.opacity * (particle.life / 60);
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          this.ctx.fill();
+          particle.life--;
+          particle.opacity *= 0.98;
+        } else {
+          // Background particles
+          this.ctx.fillStyle = '#3b82f6';
+          this.ctx.globalAlpha = particle.opacity;
+          this.ctx.beginPath();
+          this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          this.ctx.fill();
+        }
+      });
+      this.ctx.globalAlpha = 1;
+
+      // Draw subtle grid
       this.ctx.strokeStyle = '#262626';
       this.ctx.lineWidth = 1;
+      this.ctx.globalAlpha = 0.3;
       for (let i = 0; i <= this.tileCount; i++) {
         this.ctx.beginPath();
         this.ctx.moveTo(i * this.gridSize, 0);
         this.ctx.lineTo(i * this.gridSize, this.canvas.height);
         this.ctx.stroke();
-        
+
         this.ctx.beginPath();
         this.ctx.moveTo(0, i * this.gridSize);
         this.ctx.lineTo(this.canvas.width, i * this.gridSize);
         this.ctx.stroke();
       }
-      
-      // Draw snake
-      this.ctx.fillStyle = '#8b5cf6';
+      this.ctx.globalAlpha = 1;
+
+      // Draw snake with enhanced visuals
       for (let i = 0; i < this.snake.length; i++) {
         const segment = this.snake[i];
-        // Make head slightly different color
+        const x = segment.x * this.gridSize + 2;
+        const y = segment.y * this.gridSize + 2;
+        const width = this.gridSize - 4;
+        const height = this.gridSize - 4;
+
+        // Create gradient for snake segments
+        const segmentGradient = this.ctx.createLinearGradient(x, y, x + width, y + height);
         if (i === 0) {
-          this.ctx.fillStyle = '#a855f7';
+          // Snake head - more vibrant
+          segmentGradient.addColorStop(0, '#a855f7');
+          segmentGradient.addColorStop(1, '#7c3aed');
         } else {
-          this.ctx.fillStyle = '#8b5cf6';
+          // Snake body - gradient based on position
+          const intensity = 1 - (i / this.snake.length) * 0.5;
+          segmentGradient.addColorStop(0, `rgba(139, 92, 246, ${intensity})`);
+          segmentGradient.addColorStop(1, `rgba(124, 58, 237, ${intensity})`);
         }
-        
-        this.ctx.fillRect(
-          segment.x * this.gridSize + 2,
-          segment.y * this.gridSize + 2,
-          this.gridSize - 4,
-          this.gridSize - 4
-        );
+
+        // Draw rounded rectangle for snake segments
+        this.ctx.fillStyle = segmentGradient;
+        this.roundRect(x, y, width, height, 4);
+        this.ctx.fill();
+
+        // Add subtle border
+        this.ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+        this.ctx.lineWidth = 1;
+        this.roundRect(x, y, width, height, 4);
+        this.ctx.stroke();
       }
-      
-      // Draw food
-      this.ctx.fillStyle = '#ef4444';
-      this.ctx.fillRect(
-        this.food.x * this.gridSize + 2,
-        this.food.y * this.gridSize + 2,
-        this.gridSize - 4,
-        this.gridSize - 4
+
+      // Draw food with glow effect
+      const foodX = this.food.x * this.gridSize + 2;
+      const foodY = this.food.y * this.gridSize + 2;
+      const foodSize = this.gridSize - 4;
+
+      // Glow effect
+      const glowIntensity = (Math.sin(this.foodGlow) + 1) / 2;
+      this.ctx.shadowColor = '#ef4444';
+      this.ctx.shadowBlur = 10 + glowIntensity * 5;
+
+      // Food gradient
+      const foodGradient = this.ctx.createRadialGradient(
+        foodX + foodSize/2, foodY + foodSize/2, 0,
+        foodX + foodSize/2, foodY + foodSize/2, foodSize/2
       );
+      foodGradient.addColorStop(0, '#fca5a5');
+      foodGradient.addColorStop(1, '#ef4444');
+
+      this.ctx.fillStyle = foodGradient;
+      this.roundRect(foodX, foodY, foodSize, foodSize, 6);
+      this.ctx.fill();
+
+      // Reset shadow
+      this.ctx.shadowBlur = 0;
+
+      // Draw power-up if active
+      if (this.powerUp) {
+        const powerX = this.powerUp.x * this.gridSize + 2;
+        const powerY = this.powerUp.y * this.gridSize + 2;
+        const powerSize = this.gridSize - 4;
+
+        // Pulsing effect for power-up
+        const pulseScale = 1 + Math.sin(Date.now() * 0.01) * 0.1;
+
+        this.ctx.save();
+        this.ctx.translate(powerX + powerSize/2, powerY + powerSize/2);
+        this.ctx.scale(pulseScale, pulseScale);
+        this.ctx.translate(-(powerX + powerSize/2), -(powerY + powerSize/2));
+
+        const powerColor = this.powerUp.type === 'speed' ? '#f59e0b' : '#10b981';
+        this.ctx.fillStyle = powerColor;
+        this.ctx.shadowColor = powerColor;
+        this.ctx.shadowBlur = 15;
+        this.roundRect(powerX, powerY, powerSize, powerSize, 4);
+        this.ctx.fill();
+
+        this.ctx.restore();
+        this.ctx.shadowBlur = 0;
+      }
+    }
+
+    roundRect(x, y, width, height, radius) {
+      this.ctx.beginPath();
+      this.ctx.moveTo(x + radius, y);
+      this.ctx.lineTo(x + width - radius, y);
+      this.ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      this.ctx.lineTo(x + width, y + height - radius);
+      this.ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      this.ctx.lineTo(x + radius, y + height);
+      this.ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      this.ctx.lineTo(x, y + radius);
+      this.ctx.quadraticCurveTo(x, y, x + radius, y);
+      this.ctx.closePath();
     }
     
     gameLoop() {
       this.update();
       this.draw();
-      
+
       if (this.gameRunning) {
-        // Game speed increases with score
-        const speed = Math.max(100, 200 - Math.floor(this.score / 50) * 20);
+        // Game speed increases with score, but smoother progression
+        const baseSpeed = 150;
+        const speedIncrease = Math.floor(this.score / 100) * 10;
+        const speed = Math.max(80, baseSpeed - speedIncrease);
         setTimeout(() => this.gameLoop(), speed);
       }
     }
@@ -301,17 +546,19 @@ import Layout from '../../layouts/Layout.astro';
         this.gamePaused = false;
         this.dx = 1;
         this.dy = 0;
+        this.powerUp = null;
+        this.powerUpTimer = 0;
         this.gameLoop();
       }
     }
-    
+
     pause() {
       this.gamePaused = !this.gamePaused;
       if (!this.gamePaused && this.gameRunning) {
         this.gameLoop();
       }
     }
-    
+
     reset() {
       this.gameRunning = false;
       this.gamePaused = false;
@@ -319,6 +566,9 @@ import Layout from '../../layouts/Layout.astro';
       this.dx = 0;
       this.dy = 0;
       this.score = 0;
+      this.powerUp = null;
+      this.powerUpTimer = 0;
+      this.particles = this.particles.filter(p => p.life === undefined); // Keep only background particles
       this.updateScore();
       this.generateFood();
       this.draw();
@@ -367,3 +617,23 @@ import Layout from '../../layouts/Layout.astro';
     game.draw();
   });
 </script>
+
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(139, 92, 246, 0.6); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .canvas-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+</style>

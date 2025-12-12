@@ -41,11 +41,19 @@ import Layout from '../../layouts/Layout.astro';
           </button>
         </div>
         
-        <!-- Score Display -->
-        <div class="flex justify-center mt-4">
-          <div class="bg-dark-surface px-6 py-2 rounded-lg border border-dark-surface">
+        <!-- Game Stats Display -->
+        <div class="flex justify-center mt-4 gap-4">
+          <div class="game-stats px-4 py-2 rounded-lg">
             <span class="text-dark-text-secondary">Score: </span>
             <span id="score" class="text-accent-purple font-bold text-lg">0</span>
+          </div>
+          <div class="game-stats px-4 py-2 rounded-lg">
+            <span class="text-dark-text-secondary">Level: </span>
+            <span id="level" class="text-accent font-bold text-lg">1</span>
+          </div>
+          <div class="game-stats px-4 py-2 rounded-lg">
+            <span class="text-dark-text-secondary">Health: </span>
+            <span id="health" class="text-green-400 font-bold text-lg">3</span>
           </div>
         </div>
       </div>
@@ -128,20 +136,28 @@ import Layout from '../../layouts/Layout.astro';
       this.gameRunning = false;
       this.score = 0;
       this.level = 1;
-      
+
+      // Enhanced visual elements
+      this.particles = [];
+      this.stars = [];
+      this.explosions = [];
+      this.createStarfield();
+
       // Game objects
       this.player = {
         x: canvas.width / 2 - 25,
         y: canvas.height - 60,
         width: 50,
         height: 30,
-        speed: 5
+        speed: 5,
+        health: 3
       };
-      
+
       this.bullets = [];
       this.aliens = [];
       this.alienBullets = [];
-      
+      this.powerUps = [];
+
       // Input handling
       this.keys = {};
       this.setupInput();
@@ -156,30 +172,62 @@ import Layout from '../../layouts/Layout.astro';
           this.shoot();
         }
       });
-      
+
       document.addEventListener('keyup', (e) => {
         this.keys[e.key] = false;
       });
+    }
+
+    createStarfield() {
+      this.stars = [];
+      for (let i = 0; i < 100; i++) {
+        this.stars.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          brightness: Math.random(),
+          twinkleSpeed: 0.02 + Math.random() * 0.03
+        });
+      }
     }
     
     createAliens() {
       this.aliens = [];
       const rows = 5;
-      const cols = 10;
-      const alienWidth = 40;
-      const alienHeight = 30;
-      const spacing = 60;
-      const startX = 50;
-      const startY = 50;
-      
+      const cols = Math.min(10, 8 + Math.floor(this.level / 2)); // More aliens as level increases
+      const alienWidth = 35;
+      const alienHeight = 25;
+      const spacing = 50;
+      const startX = 30;
+      const startY = 40;
+
       for (let row = 0; row < rows; row++) {
         for (let col = 0; col < cols; col++) {
+          // Different alien types based on row
+          let alienType = 'basic';
+          let points = 10;
+          let speed = 0.5 + this.level * 0.1;
+
+          if (row === 0) {
+            alienType = 'elite';
+            points = 30;
+            speed = 0.3 + this.level * 0.05;
+          } else if (row === 1 || row === 2) {
+            alienType = 'advanced';
+            points = 20;
+            speed = 0.4 + this.level * 0.08;
+          }
+
           this.aliens.push({
             x: startX + col * spacing,
             y: startY + row * spacing,
             width: alienWidth,
             height: alienHeight,
-            alive: true
+            alive: true,
+            type: alienType,
+            points: points,
+            speed: speed,
+            shootTimer: Math.random() * 200 + 100, // Random shooting interval
+            animationFrame: 0
           });
         }
       }
@@ -199,7 +247,30 @@ import Layout from '../../layouts/Layout.astro';
     
     update() {
       if (!this.gameRunning) return;
-      
+
+      // Update stars for twinkling effect
+      this.stars.forEach(star => {
+        star.brightness += star.twinkleSpeed;
+        if (star.brightness > 1 || star.brightness < 0) {
+          star.twinkleSpeed *= -1;
+        }
+      });
+
+      // Update particles
+      this.particles = this.particles.filter(particle => {
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vy += particle.gravity || 0;
+        particle.life--;
+        return particle.life > 0;
+      });
+
+      // Update explosions
+      this.explosions = this.explosions.filter(explosion => {
+        explosion.frame++;
+        return explosion.frame < explosion.totalFrames;
+      });
+
       // Move player
       if (this.keys['ArrowLeft'] && this.player.x > 0) {
         this.player.x -= this.player.speed;
@@ -207,93 +278,336 @@ import Layout from '../../layouts/Layout.astro';
       if (this.keys['ArrowRight'] && this.player.x < this.canvas.width - this.player.width) {
         this.player.x += this.player.speed;
       }
-      
+
       // Update bullets
       this.bullets = this.bullets.filter(bullet => {
         bullet.y -= bullet.speed;
         return bullet.y > 0;
       });
-      
-      // Update aliens
+
+      // Update alien bullets
+      this.alienBullets = this.alienBullets.filter(bullet => {
+        bullet.y += bullet.speed;
+        return bullet.y < this.canvas.height;
+      });
+
+      // Update aliens with enhanced movement and shooting
       let moveDown = false;
       let direction = 1;
-      
+
       this.aliens.forEach(alien => {
         if (alien.alive) {
+          alien.animationFrame += 0.1;
+
+          // Check if alien should move down
           if (alien.x <= 0 || alien.x >= this.canvas.width - alien.width) {
             moveDown = true;
           }
-        }
-      });
-      
-      this.aliens.forEach(alien => {
-        if (alien.alive) {
-          if (moveDown) {
-            alien.y += 20;
-          } else {
-            alien.x += direction;
+
+          // Alien shooting logic
+          alien.shootTimer--;
+          if (alien.shootTimer <= 0 && alien.y > 50) {
+            this.alienShoot(alien);
+            alien.shootTimer = Math.random() * 300 + 200; // Random interval
           }
         }
       });
-      
+
+      this.aliens.forEach(alien => {
+        if (alien.alive) {
+          if (moveDown) {
+            alien.y += 15 + this.level * 2;
+          } else {
+            alien.x += direction * alien.speed;
+          }
+        }
+      });
+
+      // Update power-ups
+      this.powerUps = this.powerUps.filter(powerUp => {
+        powerUp.y += 2;
+        return powerUp.y < this.canvas.height;
+      });
+
       // Check collisions
       this.checkCollisions();
-      
+
       // Check win/lose conditions
       const aliveAliens = this.aliens.filter(alien => alien.alive);
       if (aliveAliens.length === 0) {
         this.nextLevel();
       }
-      
+
       if (aliveAliens.some(alien => alien.y + alien.height >= this.player.y)) {
-        this.gameOver();
+        this.playerHit();
       }
+
+      // Check if player is hit by alien bullets
+      this.alienBullets.forEach(bullet => {
+        if (this.checkCollision(bullet, this.player)) {
+          this.playerHit();
+        }
+      });
     }
     
+    alienShoot(alien) {
+      this.alienBullets.push({
+        x: alien.x + alien.width / 2 - 2,
+        y: alien.y + alien.height,
+        width: 4,
+        height: 8,
+        speed: 3 + Math.random() * 2,
+        color: '#ff6b6b'
+      });
+    }
+
+    playerHit() {
+      this.player.health--;
+      this.createExplosion(this.player.x + this.player.width/2, this.player.y + this.player.height/2, '#ff4444');
+
+      if (this.player.health <= 0) {
+        this.gameOver();
+      } else {
+        // Reset player position briefly
+        this.player.x = this.canvas.width / 2 - 25;
+      }
+    }
+
+    createExplosion(x, y, color = '#ffaa00') {
+      this.explosions.push({
+        x: x,
+        y: y,
+        frame: 0,
+        totalFrames: 15,
+        color: color
+      });
+
+      // Create explosion particles
+      for (let i = 0; i < 20; i++) {
+        this.particles.push({
+          x: x,
+          y: y,
+          vx: (Math.random() - 0.5) * 10,
+          vy: (Math.random() - 0.5) * 10,
+          gravity: 0.1,
+          life: 60,
+          size: Math.random() * 3 + 1,
+          color: color
+        });
+      }
+    }
+
+    checkCollision(obj1, obj2) {
+      return obj1.x < obj2.x + obj2.width &&
+             obj1.x + obj1.width > obj2.x &&
+             obj1.y < obj2.y + obj2.height &&
+             obj1.y + obj1.height > obj2.y;
+    }
+
     checkCollisions() {
+      // Player bullets vs aliens
       this.bullets.forEach((bullet, bulletIndex) => {
-        this.aliens.forEach((alien, alienIndex) => {
-          if (alien.alive && 
-              bullet.x < alien.x + alien.width &&
-              bullet.x + bullet.width > alien.x &&
-              bullet.y < alien.y + alien.height &&
-              bullet.y + bullet.height > alien.y) {
-            
+        this.aliens.forEach((alien) => {
+          if (alien.alive && this.checkCollision(bullet, alien)) {
             // Hit!
             alien.alive = false;
             this.bullets.splice(bulletIndex, 1);
-            this.score += 10;
+            this.score += alien.points;
             this.updateScore();
+            this.createExplosion(alien.x + alien.width/2, alien.y + alien.height/2, this.getAlienColor(alien.type));
           }
         });
       });
+
+      // Player vs power-ups
+      this.powerUps.forEach((powerUp, index) => {
+        if (this.checkCollision(powerUp, this.player)) {
+          this.activatePowerUp(powerUp.type);
+          this.powerUps.splice(index, 1);
+        }
+      });
+    }
+
+    getAlienColor(type) {
+      switch(type) {
+        case 'elite': return '#ef4444';
+        case 'advanced': return '#ff8844';
+        default: return '#ffaa44';
+      }
+    }
+
+    activatePowerUp(type) {
+      // Power-up effects could be implemented here
+      console.log('Power-up activated:', type);
     }
     
     draw() {
-      // Clear canvas
-      this.ctx.fillStyle = '#000';
+      // Clear canvas with space gradient
+      const spaceGradient = this.ctx.createLinearGradient(0, 0, 0, this.canvas.height);
+      spaceGradient.addColorStop(0, '#000011');
+      spaceGradient.addColorStop(0.5, '#000033');
+      spaceGradient.addColorStop(1, '#000011');
+      this.ctx.fillStyle = spaceGradient;
       this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-      
-      // Draw stars background
+
+      // Draw twinkling stars
       this.drawStars();
-      
-      // Draw player
-      this.ctx.fillStyle = '#3b82f6';
-      this.ctx.fillRect(this.player.x, this.player.y, this.player.width, this.player.height);
-      
-      // Draw bullets
-      this.ctx.fillStyle = '#8b5cf6';
+
+      // Draw particles
+      this.particles.forEach(particle => {
+        this.ctx.save();
+        this.ctx.globalAlpha = particle.life / 60;
+        this.ctx.fillStyle = particle.color;
+        this.ctx.beginPath();
+        this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.restore();
+      });
+
+      // Draw explosions
+      this.explosions.forEach(explosion => {
+        const progress = explosion.frame / explosion.totalFrames;
+        const radius = progress * 40;
+        const alpha = 1 - progress;
+
+        this.ctx.save();
+        this.ctx.globalAlpha = alpha;
+        this.ctx.fillStyle = explosion.color;
+        this.ctx.beginPath();
+        this.ctx.arc(explosion.x, explosion.y, radius, 0, Math.PI * 2);
+        this.ctx.fill();
+
+        // Explosion rays
+        for (let i = 0; i < 8; i++) {
+          const angle = (i / 8) * Math.PI * 2;
+          const rayLength = radius * (0.5 + Math.random() * 0.5);
+          this.ctx.beginPath();
+          this.ctx.moveTo(explosion.x, explosion.y);
+          this.ctx.lineTo(
+            explosion.x + Math.cos(angle) * rayLength,
+            explosion.y + Math.sin(angle) * rayLength
+          );
+          this.ctx.strokeStyle = explosion.color;
+          this.ctx.lineWidth = 2;
+          this.ctx.stroke();
+        }
+        this.ctx.restore();
+      });
+
+      // Draw player with enhanced design
+      this.drawPlayer();
+
+      // Draw bullets with glow effect
       this.bullets.forEach(bullet => {
+        this.ctx.shadowColor = '#8b5cf6';
+        this.ctx.shadowBlur = 10;
+        this.ctx.fillStyle = '#8b5cf6';
+        this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+        this.ctx.shadowBlur = 0;
+      });
+
+      // Draw alien bullets
+      this.alienBullets.forEach(bullet => {
+        this.ctx.fillStyle = bullet.color;
         this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
       });
-      
-      // Draw aliens
-      this.ctx.fillStyle = '#ef4444';
+
+      // Draw aliens with different designs based on type
       this.aliens.forEach(alien => {
         if (alien.alive) {
-          this.ctx.fillRect(alien.x, alien.y, alien.width, alien.height);
+          this.drawAlien(alien);
         }
       });
+
+      // Draw power-ups
+      this.powerUps.forEach(powerUp => {
+        this.ctx.save();
+        this.ctx.shadowColor = powerUp.color;
+        this.ctx.shadowBlur = 15;
+        this.ctx.fillStyle = powerUp.color;
+        this.ctx.fillRect(powerUp.x, powerUp.y, powerUp.width, powerUp.height);
+        this.ctx.restore();
+      });
+
+      // Draw HUD
+      this.drawHUD();
+    }
+
+    drawStars() {
+      this.stars.forEach(star => {
+        this.ctx.save();
+        this.ctx.globalAlpha = star.brightness * 0.8;
+        this.ctx.fillStyle = '#ffffff';
+        this.ctx.beginPath();
+        this.ctx.arc(star.x, star.y, 1, 0, Math.PI * 2);
+        this.ctx.fill();
+        this.ctx.restore();
+      });
+    }
+
+    drawPlayer() {
+      const { x, y, width, height } = this.player;
+
+      // Player ship with gradient
+      const shipGradient = this.ctx.createLinearGradient(x, y, x, y + height);
+      shipGradient.addColorStop(0, '#4f46e5');
+      shipGradient.addColorStop(1, '#3b82f6');
+
+      this.ctx.fillStyle = shipGradient;
+      this.ctx.beginPath();
+      this.ctx.moveTo(x + width/2, y);
+      this.ctx.lineTo(x + width, y + height);
+      this.ctx.lineTo(x + width * 0.75, y + height * 0.7);
+      this.ctx.lineTo(x + width * 0.25, y + height * 0.7);
+      this.ctx.lineTo(x, y + height);
+      this.ctx.closePath();
+      this.ctx.fill();
+
+      // Engine glow
+      this.ctx.shadowColor = '#3b82f6';
+      this.ctx.shadowBlur = 20;
+      this.ctx.fillStyle = '#60a5fa';
+      this.ctx.fillRect(x + width * 0.25, y + height * 0.7, width * 0.5, height * 0.3);
+      this.ctx.shadowBlur = 0;
+    }
+
+    drawAlien(alien) {
+      const { x, y, width, height, type, animationFrame } = alien;
+
+      let color;
+      switch(type) {
+        case 'elite':
+          color = '#ef4444';
+          break;
+        case 'advanced':
+          color = '#f97316';
+          break;
+        default:
+          color = '#eab308';
+      }
+
+      // Alien body with animation
+      const wobble = Math.sin(animationFrame) * 2;
+      this.ctx.fillStyle = color;
+      this.ctx.fillRect(x + wobble, y, width, height);
+
+      // Alien eyes
+      this.ctx.fillStyle = '#ffffff';
+      this.ctx.fillRect(x + 8 + wobble, y + 8, 6, 6);
+      this.ctx.fillRect(x + width - 14 + wobble, y + 8, 6, 6);
+
+      // Alien pupils
+      this.ctx.fillStyle = '#000000';
+      this.ctx.fillRect(x + 10 + wobble, y + 10, 2, 2);
+      this.ctx.fillRect(x + width - 12 + wobble, y + 10, 2, 2);
+    }
+
+    drawHUD() {
+      // Health indicator
+      this.ctx.fillStyle = '#ffffff';
+      this.ctx.font = '16px monospace';
+      this.ctx.fillText(`Health: ${this.player.health}`, 10, 25);
+      this.ctx.fillText(`Level: ${this.level}`, 10, 45);
     }
     
     drawStars() {
@@ -316,6 +630,12 @@ import Layout from '../../layouts/Layout.astro';
     
     start() {
       this.gameRunning = true;
+      this.player.health = 3;
+      this.particles = [];
+      this.explosions = [];
+      this.powerUps = [];
+      this.updateHealth();
+      this.updateLevel();
       this.gameLoop();
     }
     
@@ -327,32 +647,103 @@ import Layout from '../../layouts/Layout.astro';
     }
     
     reset() {
+      this.gameRunning = false;
       this.score = 0;
       this.level = 1;
-      this.updateScore();
+      this.player.health = 3;
       this.player.x = this.canvas.width / 2 - 25;
+      this.updateScore();
+      this.updateLevel();
+      this.updateHealth();
       this.bullets = [];
       this.alienBullets = [];
+      this.aliens = [];
+      this.particles = [];
+      this.explosions = [];
+      this.powerUps = [];
       this.createAliens();
     }
     
     nextLevel() {
       this.level++;
+      this.updateLevel();
+
+      // Level up effects
+      this.createExplosion(this.canvas.width/2, this.canvas.height/2, '#00ff00');
+      for (let i = 0; i < 50; i++) {
+        this.particles.push({
+          x: this.canvas.width/2,
+          y: this.canvas.height/2,
+          vx: (Math.random() - 0.5) * 15,
+          vy: (Math.random() - 0.5) * 15,
+          gravity: 0.1,
+          life: 120,
+          size: Math.random() * 4 + 2,
+          color: '#00ff88'
+        });
+      }
+
+      // Reset game state for new level
+      this.bullets = [];
+      this.alienBullets = [];
+      this.powerUps = [];
       this.createAliens();
-      // Make aliens slightly faster
-      this.aliens.forEach(alien => {
-        alien.speed = (alien.speed || 1) + 0.2;
-      });
+
+      // Bonus points for completing level
+      this.score += this.level * 100;
+      this.updateScore();
     }
     
     gameOver() {
       this.gameRunning = false;
-      alert(`Game Over! Final Score: ${this.score}`);
-      this.reset();
+
+      // Create dramatic game over explosion
+      this.createExplosion(this.player.x + this.player.width/2, this.player.y + this.player.height/2, '#ff0000');
+      for (let i = 0; i < 100; i++) {
+        this.particles.push({
+          x: this.player.x + this.player.width/2,
+          y: this.player.y + this.player.height/2,
+          vx: (Math.random() - 0.5) * 20,
+          vy: (Math.random() - 0.5) * 20,
+          gravity: 0.2,
+          life: 180,
+          size: Math.random() * 6 + 3,
+          color: '#ff4444'
+        });
+      }
+
+      // Check and update high score
+      const highScore = parseInt(localStorage.getItem('spaceInvadersHighScore') || '0');
+      if (this.score > highScore) {
+        localStorage.setItem('spaceInvadersHighScore', this.score.toString());
+      }
+
+      setTimeout(() => {
+        alert(`Game Over!\nFinal Score: ${this.score}\nLevel Reached: ${this.level}\nHigh Score: ${Math.max(highScore, this.score)}`);
+        this.reset();
+      }, 1000);
     }
     
     updateScore() {
       document.getElementById('score').textContent = this.score;
+    }
+
+    updateLevel() {
+      document.getElementById('level').textContent = this.level;
+    }
+
+    updateHealth() {
+      const healthElement = document.getElementById('health');
+      healthElement.textContent = this.player.health;
+
+      // Color code health
+      if (this.player.health === 3) {
+        healthElement.className = 'text-green-400 font-bold text-lg';
+      } else if (this.player.health === 2) {
+        healthElement.className = 'text-yellow-400 font-bold text-lg';
+      } else {
+        healthElement.className = 'text-red-400 font-bold text-lg';
+      }
     }
   }
   
@@ -373,3 +764,29 @@ import Layout from '../../layouts/Layout.astro';
     game.draw();
   });
 </script>
+
+<style>
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes space-glow {
+    0%, 100% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
+    50% { box-shadow: 0 0 50px rgba(59, 130, 246, 0.8); }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .space-canvas-glow {
+    animation: space-glow 3s ease-in-out infinite;
+  }
+
+  .game-stats {
+    background: linear-gradient(135deg, rgba(15, 15, 15, 0.9), rgba(26, 26, 26, 0.9));
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    backdrop-filter: blur(10px);
+  }
+</style>
