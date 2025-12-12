@@ -53,22 +53,22 @@ const {
     </div>
     
     <!-- Action Buttons -->
-    <div class="flex gap-3">
+    <div class={`flex gap-3 ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
       {type === 'project' && (
         <>
           {githubUrl && (
-            <a 
+            <a
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex-1 bg-dark-surface hover:bg-dark-bg text-dark-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-center border border-dark-surface hover:border-accent"
+              class={`${liveUrl ? 'flex-1' : 'w-full'} bg-dark-surface hover:bg-dark-bg text-dark-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-center border border-dark-surface hover:border-accent`}
             >
               View Code
             </a>
           )}
           {liveUrl && (
-            <button 
-              class="flex-1 bg-accent hover:bg-accent-hover text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 live-demo-btn"
+            <button
+              class={`${githubUrl ? 'flex-1' : 'w-full'} bg-accent hover:bg-accent-hover text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 live-demo-btn`}
               data-url={liveUrl}
               data-title={title}
             >
