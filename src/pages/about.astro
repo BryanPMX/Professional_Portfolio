@@ -52,6 +52,9 @@ import Layout from '../layouts/Layout.astro';
     <!-- Education -->
     <section class="py-16 px-6 bg-dark-surface/70">
       <div class="max-w-6xl mx-auto space-y-8">
+        <div class="flex justify-center">
+          <span class="badge-glass">Education</span>
+        </div>
         <h2 class="text-3xl lg:text-4xl font-semibold text-center">Education</h2>
         <div class="panel gradient-border p-6 flex flex-col lg:flex-row gap-6 items-center lg:items-start">
           <div class="flex-shrink-0">
@@ -77,13 +80,14 @@ import Layout from '../layouts/Layout.astro';
     <section class="py-16 px-6">
       <div class="max-w-6xl mx-auto space-y-10">
         <div class="text-center space-y-2">
+          <div class="flex justify-center"><span class="badge-glass">Skills</span></div>
           <h2 class="text-3xl lg:text-4xl font-semibold">Technical Range</h2>
           <p class="text-dark-text-secondary">Languages, frameworks, and tooling I reach for daily.</p>
         </div>
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="panel gradient-border p-6 space-y-4">
-            <h3 class="text-lg font-semibold text-accent">Programming Languages</h3>
+            <div class="badge-glass w-fit">Programming Languages</div>
             <div class="grid grid-cols-2 gap-3 text-sm">
               {['Go', 'C#', 'TypeScript', 'JavaScript', 'Java', 'Python', 'SQL', 'HTML/CSS'].map((lang) => (
                 <div class="flex items-center gap-2 text-dark-text-secondary">
@@ -93,7 +97,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           <div class="panel gradient-border p-6 space-y-4">
-            <h3 class="text-lg font-semibold text-accent-purple">Web Development</h3>
+            <div class="badge-glass w-fit">Web Development</div>
             <div class="grid grid-cols-2 gap-3 text-sm">
               {['React', 'Next.js', 'Node.js', 'Tailwind CSS', 'SvelteKit', 'MVC Architecture'].map((item) => (
                 <div class="flex items-center gap-2 text-dark-text-secondary">
@@ -103,7 +107,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
           </div>
           <div class="panel gradient-border p-6 space-y-4">
-            <h3 class="text-lg font-semibold text-accent">Tools & Infrastructure</h3>
+            <div class="badge-glass w-fit">Tools & Infrastructure</div>
             <div class="grid grid-cols-2 gap-3 text-sm">
               {['Microservices', 'REST APIs', 'CI/CD Pipelines', 'AWS', 'Docker', 'Proxmox', 'Agile/Scrum', 'Technical Documentation'].map((tool) => (
                 <div class="flex items-center gap-2 text-dark-text-secondary">
@@ -115,10 +119,13 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div class="panel gradient-border p-6">
-          <h3 class="text-lg font-semibold mb-3">Additional Technologies</h3>
+          <div class="flex items-center gap-2 mb-3">
+            <span class="badge-glass">Additional</span>
+            <h3 class="text-lg font-semibold">Technologies</h3>
+          </div>
           <div class="flex flex-wrap gap-3">
             {['Stakeholder Management', 'Requirement Analysis', 'Waterfall', 'Unit Testing', 'AI-assisted tooling'].map((tech) => (
-              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-dark-text-secondary">{tech}</span>
+              <span class="badge-glass">{tech}</span>
             ))}
           </div>
         </div>
@@ -128,6 +135,7 @@ import Layout from '../layouts/Layout.astro';
     <!-- Experience -->
     <section class="py-16 px-6 bg-dark-surface/70">
       <div class="max-w-6xl mx-auto space-y-10">
+        <div class="flex justify-center"><span class="badge-glass">Experience</span></div>
         <h2 class="text-3xl lg:text-4xl font-semibold text-center">Professional Experience</h2>
         <div class="space-y-6">
           <div class="panel gradient-border p-6">
@@ -176,6 +184,7 @@ import Layout from '../layouts/Layout.astro';
     <!-- Professional Development -->
     <section class="py-16 px-6">
       <div class="max-w-5xl mx-auto space-y-8">
+        <div class="flex justify-center"><span class="badge-glass">Growth</span></div>
         <h2 class="text-3xl lg:text-4xl font-semibold text-center">Professional Development</h2>
         <p class="text-lg text-dark-text-secondary text-center max-w-3xl mx-auto">
           Continuous learning through experimentation, documentation, and collaboration.
