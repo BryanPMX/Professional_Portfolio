@@ -213,10 +213,10 @@ import Layout from '../layouts/Layout.astro';
 <script>
   // Contact form handling
   document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form');
-    const submitButton = form?.querySelector('button[type="submit"]');
-    const submitText = submitButton?.querySelector('.submit-text');
-    const loadingText = submitButton?.querySelector('.loading-text');
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const submitButton = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const submitText = submitButton?.querySelector('.submit-text') as HTMLElement | null;
+    const loadingText = submitButton?.querySelector('.loading-text') as HTMLElement | null;
     const successMessage = document.getElementById('form-success');
     const errorMessage = document.getElementById('form-error');
     

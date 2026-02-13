@@ -12,14 +12,15 @@
     "clean": "rm -rf dist .astro node_modules/.astro"
   },
   "dependencies": {
-    "astro": "^4.15.0",
-    "@astrojs/tailwind": "^5.1.0",
     "@astrojs/react": "^3.6.0",
+    "@astrojs/tailwind": "^5.1.0",
+    "astro": "^5.17.2",
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "tailwindcss": "^3.4.0"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.2",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "typescript": "^5.5.0"
