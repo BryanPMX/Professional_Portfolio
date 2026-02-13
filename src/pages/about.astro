@@ -8,9 +8,7 @@ import Layout from '../layouts/Layout.astro';
     <section class="py-20 px-6">
       <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
         <div class="space-y-5">
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
-            Computer Scientist · Full-stack · Systems
-          </div>
+          <div class="badge-glass">Software Engineer · Secure systems · AI workflows</div>
           <h1 class="text-4xl lg:text-5xl font-semibold text-gradient leading-tight">
             I build reliable products with research-minded rigor and design-driven polish.
           </h1>
@@ -34,7 +32,7 @@ import Layout from '../layouts/Layout.astro';
             <a href="/contact" class="cta-solid">Get In Touch</a>
           </div>
         </div>
-        <div class="panel gradient-border p-6 max-w-md justify-self-center">
+        <div class="panel gradient-border p-6 max-w-sm justify-self-center">
           <div class="relative overflow-hidden rounded-2xl border border-white/10">
             <img 
               src="/assets/profile-pic.png" 
@@ -42,16 +40,11 @@ import Layout from '../layouts/Layout.astro';
               class="w-full h-full object-cover"
             />
           </div>
-          <div class="mt-6 grid gap-4 sm:grid-cols-2">
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Location</p>
-              <p class="text-sm font-semibold">El Paso, TX · US (MT)</p>
-            </div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Collaboration</p>
-              <p class="text-sm font-semibold">On-site / Remote</p>
-            </div>
+          <div class="mt-4 flex flex-wrap gap-2">
+            <span class="badge-glass">El Paso, TX (MT)</span>
+            <span class="badge-glass">On-site / Remote</span>
           </div>
+        </div>
         </div>
       </div>
     </section>
