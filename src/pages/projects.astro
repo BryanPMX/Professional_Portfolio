@@ -5,14 +5,14 @@ import ProjectCard from '../components/ProjectCard.astro';
 const projects = [
   {
     title: "CAF Case Management System",
-    description: "Comprehensive case management platform for Centro De Apoyo A.C. serving 200+ weekly clients. Features secure case intake, automated scheduling, analytics dashboard, and administrative tools. Built with Go backend (Gin, GORM) and PostgreSQL, Next.js 14 admin portal with TypeScript. Includes JWT authentication, WebSocket real-time updates, and audit logging. Reduced processing time by 40% through automated workflows.",
+    description: "End-to-end internal platform for Centro de Apoyo A.C., moving manual workflows into a React/TypeScript ecosystem. Includes secure PostgreSQL backend with RBAC, role-aware case intake, and automated reporting. Deployed with CI/CD across AWS/Vercel and Docker for self-hosting.",
     image: "/assets/project-3.png",
-    technologies: ["Go", "Next.js", "PostgreSQL", "TypeScript", "WebSockets"],
+    technologies: ["React", "TypeScript", "PostgreSQL", "RBAC", "Docker"],
     liveUrl: "#" // Video demo link will be provided
   },
   {
     title: "DEM Bravo (Docker Exploit Mapper)",
-    description: "Enterprise-grade cybersecurity platform processing 500+ container vulnerabilities per scan. Built with FastAPI backend and Neo4j graph database for accurate vulnerability correlation (99.2%). Features asynchronous Docker orchestration reducing scan time by 65%, and interactive SvelteKit dashboard with Cytoscape.js for network topology visualization. Implements STIG-compliant security with custom query sanitization.",
+    description: "Offline-first cybersecurity platform modeling container attack graphs with Neo4j. Built FastAPI services orchestrating Docker SDK streams and a SvelteKit dashboard for topology visualization. Implemented STIG-aligned query sanitization to prevent injection during multi-tool data ingestion.",
     image: "/assets/project-1.png",
     technologies: ["FastAPI", "Neo4j", "SvelteKit", "Docker", "Python"],
     githubUrl: "https://github.com/ChristianDees/CS4311_DEM_Bravo_Fall2025",
@@ -20,18 +20,10 @@ const projects = [
   },
   {
     title: "Bank of Miners",
-    description: "Full-stack modernization of legacy banking CLI into web application serving 10,000+ accounts. Optimized performance by 300% using custom BST implementation (O(log n)). Built secure banking core with Java OOP and Strategy patterns, supporting polymorphic account types. Implemented Write-Through caching reducing database load by 75%. Containerized with Docker achieving 99.9% uptime, with comprehensive CI/CD pipeline and 85%+ test coverage.",
+    description: "Modernized a legacy banking CLI into a web application. Implemented custom Binary Search Trees for O(log n) retrieval, Write-Through persistence for reliability, and integrated a React frontend with a Spring Boot REST API.",
     image: "/assets/project-2.png",
     technologies: ["Java", "Spring Boot", "React", "Docker", "PostgreSQL"],
     githubUrl: "https://github.com/BryanPMX/bank-system",
-    liveUrl: "#" // Will be provided later
-  },
-  {
-    title: "Zombie Survival Roguelite",
-    description: "Complete top-down survival roguelite game with 15 unique enemy types and procedural generation. Features advanced AI with collision-aware wave orchestration (60 FPS, 50+ entities), modular FSM enemy behaviors, and persistent meta-progression with 25+ upgrades. Implements decoupled architecture using SignalBus pattern and comprehensive JSON save system for cross-session progression tracking.",
-    image: "/assets/project-4.png",
-    technologies: ["Godot 4.5", "GDScript", "NavigationServer2D"],
-    githubUrl: "https://github.com/construction-team7/zombie-game",
     liveUrl: "#" // Will be provided later
   }
 ];

@@ -19,9 +19,9 @@ import Layout from '../layouts/Layout.astro';
           </p>
           <div class="grid grid-cols-3 gap-4">
             {[
-              { label: 'Experience', value: '3+ yrs' },
-              { label: 'Projects', value: '5+ shipped' },
-              { label: 'Tooling', value: 'Full-stack & ML' }
+              { label: 'Focus', value: 'Secure web systems' },
+              { label: 'Tooling', value: 'Go · TS · Java' },
+              { label: 'Collaboration', value: 'Product + Eng' }
             ].map((item) => (
               <div class="panel p-4 gradient-border text-center">
                 <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.label}</p>
@@ -34,14 +34,13 @@ import Layout from '../layouts/Layout.astro';
             <a href="/contact" class="cta-solid">Get In Touch</a>
           </div>
         </div>
-        <div class="panel gradient-border p-6">
+        <div class="panel gradient-border p-6 max-w-md justify-self-center">
           <div class="relative overflow-hidden rounded-2xl border border-white/10">
             <img 
               src="/assets/profile-pic.png" 
               alt="Bryan Perez" 
               class="w-full h-full object-cover"
             />
-            <div class="absolute top-4 right-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white shadow-lg shadow-accent/30">Remote ready</div>
           </div>
           <div class="mt-6 grid gap-4 sm:grid-cols-2">
             <div class="rounded-xl border border-white/10 bg-white/5 p-4">
@@ -50,7 +49,7 @@ import Layout from '../layouts/Layout.astro';
             </div>
             <div class="rounded-xl border border-white/10 bg-white/5 p-4">
               <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Collaboration</p>
-              <p class="text-sm font-semibold">Remote / Hybrid</p>
+              <p class="text-sm font-semibold">On-site / Remote</p>
             </div>
           </div>
         </div>
@@ -72,7 +71,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="space-y-2">
             <h3 class="text-xl font-semibold">University of Texas at El Paso</h3>
             <p class="text-lg text-accent">B.S. Computer Science • Minor in Mathematics</p>
-            <p class="text-sm text-dark-text-secondary">Graduated May 2024 · GPA 3.5</p>
+            <p class="text-sm text-dark-text-secondary">2021–2025 · GPA 3.5</p>
             <p class="text-sm text-dark-text-secondary leading-relaxed">
               Focused on algorithms, data structures, systems design, and applied software engineering with hands-on projects across web, AI, and game development.
             </p>
@@ -93,7 +92,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="panel gradient-border p-6 space-y-4">
             <h3 class="text-lg font-semibold text-accent">Programming Languages</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
-              {['Java', 'Python', 'Golang', 'TypeScript', 'JavaScript', 'C/C++'].map((lang) => (
+              {['Go', 'C#', 'TypeScript', 'JavaScript', 'Java', 'Python', 'SQL', 'HTML/CSS'].map((lang) => (
                 <div class="flex items-center gap-2 text-dark-text-secondary">
                   <span class="h-2 w-2 rounded-full bg-accent"></span>{lang}
                 </div>
@@ -103,7 +102,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="panel gradient-border p-6 space-y-4">
             <h3 class="text-lg font-semibold text-accent-purple">Web Development</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
-              {['React/Next.js', 'Astro', 'Spring Boot', 'FastAPI', 'SvelteKit', 'Tailwind'].map((item) => (
+              {['React', 'Next.js', 'Node.js', 'Tailwind CSS', 'SvelteKit', 'MVC Architecture'].map((item) => (
                 <div class="flex items-center gap-2 text-dark-text-secondary">
                   <span class="h-2 w-2 rounded-full bg-accent-purple"></span>{item}
                 </div>
@@ -113,7 +112,7 @@ import Layout from '../layouts/Layout.astro';
           <div class="panel gradient-border p-6 space-y-4">
             <h3 class="text-lg font-semibold text-accent">Tools & Infrastructure</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
-              {['Docker', 'AWS', 'PostgreSQL', 'Neo4j', 'Git/GitHub', 'Linux', 'CI/CD', 'WebSockets'].map((tool) => (
+              {['Microservices', 'REST APIs', 'CI/CD Pipelines', 'AWS', 'Docker', 'Proxmox', 'Agile/Scrum', 'Technical Documentation'].map((tool) => (
                 <div class="flex items-center gap-2 text-dark-text-secondary">
                   <span class="h-2 w-2 rounded-full bg-accent"></span>{tool}
                 </div>
@@ -125,7 +124,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="panel gradient-border p-6">
           <h3 class="text-lg font-semibold mb-3">Additional Technologies</h3>
           <div class="flex flex-wrap gap-3">
-            {['Scala', 'SQL', 'Gin', 'GORM', 'Node.js', 'JUnit 5', 'Postman', 'Dart', 'Astro', 'Design Systems', 'Animations'].map((tech) => (
+            {['Stakeholder Management', 'Requirement Analysis', 'Waterfall', 'Unit Testing', 'AI-assisted tooling'].map((tech) => (
               <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-dark-text-secondary">{tech}</span>
             ))}
           </div>
@@ -149,10 +148,10 @@ import Layout from '../layouts/Layout.astro';
                 <h3 class="text-lg font-semibold">Centro de Apoyo para la Familia A.C.</h3>
                 <p class="text-sm text-accent">Full Stack Developer • 2023 - Present</p>
                 <p class="text-sm text-dark-text-secondary">
-                  Engineered a local-first case management system (Go, PostgreSQL, GORM) with WebSockets, JWT auth, and audit logging serving 200+ weekly clients.
+                  Led the end-to-end design of an internal platform, translating manual workflows into a data-driven React/TypeScript ecosystem and serving as the technical liaison for leadership.
                 </p>
                 <p class="text-sm text-dark-text-secondary">
-                  Built a Next.js 14 admin portal with DI, Ant Design, and real-time case updates—cutting manual processing time by 40%.
+                  Engineered a secure PostgreSQL backend with RBAC and automated CI/CD across AWS/Vercel before migrating to Docker-based self-hosting.
                 </p>
               </div>
             </div>
