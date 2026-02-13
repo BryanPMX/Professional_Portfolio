@@ -4,232 +4,132 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="About - Bryan Perez">
   <div class="min-h-screen">
-    <!-- Hero Section -->
-    <section class="py-20 px-6">
+    <section class="py-20 px-6 reveal-on-scroll">
       <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
         <div class="space-y-5">
-          <div class="badge-glass">Software Engineer · Secure systems · AI workflows</div>
+          <div class="badge-glass">Software Engineer | Security-minded | AI-aware</div>
           <h1 class="text-4xl lg:text-5xl font-semibold text-gradient leading-tight">
-            I build reliable products with research-minded rigor and design-driven polish.
+            I build dependable software that teams can grow on.
           </h1>
           <p class="text-lg text-dark-text-secondary">
-            From civic tech to security tooling, I combine systems thinking, intentional UX, and a bias for shipping. Currently based in El Paso, TX—working with distributed teams across time zones.
+            My work spans full-stack delivery, secure backend design, and AI-assisted code quality.
           </p>
           <div class="grid grid-cols-3 gap-4">
             {[
-              { label: 'Focus', value: 'Secure web systems' },
-              { label: 'Tooling', value: 'Go · TS · Java' },
-              { label: 'Collaboration', value: 'Product + Eng' }
+              { label: 'Focus', value: 'Secure platforms' },
+              { label: 'Stack', value: 'Go / TS / Python' },
+              { label: 'Style', value: 'Ship weekly' }
             ].map((item) => (
-              <div class="panel p-4 gradient-border text-center">
+              <div class="panel gradient-border interactive-card p-4 text-center">
                 <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.label}</p>
-                <p class="text-xl font-semibold mt-1">{item.value}</p>
+                <p class="text-lg font-semibold mt-1">{item.value}</p>
               </div>
             ))}
           </div>
           <div class="flex flex-wrap gap-3">
-            <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Download Resume</a>
-            <a href="/contact" class="cta-solid">Get In Touch</a>
+            <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Resume</a>
+            <a href="/contact" class="cta-solid">Contact</a>
           </div>
         </div>
-        <div class="panel gradient-border p-6 max-w-sm justify-self-center">
+        <div class="panel gradient-border interactive-card p-6 max-w-sm justify-self-center">
           <div class="relative overflow-hidden rounded-2xl border border-white/10">
-            <img 
-              src="/assets/profile-pic.png" 
-              alt="Bryan Perez" 
-              class="w-full h-full object-cover"
-            />
+            <img src="/assets/profile-pic.png" alt="Bryan Perez" class="w-full h-full object-cover" />
           </div>
           <div class="mt-4 flex flex-wrap gap-2">
-            <span class="badge-glass">El Paso, TX (MT)</span>
-            <span class="badge-glass">On-site / Remote</span>
+            <span class="badge-glass">El Paso, TX</span>
+            <span class="badge-glass">Remote / On-site</span>
           </div>
-        </div>
         </div>
       </div>
     </section>
 
-    <!-- Education -->
-    <section class="py-16 px-6 bg-dark-surface/70">
+    <section class="py-16 px-6 bg-dark-surface/70 reveal-on-scroll">
       <div class="max-w-6xl mx-auto space-y-8">
-        <div class="flex justify-center">
-          <span class="badge-glass">Education</span>
-        </div>
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Education</h2>
-        <div class="panel gradient-border p-6 flex flex-col lg:flex-row gap-6 items-center lg:items-start">
+        <div class="flex justify-center"><span class="badge-glass">Education</span></div>
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">UTEP, Computer Science</h2>
+        <div class="panel gradient-border interactive-card p-6 flex flex-col lg:flex-row gap-6 items-center lg:items-start">
           <div class="flex-shrink-0">
-            <img 
-              src="/assets/utep-logo.jpeg" 
-              alt="UTEP Logo" 
-              class="w-24 h-24 rounded-full border-2 border-accent object-cover"
-            />
+            <img src="/assets/utep-logo.jpeg" alt="UTEP Logo" class="w-24 h-24 rounded-full border-2 border-accent object-cover" />
           </div>
           <div class="space-y-2">
-            <h3 class="text-xl font-semibold">University of Texas at El Paso</h3>
-            <p class="text-lg text-accent">B.S. Computer Science • Minor in Mathematics</p>
-            <p class="text-sm text-dark-text-secondary">2021–2025 · GPA 3.5</p>
+            <h3 class="text-xl font-semibold">B.S. Computer Science, Minor in Mathematics</h3>
+            <p class="text-lg text-accent">2021-2025 | GPA 3.5</p>
             <p class="text-sm text-dark-text-secondary leading-relaxed">
-              Focused on algorithms, data structures, systems design, and applied software engineering with hands-on projects across web, AI, and game development.
+              Core depth: algorithms, databases, software engineering, AI/ML, and computer security.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills -->
-    <section class="py-16 px-6">
+    <section class="py-16 px-6 reveal-on-scroll">
       <div class="max-w-6xl mx-auto space-y-10">
         <div class="text-center space-y-2">
           <div class="flex justify-center"><span class="badge-glass">Skills</span></div>
-          <h2 class="text-3xl lg:text-4xl font-semibold">Technical Range</h2>
-          <p class="text-dark-text-secondary">Languages, frameworks, and tooling I reach for daily.</p>
-        </div>
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="panel gradient-border p-6 space-y-4">
-            <div class="badge-glass w-fit">Programming Languages</div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              {['Go', 'C#', 'TypeScript', 'JavaScript', 'Java', 'Python', 'SQL', 'HTML/CSS'].map((lang) => (
-                <div class="flex items-center gap-2 text-dark-text-secondary">
-                  <span class="h-2 w-2 rounded-full bg-accent"></span>{lang}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="panel gradient-border p-6 space-y-4">
-            <div class="badge-glass w-fit">Web Development</div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              {['React', 'Next.js', 'Node.js', 'Tailwind CSS', 'SvelteKit', 'MVC Architecture'].map((item) => (
-                <div class="flex items-center gap-2 text-dark-text-secondary">
-                  <span class="h-2 w-2 rounded-full bg-accent-purple"></span>{item}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div class="panel gradient-border p-6 space-y-4">
-            <div class="badge-glass w-fit">Tools & Infrastructure</div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              {['Microservices', 'REST APIs', 'CI/CD Pipelines', 'AWS', 'Docker', 'Proxmox', 'Agile/Scrum', 'Technical Documentation'].map((tool) => (
-                <div class="flex items-center gap-2 text-dark-text-secondary">
-                  <span class="h-2 w-2 rounded-full bg-accent"></span>{tool}
-                </div>
-              ))}
-            </div>
-          </div>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Core Stack</h2>
+          <p class="text-dark-text-secondary">Tools I use to ship production work.</p>
         </div>
 
-        <div class="panel gradient-border p-6">
-          <div class="flex items-center gap-2 mb-3">
-            <span class="badge-glass">Additional</span>
-            <h3 class="text-lg font-semibold">Technologies</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="panel gradient-border interactive-card p-6 space-y-4">
+            <div class="badge-glass w-fit">Languages</div>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              {['Go', 'TypeScript', 'JavaScript', 'Java', 'Python', 'C#', 'SQL', 'HTML/CSS'].map((lang) => (
+                <div class="flex items-center gap-2 text-dark-text-secondary"><span class="h-2 w-2 rounded-full bg-accent"></span>{lang}</div>
+              ))}
+            </div>
           </div>
-          <div class="flex flex-wrap gap-3">
-            {['Stakeholder Management', 'Requirement Analysis', 'Waterfall', 'Unit Testing', 'AI-assisted tooling'].map((tech) => (
-              <span class="badge-glass">{tech}</span>
-            ))}
+          <div class="panel gradient-border interactive-card p-6 space-y-4">
+            <div class="badge-glass w-fit">Frontend and Frameworks</div>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              {['React', 'Next.js', 'Astro', 'Tailwind', 'SvelteKit', 'Node.js'].map((item) => (
+                <div class="flex items-center gap-2 text-dark-text-secondary"><span class="h-2 w-2 rounded-full bg-accent-purple"></span>{item}</div>
+              ))}
+            </div>
+          </div>
+          <div class="panel gradient-border interactive-card p-6 space-y-4">
+            <div class="badge-glass w-fit">Architecture and DevOps</div>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              {['Microservices', 'REST APIs', 'CI/CD', 'AWS', 'Docker', 'Proxmox', 'PostgreSQL', 'Neo4j'].map((tool) => (
+                <div class="flex items-center gap-2 text-dark-text-secondary"><span class="h-2 w-2 rounded-full bg-accent"></span>{tool}</div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Experience -->
-    <section class="py-16 px-6 bg-dark-surface/70">
+    <section class="py-16 px-6 bg-dark-surface/70 reveal-on-scroll">
       <div class="max-w-6xl mx-auto space-y-10">
         <div class="flex justify-center"><span class="badge-glass">Experience</span></div>
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Professional Experience</h2>
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Recent Work</h2>
         <div class="space-y-6">
-          <div class="panel gradient-border p-6">
-            <div class="flex items-start gap-4">
-              <div class="grid h-12 w-12 place-items-center rounded-xl bg-accent/20 text-accent flex-shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                </svg>
-              </div>
-              <div class="space-y-2">
-                <h3 class="text-lg font-semibold">Centro de Apoyo para la Familia A.C.</h3>
-                <p class="text-sm text-accent">Full Stack Developer • 2023 - Present</p>
-                <p class="text-sm text-dark-text-secondary">
-                  Led the end-to-end design of an internal platform, translating manual workflows into a data-driven React/TypeScript ecosystem and serving as the technical liaison for leadership.
-                </p>
-                <p class="text-sm text-dark-text-secondary">
-                  Engineered a secure PostgreSQL backend with RBAC and automated CI/CD across AWS/Vercel before migrating to Docker-based self-hosting.
-                </p>
-              </div>
-            </div>
+          <div class="panel gradient-border interactive-card p-6">
+            <h3 class="text-lg font-semibold">Centro de Apoyo para la Familia A.C.</h3>
+            <p class="text-sm text-accent">Full Stack Developer | 2023-present</p>
+            <p class="text-sm text-dark-text-secondary mt-2">
+              Led the platform shift from manual workflows to a React/TypeScript system with secure RBAC data handling and CI/CD-backed delivery.
+            </p>
           </div>
 
-          <div class="panel gradient-border p-6">
-            <div class="flex items-start gap-4">
-              <div class="grid h-12 w-12 place-items-center rounded-xl bg-accent-purple/20 text-accent-purple flex-shrink-0">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                </svg>
-              </div>
-              <div class="space-y-2">
-                <h3 class="text-lg font-semibold">Outlier.ai</h3>
-                <p class="text-sm text-accent-purple">Remote AI Code Expert • 2024 - Present</p>
-                <p class="text-sm text-dark-text-secondary">
-                  Evaluate and refine AI-generated code in Java and Python, emphasizing algorithmic complexity, security, and performance for LLM training datasets.
-                </p>
-                <p class="text-sm text-dark-text-secondary">
-                  Authored solutions with advanced data structures and performed rigorous code reviews to raise model quality.
-                </p>
-              </div>
-            </div>
+          <div class="panel gradient-border interactive-card p-6">
+            <h3 class="text-lg font-semibold">Outlier.ai</h3>
+            <p class="text-sm text-accent-purple">AI Engineer | 2024-present</p>
+            <p class="text-sm text-dark-text-secondary mt-2">
+              Evaluated AI-generated Java/Python code for quality, complexity, and correctness to improve model reasoning.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Professional Development -->
-    <section class="py-16 px-6">
-      <div class="max-w-5xl mx-auto space-y-8">
-        <div class="flex justify-center"><span class="badge-glass">Growth</span></div>
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Professional Development</h2>
-        <p class="text-lg text-dark-text-secondary text-center max-w-3xl mx-auto">
-          Continuous learning through experimentation, documentation, and collaboration.
-        </p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            { title: 'Technical Excellence', copy: 'Stay current with emerging tools and patterns; measure performance and reliability.' },
-            { title: 'Code Quality', copy: 'High standards in code reviews, testing, and documentation for reproducible work.' },
-            { title: 'Problem Solving', copy: 'Algorithmic thinking and system design applied to complex, ambiguous challenges.' }
-          ].map((item, idx) => (
-            <div class="panel gradient-border p-5 space-y-2">
-              <div class={`grid h-10 w-10 place-items-center rounded-lg ${idx === 1 ? 'bg-accent-purple/20 text-accent-purple' : 'bg-accent/20 text-accent'}`}>
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-              </div>
-              <h3 class="text-base font-semibold">{item.title}</h3>
-              <p class="text-sm text-dark-text-secondary">{item.copy}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <!-- Resume Download CTA -->
-    <section class="py-16 px-6 bg-dark-surface/70">
-      <div class="max-w-4xl mx-auto panel gradient-border p-10 text-center space-y-4">
-        <h2 class="text-3xl lg:text-4xl font-semibold">Want to know more?</h2>
-        <p class="text-xl text-dark-text-secondary">
-          Grab the resume or reach out to discuss how I can help ship your next release.
-        </p>
+    <section class="py-16 px-6 reveal-on-scroll">
+      <div class="max-w-4xl mx-auto panel gradient-border interactive-card p-10 text-center space-y-4">
+        <h2 class="text-3xl lg:text-4xl font-semibold">Let’s build something useful.</h2>
+        <p class="text-lg text-dark-text-secondary">I can join as an engineer, technical lead, or delivery partner.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/assets/Bryan Resume 2025.pdf" 
-            target="_blank"
-            class="cta-solid"
-          >
-            Download Resume
-          </a>
-          <a 
-            href="/contact" 
-            class="cta-ghost"
-          >
-            Get In Touch
-          </a>
+          <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-solid">View Resume</a>
+          <a href="/contact" class="cta-ghost">Start a conversation</a>
         </div>
       </div>
     </section>

@@ -4,7 +4,7 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Developer" } = Astro.props;
+const { title, description = "Bryan Perez - Software Engineer" } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -14,15 +14,14 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
     <title>{title}</title>
   </head>
   <body class="bg-dark-bg text-dark-text min-h-screen antialiased">
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-white px-3 py-2 rounded-md shadow-lg">Skip to content</a>
 
-    <!-- Ambient background layers -->
     <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
       <div class="absolute -left-40 -top-40 h-96 w-96 bg-accent/10 blur-3xl rounded-full animate-[pulse_8s_ease-in-out_infinite]"></div>
       <div class="absolute right-[-10%] top-20 h-[28rem] w-[28rem] bg-accent-purple/10 blur-[110px] rounded-full"></div>
@@ -30,7 +29,6 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(59,130,246,0.08),transparent_25%),radial-gradient(circle_at_80%_0%,rgba(139,92,246,0.08),transparent_20%),radial-gradient(circle_at_50%_90%,rgba(255,255,255,0.05),transparent_25%)]"></div>
     </div>
 
-    <!-- Navigation -->
     <nav class="fixed top-0 left-0 right-0 z-50">
       <div id="nav-bar" class="mx-auto max-w-6xl px-4 sm:px-6 py-4 mt-4 rounded-2xl border border-white/5 bg-dark-surface/70 backdrop-blur-xl shadow-[0_25px_80px_-25px_rgba(0,0,0,0.55)] transition-all">
         <div class="flex items-center justify-between gap-4">
@@ -42,7 +40,6 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
             </div>
           </a>
 
-          <!-- Desktop Navigation -->
           <div class="hidden lg:flex items-center gap-2">
             <div class="flex rounded-full bg-dark-bg/80 border border-white/5 p-1">
               {[
@@ -57,18 +54,16 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
               ))}
             </div>
             <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Resume</a>
-            <a href="/contact" class="cta-solid">Let’s talk</a>
+            <a href="/contact" class="cta-solid">Hire me</a>
           </div>
 
-          <!-- Mobile Menu Button -->
-          <button id="mobile-menu-btn" class="lg:hidden inline-flex items-center justify-center rounded-xl border border-white/10 bg-dark-bg/80 p-3 text-dark-text hover:border-accent transition-all">
+          <button id="mobile-menu-btn" class="lg:hidden inline-flex items-center justify-center rounded-xl border border-white/10 bg-dark-bg/80 p-3 text-dark-text hover:border-accent transition-all" aria-label="Toggle menu">
             <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
 
-        <!-- Mobile Navigation -->
         <div id="mobile-menu" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 lg:hidden">
           <div class="overflow-hidden">
             <div class="mt-4 space-y-2 rounded-2xl border border-white/5 bg-dark-bg/80 p-3 shadow-lg">
@@ -84,29 +79,27 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
               ))}
               <div class="grid grid-cols-2 gap-2 pt-2">
                 <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost text-center">Resume</a>
-                <a href="/contact" class="cta-solid text-center">Let’s talk</a>
+                <a href="/contact" class="cta-solid text-center">Hire me</a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </nav>
-    
-    <!-- Main Content -->
+
     <main id="main-content" class="pt-32">
       <slot />
     </main>
-    
-    <!-- Footer -->
+
     <footer class="mt-24 border-t border-white/5 bg-dark-surface/80 backdrop-blur-xl">
       <div class="mx-auto max-w-6xl px-4 sm:px-6 py-12">
         <div class="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr] md:items-start">
           <div class="space-y-3 text-center md:text-left">
-            <p class="text-sm uppercase tracking-[0.25em] text-dark-text-secondary">Crafting digital experiences</p>
-            <p class="text-responsive-md font-semibold">Building thoughtful software, research, and playful experiences.</p>
+            <p class="text-sm uppercase tracking-[0.25em] text-dark-text-secondary">Build fast. Build right.</p>
+            <p class="text-responsive-md font-semibold">Secure systems, clean UX, and AI-aware engineering.</p>
             <div class="flex gap-3 justify-center md:justify-start">
               <a href="mailto:perez.bryan24@outlook.com" class="cta-ghost">Email</a>
-              <a href="/contact" class="cta-solid">Start a project</a>
+              <a href="/contact" class="cta-solid">Start</a>
             </div>
           </div>
           <div class="text-center">
@@ -130,7 +123,7 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
           </div>
         </div>
         <div class="mt-10 flex flex-col gap-2 border-t border-white/5 pt-6 text-sm text-dark-text-secondary sm:flex-row sm:items-center sm:justify-between">
-          <span>© 2025 Bryan Perez. All rights reserved.</span>
+          <span>© 2026 Bryan Perez. All rights reserved.</span>
           <span class="flex items-center gap-2 text-xs uppercase tracking-[0.3em]">El Paso, TX</span>
         </div>
       </div>
@@ -177,7 +170,6 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
 
-      // Mobile menu accordion
       if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', () => {
           const isOpen = mobileMenu.style.gridTemplateRows === '1fr';
@@ -185,18 +177,16 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
           mobileMenuBtn.classList.toggle('border-accent', !isOpen);
         });
       }
-      
-      // Set active nav link
+
       const currentPath = window.location.pathname;
       const navLinks = document.querySelectorAll('.nav-pill, .nav-link-mobile');
-      
-      navLinks.forEach(link => {
+
+      navLinks.forEach((link) => {
         if (link.getAttribute('href') === currentPath) {
           link.classList.add('active');
         }
       });
 
-      // Elevate nav on scroll
       const handleScroll = () => {
         if (!nav) return;
         if (window.scrollY > 12) {
@@ -206,7 +196,46 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
         }
       };
 
+      const setupReveal = () => {
+        const nodes = document.querySelectorAll('.reveal-on-scroll');
+        if (!nodes.length) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12 }
+        );
+
+        nodes.forEach((node) => observer.observe(node));
+      };
+
+      const setupCardGlow = () => {
+        const cards = document.querySelectorAll('.interactive-card');
+        cards.forEach((card) => {
+          card.addEventListener('mousemove', (event) => {
+            const mouseEvent = event as MouseEvent;
+            const htmlCard = card as HTMLElement;
+            const rect = card.getBoundingClientRect();
+            const x = mouseEvent.clientX - rect.left;
+            const y = mouseEvent.clientY - rect.top;
+            htmlCard.style.setProperty('--mx', `${x}px`);
+            htmlCard.style.setProperty('--my', `${y}px`);
+          });
+        });
+      };
+
       document.addEventListener('scroll', handleScroll, { passive: true });
+      window.addEventListener('load', () => {
+        setupReveal();
+        setupCardGlow();
+      });
+
       handleScroll();
     </script>
   </body>

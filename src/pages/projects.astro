@@ -4,51 +4,44 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 const projects = [
   {
-    title: "CAF Case Management System",
-    description: "End-to-end internal platform for Centro de Apoyo A.C., moving manual workflows into a React/TypeScript ecosystem. Includes secure PostgreSQL backend with RBAC, role-aware case intake, and automated reporting. Deployed with CI/CD across AWS/Vercel and Docker for self-hosting.",
-    image: "/assets/project-3.png",
-    technologies: ["React", "TypeScript", "PostgreSQL", "RBAC", "Docker"],
-    liveUrl: "#" // Video demo link will be provided
+    title: 'CAF Case Management',
+    description: 'Internal case platform that replaced manual flow with React/TypeScript, RBAC, and automated reporting.',
+    image: '/assets/project-3.png',
+    technologies: ['React', 'TypeScript', 'PostgreSQL', 'RBAC', 'Docker'],
+    liveUrl: '#'
   },
   {
-    title: "DEM Bravo (Docker Exploit Mapper)",
-    description: "Offline-first cybersecurity platform modeling container attack graphs with Neo4j. Built FastAPI services orchestrating Docker SDK streams and a SvelteKit dashboard for topology visualization. Implemented STIG-aligned query sanitization to prevent injection during multi-tool data ingestion.",
-    image: "/assets/project-1.png",
-    technologies: ["FastAPI", "Neo4j", "SvelteKit", "Docker", "Python"],
-    githubUrl: "https://github.com/ChristianDees/CS4311_DEM_Bravo_Fall2025",
-    liveUrl: "#" // Will be provided later
+    title: 'DEM Bravo',
+    description: 'Offline-first cyber graph platform using FastAPI + Neo4j with query sanitization to block injection paths.',
+    image: '/assets/project-1.png',
+    technologies: ['FastAPI', 'Neo4j', 'SvelteKit', 'Docker', 'Python'],
+    githubUrl: 'https://github.com/ChristianDees/CS4311_DEM_Bravo_Fall2025',
+    liveUrl: '#'
   },
   {
-    title: "Bank of Miners",
-    description: "Modernized a legacy banking CLI into a web application. Implemented custom Binary Search Trees for O(log n) retrieval, Write-Through persistence for reliability, and integrated a React frontend with a Spring Boot REST API.",
-    image: "/assets/project-2.png",
-    technologies: ["Java", "Spring Boot", "React", "Docker", "PostgreSQL"],
-    githubUrl: "https://github.com/BryanPMX/bank-system",
-    liveUrl: "#" // Will be provided later
+    title: 'Bank of Miners',
+    description: 'Legacy banking system rebuilt as a web app with custom BST logic, Spring Boot APIs, and React UI.',
+    image: '/assets/project-2.png',
+    technologies: ['Java', 'Spring Boot', 'React', 'Docker', 'PostgreSQL'],
+    githubUrl: 'https://github.com/BryanPMX/bank-system',
+    liveUrl: '#'
   }
 ];
 ---
 
 <Layout title="Projects - Bryan Perez">
   <div class="min-h-screen">
-    <!-- Header Section -->
-    <section class="py-20 px-6">
+    <section class="py-20 px-6 reveal-on-scroll">
       <div class="max-w-6xl mx-auto flex flex-col gap-6 text-center">
-        <div class="badge-glass self-center">Case studies · End-to-end delivery</div>
-        <h1 class="text-4xl lg:text-5xl font-semibold text-gradient">Projects that balance speed, reliability, and polish.</h1>
+        <div class="badge-glass self-center">Case studies | Shipped systems</div>
+        <h1 class="text-4xl lg:text-5xl font-semibold text-gradient">Work that ships and holds up.</h1>
         <p class="text-lg text-dark-text-secondary max-w-3xl self-center">
-          Real shipped work across civic tech, cybersecurity, finance modernizations, and games. Each project pairs robust architecture with tactile UI.
+          Real delivery across civic tech, cybersecurity, and platform modernization.
         </p>
-        <div class="flex flex-wrap justify-center gap-3">
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Go · Next.js · PostgreSQL</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">FastAPI · Neo4j · Docker</span>
-          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">WebSockets · CI/CD</span>
-        </div>
       </div>
     </section>
 
-    <!-- Projects Grid -->
-    <section class="pb-20 px-6">
+    <section class="pb-20 px-6 reveal-on-scroll">
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {projects.map((project) => (
           <ProjectCard
@@ -64,29 +57,23 @@ const projects = [
       </div>
     </section>
 
-    <!-- Delivery Principles -->
-    <section class="py-20 px-6 bg-dark-surface/70">
+    <section class="py-20 px-6 bg-dark-surface/70 reveal-on-scroll">
       <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.1fr] items-center">
         <div class="space-y-4">
-          <p class="badge-glass w-fit">How I deliver</p>
-          <h2 class="text-3xl lg:text-4xl font-semibold">Intentional processes that keep momentum.</h2>
+          <p class="badge-glass w-fit">Delivery model</p>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Simple process. Strong outcomes.</h2>
           <p class="text-dark-text-secondary">
-            From kickoff to launch, I keep teams aligned with concise docs, observable systems, and frequent demos. Reliability first, then refinement.
+            I keep momentum with clear specs, weekly demos, and secure production standards.
           </p>
-          <div class="flex flex-wrap gap-3">
-            <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-dark-text-secondary">RFCs & architecture notes</span>
-            <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-dark-text-secondary">Automated QA + CI/CD</span>
-            <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-dark-text-secondary">Performance budgets</span>
-          </div>
         </div>
         <div class="grid gap-4 md:grid-cols-2">
           {[
-            { title: 'Discovery → Prototype', copy: 'Rapid technical spikes with measurable benchmarks before full build.' },
-            { title: 'Production Guardrails', copy: 'Auth, RBAC, telemetry, and load testing baked into the foundation.' },
-            { title: 'Design & Motion', copy: 'Micro-interactions and visual systems that stay consistent across pages.' },
-            { title: 'Knowledge Transfer', copy: 'Lightweight docs, runnable demos, and handoff sessions to keep teams shipping.' }
+            { title: 'Scope fast', copy: 'Define goals, risks, and constraints early.' },
+            { title: 'Build safely', copy: 'Ship with auth, tests, and release guardrails.' },
+            { title: 'Polish UI', copy: 'Refine interaction without sacrificing speed.' },
+            { title: 'Handoff cleanly', copy: 'Leave docs and maintainable architecture.' }
           ].map((item) => (
-            <div class="panel p-4 gradient-border">
+            <div class="panel gradient-border interactive-card p-4">
               <h3 class="text-lg font-semibold mb-2">{item.title}</h3>
               <p class="text-sm text-dark-text-secondary leading-relaxed">{item.copy}</p>
             </div>
@@ -95,28 +82,16 @@ const projects = [
       </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="py-20 px-6">
-      <div class="max-w-5xl mx-auto panel gradient-border p-10 text-center space-y-6">
-        <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Let’s collaborate</p>
-        <h2 class="text-3xl lg:text-4xl font-semibold">Have an idea or platform that needs shipping?</h2>
+    <section class="py-20 px-6 reveal-on-scroll">
+      <div class="max-w-5xl mx-auto panel gradient-border interactive-card p-10 text-center space-y-6">
+        <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Collaboration</p>
+        <h2 class="text-3xl lg:text-4xl font-semibold">Need a builder on your team?</h2>
         <p class="text-dark-text-secondary max-w-3xl mx-auto">
-          I join teams as a builder, not just a consultant—shipping features, establishing foundations, and leaving teams with lasting systems.
+          I can join to design, implement, and stabilize the next release.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/contact" 
-            class="cta-solid"
-          >
-            Get In Touch
-          </a>
-          <a 
-            href="/assets/Bryan Resume 2025.pdf" 
-            target="_blank"
-            class="cta-ghost"
-          >
-            View Resume
-          </a>
+          <a href="/contact" class="cta-solid">Contact me</a>
+          <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Resume</a>
         </div>
       </div>
     </section>

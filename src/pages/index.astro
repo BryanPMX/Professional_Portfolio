@@ -2,44 +2,44 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="Bryan Perez - Computer Scientist">
-  <!-- Hero Section -->
-  <section class="px-6 pb-24">
+<Layout title="Bryan Perez - Software Engineer">
+  <section class="px-6 pb-24 reveal-on-scroll">
     <div class="mx-auto max-w-6xl grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
       <div class="space-y-8 animate-fade-in">
         <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
           <span class="h-2 w-2 rounded-full bg-green-400 animate-pulse"></span>
-          Accepting new projects — Feb 2026
+          Open for new roles - Feb 2026
         </div>
+
         <div class="space-y-4">
-          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-dark-text-secondary">Software Engineer · Secure Systems · AI Workflows</p>
+          <p class="text-sm font-semibold uppercase tracking-[0.22em] text-dark-text-secondary">Software Engineer | Secure Systems | AI Workflows</p>
           <h1 class="text-5xl lg:text-6xl font-semibold leading-tight text-gradient">
-            I design scalable, secure software and lead AI-driven development workflows.
+            Secure software. Sharp UX. Fast delivery.
           </h1>
           <p class="text-lg text-dark-text-secondary max-w-2xl">
-            Experienced across the full SDLC: translating stakeholder needs into technical roadmaps, shipping cloud-native apps, and refining code quality with AI-assisted tools.
+            I turn complex business problems into reliable products, from planning to deployment.
           </p>
         </div>
 
         <div class="flex flex-wrap gap-3">
-          <a href="/contact" class="cta-solid">Start a project</a>
-          <a href="/projects" class="cta-ghost">See recent work</a>
+          <a href="/contact" class="cta-solid">Hire me</a>
+          <a href="/projects" class="cta-ghost">View projects</a>
           <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost border-dashed">Resume</a>
         </div>
 
         <div class="flex flex-wrap gap-2">
-          <span class="badge-glass">El Paso, TX (MT)</span>
-          <span class="badge-glass">Open to full-time & freelance</span>
-          <span class="badge-glass">Secure systems · AI workflows</span>
+          <span class="badge-glass">El Paso, TX</span>
+          <span class="badge-glass">Full-time + freelance</span>
+          <span class="badge-glass">US Mountain Time</span>
         </div>
 
         <div class="grid gap-4 sm:grid-cols-3">
           {[
-            { title: 'Platform Delivery', desc: 'End-to-end builds from stakeholder requirements to production rollouts.' },
-            { title: 'Secure Backends', desc: 'RBAC-backed data layers, API hardening, and CI/CD validation.' },
-            { title: 'AI-Assisted Quality', desc: 'LLM-evaluated code paths with unit testing and complexity checks.' }
+            { title: 'CAF Platform', desc: 'Moved manual operations into a React + TypeScript system.' },
+            { title: 'AI Code Quality', desc: 'Reviewed and improved Java/Python outputs for Outlier.' },
+            { title: 'Security Focus', desc: 'Built RBAC backends and STIG-style hardening workflows.' }
           ].map((item) => (
-            <div class="panel gradient-border p-4">
+            <div class="panel gradient-border interactive-card p-4">
               <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary mb-1">{item.title}</p>
               <p class="text-sm text-dark-text-secondary">{item.desc}</p>
             </div>
@@ -47,8 +47,8 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
 
-      <div class="relative">
-        <div class="panel gradient-border p-6 lg:p-8">
+      <div class="relative reveal-on-scroll">
+        <div class="panel gradient-border interactive-card p-6 lg:p-8">
           <div class="flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
               <div class="relative h-16 w-16 overflow-hidden rounded-2xl border border-white/10">
@@ -64,20 +64,20 @@ import Layout from '../layouts/Layout.astro';
 
           <div class="mt-6 grid gap-3 rounded-2xl bg-dark-bg/60 p-4 sm:grid-cols-2">
             <div class="rounded-xl border border-white/5 bg-white/5 p-4">
-              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Focus</p>
-              <p class="text-sm font-semibold">Full-stack systems, ML tooling, game loops</p>
+              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Now building</p>
+              <p class="text-sm font-semibold">Secure web apps, data systems, ML tooling</p>
             </div>
             <div class="rounded-xl border border-white/5 bg-white/5 p-4">
-              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Toolkit</p>
-              <p class="text-sm font-semibold">Go · TypeScript · React/Next · FastAPI · Neo4j · Godot</p>
+              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Core stack</p>
+              <p class="text-sm font-semibold">Go, TypeScript, React, FastAPI, PostgreSQL, Neo4j</p>
             </div>
           </div>
 
           <div class="mt-6 grid gap-3 sm:grid-cols-3">
             {[
-              { label: 'Ship cadence', value: 'Iterative sprints' },
-              { label: 'Location', value: 'El Paso, TX (MT)' },
-              { label: 'Collaboration', value: 'On-site / remote' }
+              { label: 'Education', value: 'UTEP CS + Math' },
+              { label: 'Experience', value: '2023-present' },
+              { label: 'Mode', value: 'Remote / On-site' }
             ].map((item) => (
               <div class="rounded-xl border border-white/5 bg-white/5 p-3">
                 <p class="text-[11px] uppercase tracking-[0.2em] text-dark-text-secondary">{item.label}</p>
@@ -91,122 +91,73 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </div>
   </section>
-  
-  <!-- Capabilities -->
-  <section class="py-20 px-6 bg-dark-surface/60">
+
+  <section class="py-20 px-6 bg-dark-surface/60 reveal-on-scroll">
     <div class="max-w-6xl mx-auto space-y-12">
       <div class="flex flex-col gap-4 text-center">
-        <p class="badge-glass mx-auto">What I deliver</p>
-        <h2 class="text-3xl lg:text-4xl font-semibold text-gradient-accent">Technical range, product intuition, and research rigor.</h2>
+        <p class="badge-glass mx-auto">What I do</p>
+        <h2 class="text-3xl lg:text-4xl font-semibold text-gradient-accent">I ship products that stay fast, secure, and usable.</h2>
         <p class="text-dark-text-secondary text-lg max-w-3xl mx-auto">
-          I move from whiteboard to production: systems design, implementation, and UX polish—with measurable outcomes.
+          I handle architecture, implementation, and polish with measurable outcomes.
         </p>
-        <div class="flex flex-wrap justify-center gap-2">
-          <span class="badge-glass">Full SDLC</span>
-          <span class="badge-glass">Security-first</span>
-          <span class="badge-glass">AI-assisted QA</span>
-        </div>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <div class="panel gradient-border p-6 space-y-4">
-          <div class="flex items-center gap-3">
-            <div class="h-11 w-11 rounded-xl bg-accent/15 grid place-items-center text-accent">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm text-dark-text-secondary uppercase tracking-[0.16em]">Product Engineering</p>
-              <p class="text-lg font-semibold">Interfaces that feel intentional</p>
-            </div>
-          </div>
+        <div class="panel gradient-border interactive-card p-6 space-y-4">
+          <p class="text-sm text-dark-text-secondary uppercase tracking-[0.16em]">Product Engineering</p>
+          <p class="text-lg font-semibold">Clear interfaces that convert.</p>
           <p class="text-sm text-dark-text-secondary leading-relaxed">
-            React/Next, Astro, Tailwind, motion design, accessibility, and design systems that scale with teams.
+            React, Next.js, Astro, and design systems that scale with teams.
           </p>
-          <div class="flex flex-wrap gap-2 text-xs">
-            {['React / Next.js', 'Astro', 'Design systems', 'Animations', 'A11y'].map((tag) => (
-              <span class="rounded-full border border-white/10 px-3 py-1 text-dark-text-secondary">{tag}</span>
-            ))}
-          </div>
         </div>
 
-        <div class="panel gradient-border p-6 space-y-4">
-          <div class="flex items-center gap-3">
-            <div class="h-11 w-11 rounded-xl bg-accent-purple/15 grid place-items-center text-accent-purple">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm text-dark-text-secondary uppercase tracking-[0.16em]">Systems & Data</p>
-              <p class="text-lg font-semibold">Reliable, observable backends</p>
-            </div>
-          </div>
+        <div class="panel gradient-border interactive-card p-6 space-y-4">
+          <p class="text-sm text-dark-text-secondary uppercase tracking-[0.16em]">Systems and Data</p>
+          <p class="text-lg font-semibold">Backends you can trust.</p>
           <p class="text-sm text-dark-text-secondary leading-relaxed">
-            Go + PostgreSQL, FastAPI + Neo4j, WebSockets, auth, and CI/CD pipelines with real-time telemetry.
+            RBAC, API hardening, observability, and CI/CD delivery pipelines.
           </p>
-          <div class="flex flex-wrap gap-2 text-xs">
-            {['Go / Gin / GORM', 'FastAPI', 'Neo4j', 'PostgreSQL', 'CI/CD'].map((tag) => (
-              <span class="rounded-full border border-white/10 px-3 py-1 text-dark-text-secondary">{tag}</span>
-            ))}
-          </div>
         </div>
 
-        <div class="panel gradient-border p-6 space-y-4">
-          <div class="flex items-center gap-3">
-            <div class="h-11 w-11 rounded-xl bg-accent/12 grid place-items-center text-accent">
-              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
-            </div>
-            <div>
-              <p class="text-sm text-dark-text-secondary uppercase tracking-[0.16em]">Research & Games</p>
-              <p class="text-lg font-semibold">Experimental, measurable outcomes</p>
-            </div>
-          </div>
+        <div class="panel gradient-border interactive-card p-6 space-y-4">
+          <p class="text-sm text-dark-text-secondary uppercase tracking-[0.16em]">Research and Games</p>
+          <p class="text-lg font-semibold">Experiments with real signal.</p>
           <p class="text-sm text-dark-text-secondary leading-relaxed">
-            ML experiments (RL, SVM), performance benchmarking, and game loops built with Godot and Canvas.
+            RL studies, SVM experimentation, and responsive gameplay loops.
           </p>
-          <div class="flex flex-wrap gap-2 text-xs">
-            {['RL / PPO / DQN', 'SVM', 'Godot 4', 'Canvas games', 'Instrumentation'].map((tag) => (
-              <span class="rounded-full border border-white/10 px-3 py-1 text-dark-text-secondary">{tag}</span>
-            ))}
-          </div>
         </div>
       </div>
     </div>
   </section>
-  
-  <!-- Quick Links Section -->
-  <section class="py-20 px-6">
-      <div class="max-w-6xl mx-auto space-y-10">
-        <div class="flex flex-col gap-3 text-center">
-          <p class="badge-glass mx-auto">Explore</p>
-          <h2 class="text-3xl lg:text-4xl font-semibold">Choose where to dive in.</h2>
-        </div>
+
+  <section class="py-20 px-6 reveal-on-scroll">
+    <div class="max-w-6xl mx-auto space-y-10">
+      <div class="flex flex-col gap-3 text-center">
+        <p class="badge-glass mx-auto">Explore</p>
+        <h2 class="text-3xl lg:text-4xl font-semibold">Pick a track.</h2>
+      </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {[
-          { href: '/projects', title: 'Projects', copy: 'Full-stack platforms, dashboards, and secure systems.', accent: 'from-accent to-accent-purple' },
-          { href: '/games', title: 'Games', copy: 'Browser-native games with smooth controls and effects.', accent: 'from-accent-purple to-accent' },
-          { href: '/about', title: 'About', copy: 'Experience, education, and how I operate.', accent: 'from-accent to-white' }
+          { href: '/projects', title: 'Projects', copy: 'Shipped systems and case studies.', accent: 'from-accent to-accent-purple' },
+          { href: '/games', title: 'Games', copy: 'Playable browser experiences.', accent: 'from-accent-purple to-accent' },
+          { href: '/about', title: 'About', copy: 'Background, stack, and work style.', accent: 'from-accent to-white' }
         ].map((card) => (
           <a
             href={card.href}
-            class="group relative overflow-hidden rounded-2xl border border-white/5 bg-dark-surface/70 p-7 shadow-[0_18px_60px_-32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-2 hover:border-accent"
+            class="group interactive-card relative overflow-hidden rounded-2xl border border-white/5 bg-dark-surface/70 p-7 shadow-[0_18px_60px_-32px_rgba(0,0,0,0.6)] transition-all duration-300 hover:-translate-y-2 hover:border-accent"
           >
             <div class={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br ${card.accent} blur-3xl`}></div>
             <div class="relative space-y-4">
               <div class="inline-flex items-center gap-2 rounded-full bg-white/5 px-3 py-1 text-xs font-semibold text-dark-text-secondary">
                 {card.title === 'Projects' && 'Case studies'}
-                {card.title === 'Games' && 'Playable now'}
+                {card.title === 'Games' && 'Play now'}
                 {card.title === 'About' && 'Profile'}
               </div>
               <div class="flex items-center justify-between">
                 <h3 class="text-xl font-semibold">{card.title}</h3>
                 <div class="grid h-10 w-10 place-items-center rounded-full bg-white/5 text-dark-text transition-all group-hover:bg-dark-bg group-hover:text-white group-hover:-translate-y-1">
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </div>
               </div>

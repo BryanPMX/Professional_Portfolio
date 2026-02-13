@@ -4,52 +4,46 @@ import ProjectCard from '../components/ProjectCard.astro';
 
 const games = [
   {
-    title: "Space Invaders",
-    description: "A classic arcade-style space shooter game with smooth animations, power-ups, and increasing difficulty levels. Features collision detection, particle effects, and retro-style graphics.",
-    image: "/assets/space-invaders.png",
-    technologies: ["JavaScript", "HTML5 Canvas", "CSS3", "Game Physics"],
-    githubUrl: "https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/space-invaders.astro",
-    gameUrl: "/games/space-invaders"
+    title: 'Space Invaders',
+    description: 'Retro shooter with fluid controls, wave pressure, and particle-heavy feedback.',
+    image: '/assets/space-invaders.png',
+    technologies: ['JavaScript', 'Canvas', 'CSS', 'Game Physics'],
+    githubUrl: 'https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/space-invaders.astro',
+    gameUrl: '/games/space-invaders'
   },
   {
-    title: "Snake Game",
-    description: "The timeless Snake game with modern visuals and responsive controls. Includes score tracking, speed progression, and smooth gameplay mechanics.",
-    image: "/assets/snake-game.png",
-    technologies: ["JavaScript", "Canvas API", "Local Storage"],
-    githubUrl: "https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/snake.astro",
-    gameUrl: "/games/snake"
+    title: 'Snake Game',
+    description: 'Classic loop, modern feel: fast input, escalating pace, and high-score tracking.',
+    image: '/assets/snake-game.png',
+    technologies: ['JavaScript', 'Canvas API', 'Local Storage'],
+    githubUrl: 'https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/snake.astro',
+    gameUrl: '/games/snake'
   }
 ];
 ---
 
 <Layout title="Games - Bryan Perez">
   <div class="min-h-screen">
-    <!-- Header Section -->
-    <section class="py-20 px-6">
+    <section class="py-20 px-6 reveal-on-scroll">
       <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
         <div class="space-y-5">
           <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
-            Built-from-scratch · Browser native
+            Browser-native | Built from scratch
           </div>
           <h1 class="text-4xl lg:text-5xl font-semibold text-gradient-accent leading-tight">
-            Interactive games with responsive controls, juicy effects, and smooth performance.
+            Playable systems with tight game feel.
           </h1>
           <p class="text-lg text-dark-text-secondary max-w-2xl">
-            I prototype, design, and code full experiences—input handling, animation systems, and scoring loops—optimized for both desktop and mobile play.
+            I design and code game loops, effects, and controls for desktop and mobile browsers.
           </p>
-          <div class="flex flex-wrap gap-3">
-            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">JavaScript / Canvas</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Godot 4</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Responsive Controls</span>
-          </div>
         </div>
-        <div class="panel gradient-border p-6">
+        <div class="panel gradient-border interactive-card p-6">
           <div class="grid gap-4 sm:grid-cols-2">
             {[
-              { label: 'Tick rate', value: '60 FPS stable' },
-              { label: 'Input lag', value: '< 16ms on desktop' },
-              { label: 'Play styles', value: 'Keyboard & touch' },
-              { label: 'Rendering', value: 'Canvas + particles' }
+              { label: 'Performance', value: '60 FPS target' },
+              { label: 'Input', value: 'Low-latency controls' },
+              { label: 'Modes', value: 'Keyboard and touch' },
+              { label: 'Rendering', value: 'Canvas effects' }
             ].map((item) => (
               <div class="rounded-xl border border-white/5 bg-white/5 p-4">
                 <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.label}</p>
@@ -57,13 +51,12 @@ const games = [
               </div>
             ))}
           </div>
-          <p class="mt-4 text-sm text-dark-text-secondary">Each title runs locally in the browser—no downloads, just play.</p>
+          <p class="mt-4 text-sm text-dark-text-secondary">No download. Open and play.</p>
         </div>
       </div>
     </section>
 
-    <!-- Games Grid -->
-    <section class="pb-20 px-6">
+    <section class="pb-20 px-6 reveal-on-scroll">
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           {games.map((game) => (
@@ -81,57 +74,41 @@ const games = [
       </div>
     </section>
 
-    <!-- Game Development Info -->
-    <section class="py-20 px-6 bg-dark-surface/70">
+    <section class="py-20 px-6 bg-dark-surface/70 reveal-on-scroll">
       <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1fr_1fr]">
         <div class="space-y-4">
-          <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Game loop priorities</p>
-          <h2 class="text-3xl lg:text-4xl font-semibold">Feel-first gameplay with measurable stability.</h2>
-          <p class="text-dark-text-secondary">
-            Tight input handling, deterministic collisions, and readable visual feedback come before complexity.
-          </p>
+          <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Build priorities</p>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Readable feedback. Responsive controls.</h2>
+          <p class="text-dark-text-secondary">I optimize loop timing, collision logic, and player clarity before adding complexity.</p>
         </div>
         <div class="grid gap-4 md:grid-cols-2">
-          <div class="panel gradient-border p-4">
-            <h3 class="text-lg font-semibold mb-2">Physics & AI</h3>
-            <p class="text-sm text-dark-text-secondary">Collision-aware enemies, wave orchestration, and state machines tuned for 60 FPS.</p>
+          <div class="panel gradient-border interactive-card p-4">
+            <h3 class="text-lg font-semibold mb-2">Loop Design</h3>
+            <p class="text-sm text-dark-text-secondary">Deterministic updates and smooth frame pacing.</p>
           </div>
-          <div class="panel gradient-border p-4">
-            <h3 class="text-lg font-semibold mb-2">Animation Systems</h3>
-            <p class="text-sm text-dark-text-secondary">Frame-perfect loops, particles, and easing curves that react to player inputs.</p>
+          <div class="panel gradient-border interactive-card p-4">
+            <h3 class="text-lg font-semibold mb-2">Visual Feedback</h3>
+            <p class="text-sm text-dark-text-secondary">Particles, flashes, and clear hit confirmation.</p>
           </div>
-          <div class="panel gradient-border p-4">
-            <h3 class="text-lg font-semibold mb-2">UX for Play</h3>
-            <p class="text-sm text-dark-text-secondary">Readable HUDs, responsive buttons, and zero-setup onboarding so users start instantly.</p>
+          <div class="panel gradient-border interactive-card p-4">
+            <h3 class="text-lg font-semibold mb-2">Control Quality</h3>
+            <p class="text-sm text-dark-text-secondary">Fast response for keyboard and touch input.</p>
           </div>
-          <div class="panel gradient-border p-4">
-            <h3 class="text-lg font-semibold mb-2">Instrumentation</h3>
-            <p class="text-sm text-dark-text-secondary">Frame timing, score tracking, and difficulty curves logged for quick balancing.</p>
+          <div class="panel gradient-border interactive-card p-4">
+            <h3 class="text-lg font-semibold mb-2">Balancing</h3>
+            <p class="text-sm text-dark-text-secondary">Difficulty tuning from score and timing data.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="py-20 px-6">
-      <div class="max-w-4xl mx-auto panel gradient-border p-10 text-center space-y-6">
-        <h2 class="text-3xl lg:text-4xl font-semibold">Ready to play or build a new mechanic?</h2>
-        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto">
-          Click a card to launch a game immediately, or reach out to jam on a new concept.
-        </p>
+    <section class="py-20 px-6 reveal-on-scroll">
+      <div class="max-w-4xl mx-auto panel gradient-border interactive-card p-10 text-center space-y-6">
+        <h2 class="text-3xl lg:text-4xl font-semibold">Want to build a game idea?</h2>
+        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto">I can help scope, prototype, and ship the core mechanic.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href="/projects" 
-            class="cta-ghost"
-          >
-            View Other Projects
-          </a>
-          <a 
-            href="/contact" 
-            class="cta-solid"
-          >
-            Discuss Game Ideas
-          </a>
+          <a href="/projects" class="cta-ghost">See software work</a>
+          <a href="/contact" class="cta-solid">Discuss concept</a>
         </div>
       </div>
     </section>
