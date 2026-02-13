@@ -6,239 +6,173 @@ import Layout from '../layouts/Layout.astro';
   <div class="min-h-screen">
     <!-- Hero Section -->
     <section class="py-20 px-6">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Profile Image -->
-        <div class="flex justify-center lg:justify-start">
-          <div class="relative">
-            <div class="w-80 h-80 rounded-xl overflow-hidden border-4 border-accent shadow-2xl shadow-accent/20">
-              <img 
-                src="/assets/profile-pic.png" 
-                alt="Bryan Perez" 
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full blur-xl"></div>
+      <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
+        <div class="space-y-5">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
+            Computer Scientist · Full-stack · Systems
+          </div>
+          <h1 class="text-4xl lg:text-5xl font-semibold text-gradient leading-tight">
+            I build reliable products with research-minded rigor and design-driven polish.
+          </h1>
+          <p class="text-lg text-dark-text-secondary">
+            From civic tech to security tooling, I combine systems thinking, intentional UX, and a bias for shipping. Currently based in El Paso, TX—working with distributed teams across time zones.
+          </p>
+          <div class="grid grid-cols-3 gap-4">
+            {[
+              { label: 'Experience', value: '3+ yrs' },
+              { label: 'Projects', value: '5+ shipped' },
+              { label: 'Tooling', value: 'Full-stack & ML' }
+            ].map((item) => (
+              <div class="panel p-4 gradient-border text-center">
+                <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.label}</p>
+                <p class="text-xl font-semibold mt-1">{item.value}</p>
+              </div>
+            ))}
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Download Resume</a>
+            <a href="/contact" class="cta-solid">Get In Touch</a>
           </div>
         </div>
-        
-        <!-- About Content -->
-        <div class="text-center lg:text-left">
-          <h1 class="text-4xl lg:text-5xl font-bold mb-6">About Me</h1>
-          <p class="text-base text-dark-text-secondary mb-8 leading-relaxed">
-            Results-driven Computer Scientist with a Bachelor's degree from the University of Texas at El Paso,
-            specializing in full-stack development, AI systems, and scalable software architecture.
-          </p>
-          <p class="text-base text-dark-text-secondary mb-8 leading-relaxed">
-            Professional experience includes building production case management platforms, AI code evaluation systems,
-            and cybersecurity tools. Expertise spans modern web technologies, cloud infrastructure, and algorithm optimization,
-            with a proven track record of delivering secure, efficient solutions that drive business impact.
-          </p>
-
-          <!-- Quick Stats -->
-          <div class="grid grid-cols-3 gap-4 mb-8">
-            <div class="text-center">
-              <div class="text-2xl font-bold text-accent mb-1">3+</div>
-              <div class="text-sm text-dark-text-secondary">Years Experience</div>
+        <div class="panel gradient-border p-6">
+          <div class="relative overflow-hidden rounded-2xl border border-white/10">
+            <img 
+              src="/assets/profile-pic.png" 
+              alt="Bryan Perez" 
+              class="w-full h-full object-cover"
+            />
+            <div class="absolute top-4 right-4 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white shadow-lg shadow-accent/30">Remote ready</div>
+          </div>
+          <div class="mt-6 grid gap-4 sm:grid-cols-2">
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Location</p>
+              <p class="text-sm font-semibold">El Paso, TX · US (MT)</p>
             </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-accent-purple mb-1">5+</div>
-              <div class="text-sm text-dark-text-secondary">Projects Completed</div>
-            </div>
-            <div class="text-center">
-              <div class="text-2xl font-bold text-accent mb-1">10+</div>
-              <div class="text-sm text-dark-text-secondary">Technologies Mastered</div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Collaboration</p>
+              <p class="text-sm font-semibold">Remote / Hybrid</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Education Section -->
-    <section class="py-20 px-6 bg-dark-surface">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">Education</h2>
-        
-        <div class="bg-dark-card p-8 rounded-xl border border-dark-surface">
-          <div class="flex flex-col lg:flex-row items-center gap-8">
-            <div class="flex-shrink-0">
-              <img 
-                src="/assets/utep-logo.jpeg" 
-                alt="UTEP Logo" 
-                class="w-24 h-24 rounded-full border-2 border-accent"
-              />
-            </div>
-            <div class="text-center lg:text-left">
-              <h3 class="text-xl font-bold mb-2">University of Texas at El Paso</h3>
-              <p class="text-lg text-accent mb-2">Bachelor of Science in Computer Science</p>
-              <p class="text-base text-accent-purple mb-2">Minor in Mathematics</p>
-              <p class="text-sm text-dark-text-secondary mb-4">Graduated: May 2024 • GPA: 3.5</p>
-              <p class="text-sm text-dark-text-secondary">
-                Comprehensive education in algorithms, data structures, software engineering, system design,
-                and advanced programming concepts with practical application in real-world projects.
-              </p>
-            </div>
+    <!-- Education -->
+    <section class="py-16 px-6 bg-dark-surface/70">
+      <div class="max-w-6xl mx-auto space-y-8">
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Education</h2>
+        <div class="panel gradient-border p-6 flex flex-col lg:flex-row gap-6 items-center lg:items-start">
+          <div class="flex-shrink-0">
+            <img 
+              src="/assets/utep-logo.jpeg" 
+              alt="UTEP Logo" 
+              class="w-24 h-24 rounded-full border-2 border-accent object-cover"
+            />
+          </div>
+          <div class="space-y-2">
+            <h3 class="text-xl font-semibold">University of Texas at El Paso</h3>
+            <p class="text-lg text-accent">B.S. Computer Science • Minor in Mathematics</p>
+            <p class="text-sm text-dark-text-secondary">Graduated May 2024 · GPA 3.5</p>
+            <p class="text-sm text-dark-text-secondary leading-relaxed">
+              Focused on algorithms, data structures, systems design, and applied software engineering with hands-on projects across web, AI, and game development.
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Skills Section -->
-    <section class="py-20 px-6">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">Technical Skills</h2>
+    <!-- Skills -->
+    <section class="py-16 px-6">
+      <div class="max-w-6xl mx-auto space-y-10">
+        <div class="text-center space-y-2">
+          <h2 class="text-3xl lg:text-4xl font-semibold">Technical Range</h2>
+          <p class="text-dark-text-secondary">Languages, frameworks, and tooling I reach for daily.</p>
+        </div>
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-          <!-- Core Programming Languages -->
-          <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
-            <h3 class="text-lg font-bold mb-4 text-accent">Programming Languages</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="panel gradient-border p-6 space-y-4">
+            <h3 class="text-lg font-semibold text-accent">Programming Languages</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>Java</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>Python</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>Golang</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>TypeScript</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>JavaScript</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>C/C++</span>
-              </div>
+              {['Java', 'Python', 'Golang', 'TypeScript', 'JavaScript', 'C/C++'].map((lang) => (
+                <div class="flex items-center gap-2 text-dark-text-secondary">
+                  <span class="h-2 w-2 rounded-full bg-accent"></span>{lang}
+                </div>
+              ))}
             </div>
           </div>
-
-          <!-- Web Development -->
-          <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
-            <h3 class="text-lg font-bold mb-4 text-accent-purple">Web Development</h3>
+          <div class="panel gradient-border p-6 space-y-4">
+            <h3 class="text-lg font-semibold text-accent-purple">Web Development</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent-purple rounded-full"></span>
-                <span>React/Next.js</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent-purple rounded-full"></span>
-                <span>Spring Boot</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent-purple rounded-full"></span>
-                <span>FastAPI</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent-purple rounded-full"></span>
-                <span>SvelteKit</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent-purple rounded-full"></span>
-                <span>HTML/CSS</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent-purple rounded-full"></span>
-                <span>Tailwind CSS</span>
-              </div>
+              {['React/Next.js', 'Astro', 'Spring Boot', 'FastAPI', 'SvelteKit', 'Tailwind'].map((item) => (
+                <div class="flex items-center gap-2 text-dark-text-secondary">
+                  <span class="h-2 w-2 rounded-full bg-accent-purple"></span>{item}
+                </div>
+              ))}
             </div>
           </div>
-
-          <!-- Tools & Technologies -->
-          <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface xl:col-span-1 lg:col-span-2 xl:col-span-1">
-            <h3 class="text-lg font-bold mb-4 text-accent">Tools & Infrastructure</h3>
+          <div class="panel gradient-border p-6 space-y-4">
+            <h3 class="text-lg font-semibold text-accent">Tools & Infrastructure</h3>
             <div class="grid grid-cols-2 gap-3 text-sm">
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>Docker</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>AWS</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>PostgreSQL</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>Neo4j</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>Git/GitHub</span>
-              </div>
-              <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 bg-accent rounded-full"></span>
-                <span>Linux</span>
-              </div>
+              {['Docker', 'AWS', 'PostgreSQL', 'Neo4j', 'Git/GitHub', 'Linux', 'CI/CD', 'WebSockets'].map((tool) => (
+                <div class="flex items-center gap-2 text-dark-text-secondary">
+                  <span class="h-2 w-2 rounded-full bg-accent"></span>{tool}
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <!-- Additional Technologies -->
-        <div class="mt-12 text-center">
-          <h3 class="text-xl font-semibold mb-6">Additional Technologies</h3>
-          <div class="flex flex-wrap justify-center gap-3">
-            {['C', 'C++', 'Dart', 'Scala', 'HTML', 'CSS', 'SQL', 'Docker', 'AWS', 'GitHub Actions', 'Neo4j', 'JUnit 5', 'Postman', 'Linux', 'Astro', 'Node.js', 'Gin', 'GORM'].map((tech) => (
-              <span class="px-4 py-2 bg-dark-surface border border-dark-card rounded-full text-dark-text-secondary hover:text-accent hover:border-accent transition-colors">
-                {tech}
-              </span>
+        <div class="panel gradient-border p-6">
+          <h3 class="text-lg font-semibold mb-3">Additional Technologies</h3>
+          <div class="flex flex-wrap gap-3">
+            {['Scala', 'SQL', 'Gin', 'GORM', 'Node.js', 'JUnit 5', 'Postman', 'Dart', 'Astro', 'Design Systems', 'Animations'].map((tech) => (
+              <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-dark-text-secondary">{tech}</span>
             ))}
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Experience Section -->
-    <section class="py-20 px-6 bg-dark-surface">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">Professional Experience</h2>
-        
-        <div class="space-y-8">
-          <!-- Centro de Apoyo para la Familia A.C. -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
+    <!-- Experience -->
+    <section class="py-16 px-6 bg-dark-surface/70">
+      <div class="max-w-6xl mx-auto space-y-10">
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Professional Experience</h2>
+        <div class="space-y-6">
+          <div class="panel gradient-border p-6">
             <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="grid h-12 w-12 place-items-center rounded-xl bg-accent/20 text-accent flex-shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
               </div>
-              <div>
-                <h3 class="text-lg font-semibold mb-2">Centro de Apoyo para la Familia A.C.</h3>
-                <p class="text-base text-accent mb-2">Full Stack Developer • 2023 - Present</p>
-                <p class="text-sm text-dark-text-secondary mb-3">
-                  <strong>Case Management Platform:</strong> Engineered local-first system using Go (Gin, GORM) and PostgreSQL with clean architecture for secure case intake, scheduling, and analytics serving 200+ weekly clients.
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">Centro de Apoyo para la Familia A.C.</h3>
+                <p class="text-sm text-accent">Full Stack Developer • 2023 - Present</p>
+                <p class="text-sm text-dark-text-secondary">
+                  Engineered a local-first case management system (Go, PostgreSQL, GORM) with WebSockets, JWT auth, and audit logging serving 200+ weekly clients.
                 </p>
                 <p class="text-sm text-dark-text-secondary">
-                  <strong>Admin Portal:</strong> Architected production-grade Next.js 14/TypeScript application with custom dependency injection, Ant Design UI, JWT RBAC, and authenticated WebSockets for real-time case management.
+                  Built a Next.js 14 admin portal with DI, Ant Design, and real-time case updates—cutting manual processing time by 40%.
                 </p>
               </div>
             </div>
           </div>
 
-          <!-- Outlier.ai -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
+          <div class="panel gradient-border p-6">
             <div class="flex items-start gap-4">
-              <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center flex-shrink-0 mt-1">
-                <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div class="grid h-12 w-12 place-items-center rounded-xl bg-accent-purple/20 text-accent-purple flex-shrink-0">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
                 </svg>
               </div>
-              <div>
-                <h3 class="text-lg font-semibold mb-2">Outlier.ai</h3>
-                <p class="text-base text-accent-purple mb-2">Remote AI Code Expert • 2024 - Present</p>
+              <div class="space-y-2">
+                <h3 class="text-lg font-semibold">Outlier.ai</h3>
+                <p class="text-sm text-accent-purple">Remote AI Code Expert • 2024 - Present</p>
                 <p class="text-sm text-dark-text-secondary">
-                  <strong>AI Code Evaluation:</strong> Evaluate and refine AI-generated code in Java and Python, ranking solutions based on algorithmic complexity, time/space efficiency, and clean coding standards to enhance LLM training data quality.
+                  Evaluate and refine AI-generated code in Java and Python, emphasizing algorithmic complexity, security, and performance for LLM training datasets.
                 </p>
-                <p class="text-sm text-dark-text-secondary mt-2">
-                  <strong>Algorithm Development:</strong> Author complex solutions involving advanced data structures (Trees, Graphs) and conduct rigorous code reviews ensuring security, correctness, and optimal performance for AI training datasets.
+                <p class="text-sm text-dark-text-secondary">
+                  Authored solutions with advanced data structures and performed rigorous code reviews to raise model quality.
                 </p>
               </div>
             </div>
@@ -247,73 +181,51 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    <!-- Personal Interests -->
-    <section class="py-20 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-8">Professional Development</h2>
-        <p class="text-lg text-dark-text-secondary mb-12 max-w-2xl mx-auto">
-          Committed to continuous learning and professional growth in software development,
-          with active participation in open-source communities and emerging technology trends.
+    <!-- Professional Development -->
+    <section class="py-16 px-6">
+      <div class="max-w-5xl mx-auto space-y-8">
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Professional Development</h2>
+        <p class="text-lg text-dark-text-secondary text-center max-w-3xl mx-auto">
+          Continuous learning through experimentation, documentation, and collaboration.
         </p>
-        
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
-            <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-              </svg>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {[
+            { title: 'Technical Excellence', copy: 'Stay current with emerging tools and patterns; measure performance and reliability.' },
+            { title: 'Code Quality', copy: 'High standards in code reviews, testing, and documentation for reproducible work.' },
+            { title: 'Problem Solving', copy: 'Algorithmic thinking and system design applied to complex, ambiguous challenges.' }
+          ].map((item, idx) => (
+            <div class="panel gradient-border p-5 space-y-2">
+              <div class={`grid h-10 w-10 place-items-center rounded-lg ${idx === 1 ? 'bg-accent-purple/20 text-accent-purple' : 'bg-accent/20 text-accent'}`}>
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <h3 class="text-base font-semibold">{item.title}</h3>
+              <p class="text-sm text-dark-text-secondary">{item.copy}</p>
             </div>
-            <h3 class="text-base font-semibold mb-2">Technical Excellence</h3>
-            <p class="text-dark-text-secondary text-xs">
-              Staying current with emerging technologies and industry best practices
-            </p>
-          </div>
-
-          <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
-            <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-              </svg>
-            </div>
-            <h3 class="text-base font-semibold mb-2">Code Quality</h3>
-            <p class="text-dark-text-secondary text-xs">
-              Maintaining high standards in code reviews, testing, and documentation
-            </p>
-          </div>
-
-          <div class="bg-dark-surface p-6 rounded-xl border border-dark-surface">
-            <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
-            </div>
-            <h3 class="text-base font-semibold mb-2">Problem Solving</h3>
-            <p class="text-dark-text-secondary text-xs">
-              Applying algorithmic thinking and system design to complex technical challenges
-            </p>
-          </div>
+          ))}
         </div>
       </div>
     </section>
 
     <!-- Resume Download CTA -->
-    <section class="py-20 px-6 bg-dark-surface">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Want to Know More?</h2>
-        <p class="text-xl text-dark-text-secondary mb-8">
-          Download my resume for a detailed overview of my experience and qualifications.
+    <section class="py-16 px-6 bg-dark-surface/70">
+      <div class="max-w-4xl mx-auto panel gradient-border p-10 text-center space-y-4">
+        <h2 class="text-3xl lg:text-4xl font-semibold">Want to know more?</h2>
+        <p class="text-xl text-dark-text-secondary">
+          Grab the resume or reach out to discuss how I can help ship your next release.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href="/assets/Bryan Resume 2025.pdf" 
             target="_blank"
-            class="bg-accent hover:bg-accent-hover text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+            class="cta-solid"
           >
             Download Resume
           </a>
           <a 
             href="/contact" 
-            class="border border-accent text-accent hover:bg-accent hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+            class="cta-ghost"
           >
             Get In Touch
           </a>

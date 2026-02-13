@@ -26,18 +26,38 @@ const games = [
   <div class="min-h-screen">
     <!-- Header Section -->
     <section class="py-20 px-6">
-      <div class="max-w-6xl mx-auto text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-accent-purple to-accent bg-clip-text text-transparent">
-          Interactive Games
-        </h1>
-        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto mb-8">
-          Custom-built games showcasing interactive programming, game mechanics, and creative problem-solving. 
-          Each game is playable directly in your browser.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">JavaScript Games</span>
-          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Canvas Graphics</span>
-          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Play Instantly</span>
+      <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
+        <div class="space-y-5">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
+            Built-from-scratch · Browser native
+          </div>
+          <h1 class="text-4xl lg:text-5xl font-semibold text-gradient-accent leading-tight">
+            Interactive games with responsive controls, juicy effects, and smooth performance.
+          </h1>
+          <p class="text-lg text-dark-text-secondary max-w-2xl">
+            I prototype, design, and code full experiences—input handling, animation systems, and scoring loops—optimized for both desktop and mobile play.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">JavaScript / Canvas</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Godot 4</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Responsive Controls</span>
+          </div>
+        </div>
+        <div class="panel gradient-border p-6">
+          <div class="grid gap-4 sm:grid-cols-2">
+            {[
+              { label: 'Tick rate', value: '60 FPS stable' },
+              { label: 'Input lag', value: '< 16ms on desktop' },
+              { label: 'Play styles', value: 'Keyboard & touch' },
+              { label: 'Rendering', value: 'Canvas + particles' }
+            ].map((item) => (
+              <div class="rounded-xl border border-white/5 bg-white/5 p-4">
+                <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.label}</p>
+                <p class="text-lg font-semibold mt-1">{item.value}</p>
+              </div>
+            ))}
+          </div>
+          <p class="mt-4 text-sm text-dark-text-secondary">Each title runs locally in the browser—no downloads, just play.</p>
         </div>
       </div>
     </section>
@@ -45,7 +65,7 @@ const games = [
     <!-- Games Grid -->
     <section class="pb-20 px-6">
       <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           {games.map((game) => (
             <ProjectCard
               title={game.title}
@@ -62,54 +82,31 @@ const games = [
     </section>
 
     <!-- Game Development Info -->
-    <section class="py-20 px-6 bg-dark-surface">
-      <div class="max-w-6xl mx-auto">
-        <div class="text-center mb-16">
-          <h2 class="text-3xl lg:text-4xl font-bold mb-6">Game Development Approach</h2>
-          <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto">
-            Each game is built from scratch using vanilla JavaScript and HTML5 Canvas, 
-            demonstrating fundamental programming concepts and game development principles.
+    <section class="py-20 px-6 bg-dark-surface/70">
+      <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1fr_1fr]">
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Game loop priorities</p>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Feel-first gameplay with measurable stability.</h2>
+          <p class="text-dark-text-secondary">
+            Tight input handling, deterministic collisions, and readable visual feedback come before complexity.
           </p>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Game Physics -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Game Physics</h3>
-            <p class="text-dark-text-secondary">
-              Collision detection, movement mechanics, and realistic physics simulations
-            </p>
+        <div class="grid gap-4 md:grid-cols-2">
+          <div class="panel gradient-border p-4">
+            <h3 class="text-lg font-semibold mb-2">Physics & AI</h3>
+            <p class="text-sm text-dark-text-secondary">Collision-aware enemies, wave orchestration, and state machines tuned for 60 FPS.</p>
           </div>
-          
-          <!-- Animation -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2m0 0V1a1 1 0 011-1h2a1 1 0 011 1v18a1 1 0 01-1 1H4a1 1 0 01-1-1V1a1 1 0 011-1h2a1 1 0 011 1v3m0-4h8"/>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Smooth Animation</h3>
-            <p class="text-dark-text-secondary">
-              RequestAnimationFrame loops, sprite animations, and fluid visual effects
-            </p>
+          <div class="panel gradient-border p-4">
+            <h3 class="text-lg font-semibold mb-2">Animation Systems</h3>
+            <p class="text-sm text-dark-text-secondary">Frame-perfect loops, particles, and easing curves that react to player inputs.</p>
           </div>
-          
-          <!-- User Interaction -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">User Interaction</h3>
-            <p class="text-dark-text-secondary">
-              Responsive controls, keyboard/mouse input handling, and intuitive gameplay
-            </p>
+          <div class="panel gradient-border p-4">
+            <h3 class="text-lg font-semibold mb-2">UX for Play</h3>
+            <p class="text-sm text-dark-text-secondary">Readable HUDs, responsive buttons, and zero-setup onboarding so users start instantly.</p>
+          </div>
+          <div class="panel gradient-border p-4">
+            <h3 class="text-lg font-semibold mb-2">Instrumentation</h3>
+            <p class="text-sm text-dark-text-secondary">Frame timing, score tracking, and difficulty curves logged for quick balancing.</p>
           </div>
         </div>
       </div>
@@ -117,21 +114,21 @@ const games = [
 
     <!-- Call to Action -->
     <section class="py-20 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Ready to Play?</h2>
-        <p class="text-xl text-dark-text-secondary mb-8 max-w-2xl mx-auto">
-          Click on any game above to start playing instantly. No downloads or installations required!
+      <div class="max-w-4xl mx-auto panel gradient-border p-10 text-center space-y-6">
+        <h2 class="text-3xl lg:text-4xl font-semibold">Ready to play or build a new mechanic?</h2>
+        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto">
+          Click a card to launch a game immediately, or reach out to jam on a new concept.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href="/projects" 
-            class="bg-accent hover:bg-accent-hover text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+            class="cta-ghost"
           >
             View Other Projects
           </a>
           <a 
             href="/contact" 
-            class="border border-accent text-accent hover:bg-accent hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+            class="cta-solid"
           >
             Discuss Game Ideas
           </a>

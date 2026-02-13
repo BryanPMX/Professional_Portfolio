@@ -22,41 +22,42 @@ const {
 } = Astro.props;
 ---
 
-<div class="bg-dark-card rounded-xl border border-dark-surface hover:border-accent/50 transition-all duration-300 hover:scale-105 overflow-hidden group flex flex-col h-full max-w-md mx-auto">
+<div class="panel gradient-border overflow-hidden group flex flex-col h-full">
   <!-- Project Image -->
-  <div class="relative overflow-hidden h-44">
+  <div class="relative overflow-hidden h-48 rounded-2xl">
     <img
       src={image}
       alt={title}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-dark-card/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-dark-bg via-dark-bg/10 to-transparent opacity-60"></div>
+    <div class="absolute left-4 top-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em] text-white">
+      {type === 'project' ? 'Case Study' : 'Playable'}
+    </div>
   </div>
 
   <!-- Content -->
-  <div class="p-5 flex flex-col flex-1">
-    <h3 class="text-xl font-bold mb-3 text-dark-text group-hover:text-accent transition-colors leading-tight flex-shrink-0">
-      {title}
-    </h3>
-
-    <!-- Scrollable Description -->
-    <div class="flex-1 min-h-0 mb-4">
-      <p class="text-dark-text-secondary text-sm leading-relaxed overflow-y-auto max-h-32">
-        {description}
-      </p>
+  <div class="p-6 flex flex-col flex-1 gap-4">
+    <div class="flex items-start justify-between gap-3">
+      <h3 class="text-xl font-semibold leading-tight text-dark-text group-hover:text-white transition-colors">{title}</h3>
+      <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-semibold tracking-[0.16em] text-dark-text-secondary">v2</span>
     </div>
 
-    <!-- Technologies - Always Visible -->
-    <div class="flex flex-wrap gap-2 mb-4 flex-shrink-0">
+    <p class="text-sm text-dark-text-secondary leading-relaxed flex-1">
+      {description}
+    </p>
+
+    <!-- Technologies -->
+    <div class="flex flex-wrap gap-2">
       {technologies.map((tech) => (
-        <span class="px-3 py-1 bg-dark-bg rounded-full text-xs text-dark-text-secondary border border-dark-surface font-medium">
+        <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-dark-text-secondary">
           {tech}
         </span>
       ))}
     </div>
 
-    <!-- Action Buttons - Always Visible -->
-    <div class={`flex gap-3 flex-shrink-0 ${(!githubUrl || !liveUrl) ? 'justify-center' : ''}`}>
+    <!-- Action Buttons -->
+    <div class={`flex gap-3 flex-shrink-0 pt-2 ${(!githubUrl || !(liveUrl || gameUrl)) ? 'justify-start' : ''}`}>
       {type === 'project' && (
         <>
           {githubUrl && (
@@ -65,7 +66,7 @@ const {
               target="_blank"
               rel="noopener noreferrer"
               class:list={[
-                'bg-dark-surface hover:bg-dark-bg text-dark-text px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 text-center border border-dark-surface hover:border-accent shadow-sm',
+                'cta-ghost flex-1 text-center',
                 liveUrl ? 'flex-1' : 'w-full'
               ]}
             >
@@ -75,7 +76,7 @@ const {
           {liveUrl && (
             <button
               class:list={[
-                'bg-accent hover:bg-accent-hover text-white px-4 py-2.5 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 live-demo-btn shadow-sm',
+                'cta-solid flex-1 live-demo-btn',
                 githubUrl ? 'flex-1' : 'w-full'
               ]}
               data-url={liveUrl}
@@ -94,7 +95,7 @@ const {
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="bg-dark-surface hover:bg-dark-bg text-dark-text px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 border border-dark-surface hover:border-accent"
+              class="cta-ghost"
             >
               View Code
             </a>
@@ -102,7 +103,7 @@ const {
           {gameUrl && (
             <a 
               href={gameUrl}
-              class="flex-1 bg-accent-purple hover:bg-accent-purple-hover text-white px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105 text-center"
+              class="flex-1 cta-solid text-center"
             >
               Play Game
             </a>
@@ -112,12 +113,3 @@ const {
     </div>
   </div>
 </div>
-
-<style>
-  .line-clamp-3 {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-</style>

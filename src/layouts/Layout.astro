@@ -16,111 +16,198 @@ const { title, description = "Bryan Perez - Full-Stack Engineer & Creative Devel
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <title>{title}</title>
   </head>
-  <body class="bg-dark-bg text-dark-text min-h-screen">
+  <body class="bg-dark-bg text-dark-text min-h-screen antialiased">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-white px-3 py-2 rounded-md shadow-lg">Skip to content</a>
+
+    <!-- Ambient background layers -->
+    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div class="absolute -left-40 -top-40 h-96 w-96 bg-accent/10 blur-3xl rounded-full animate-[pulse_8s_ease-in-out_infinite]"></div>
+      <div class="absolute right-[-10%] top-20 h-[28rem] w-[28rem] bg-accent-purple/10 blur-[110px] rounded-full"></div>
+      <div class="absolute bottom-0 left-1/3 h-72 w-72 bg-white/5 blur-3xl rounded-full"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(59,130,246,0.08),transparent_25%),radial-gradient(circle_at_80%_0%,rgba(139,92,246,0.08),transparent_20%),radial-gradient(circle_at_50%_90%,rgba(255,255,255,0.05),transparent_25%)]"></div>
+    </div>
+
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-bg/80 backdrop-blur-md border-b border-dark-surface">
-      <div class="max-w-6xl mx-auto px-6 py-4">
-        <div class="flex justify-between items-center">
-          <!-- Logo -->
-          <a href="/" class="text-xl font-bold text-accent hover:text-accent-hover transition-colors">
-            Bryan Perez
+    <nav class="fixed top-0 left-0 right-0 z-50">
+      <div id="nav-bar" class="mx-auto max-w-6xl px-4 sm:px-6 py-4 mt-4 rounded-2xl border border-white/5 bg-dark-surface/70 backdrop-blur-xl shadow-[0_25px_80px_-25px_rgba(0,0,0,0.55)] transition-all">
+        <div class="flex items-center justify-between gap-4">
+          <a href="/" class="group flex items-center gap-3 text-lg font-semibold tracking-tight">
+            <span class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-purple text-white shadow-lg shadow-accent/30 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">BP</span>
+            <div class="flex flex-col leading-tight">
+              <span class="text-sm uppercase tracking-[0.28em] text-dark-text-secondary">Portfolio</span>
+              <span class="text-lg">Bryan Perez</span>
+            </div>
           </a>
-          
+
           <!-- Desktop Navigation -->
-          <div class="hidden md:flex space-x-8">
-            <a href="/" class="nav-link">Home</a>
-            <a href="/projects" class="nav-link">Projects</a>
-            <a href="/research" class="nav-link">Research</a>
-            <a href="/games" class="nav-link">Games</a>
-            <a href="/about" class="nav-link">About</a>
-            <a href="/contact" class="nav-link">Contact</a>
+          <div class="hidden lg:flex items-center gap-2">
+            <div class="flex rounded-full bg-dark-bg/80 border border-white/5 p-1">
+              {[
+                { href: '/', label: 'Home' },
+                { href: '/projects', label: 'Projects' },
+                { href: '/research', label: 'Research' },
+                { href: '/games', label: 'Games' },
+                { href: '/about', label: 'About' },
+                { href: '/contact', label: 'Contact' }
+              ].map((item) => (
+                <a href={item.href} class="nav-pill">{item.label}</a>
+              ))}
+            </div>
+            <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Resume</a>
+            <a href="/contact" class="cta-solid">Let’s talk</a>
           </div>
-          
+
           <!-- Mobile Menu Button -->
-          <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-dark-surface transition-colors">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <button id="mobile-menu-btn" class="lg:hidden inline-flex items-center justify-center rounded-xl border border-white/10 bg-dark-bg/80 p-3 text-dark-text hover:border-accent transition-all">
+            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
           </button>
         </div>
-        
+
         <!-- Mobile Navigation -->
-        <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4 border-t border-dark-surface">
-          <div class="flex flex-col space-y-2 pt-4">
-            <a href="/" class="nav-link-mobile">Home</a>
-            <a href="/projects" class="nav-link-mobile">Projects</a>
-            <a href="/research" class="nav-link-mobile">Research</a>
-            <a href="/games" class="nav-link-mobile">Games</a>
-            <a href="/about" class="nav-link-mobile">About</a>
-            <a href="/contact" class="nav-link-mobile">Contact</a>
+        <div id="mobile-menu" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 lg:hidden">
+          <div class="overflow-hidden">
+            <div class="mt-4 space-y-2 rounded-2xl border border-white/5 bg-dark-bg/80 p-3 shadow-lg">
+              {[
+                { href: '/', label: 'Home' },
+                { href: '/projects', label: 'Projects' },
+                { href: '/research', label: 'Research' },
+                { href: '/games', label: 'Games' },
+                { href: '/about', label: 'About' },
+                { href: '/contact', label: 'Contact' }
+              ].map((item) => (
+                <a href={item.href} class="nav-link-mobile">{item.label}</a>
+              ))}
+              <div class="grid grid-cols-2 gap-2 pt-2">
+                <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost text-center">Resume</a>
+                <a href="/contact" class="cta-solid text-center">Let’s talk</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </nav>
     
     <!-- Main Content -->
-    <main class="pt-20">
+    <main id="main-content" class="pt-32">
       <slot />
     </main>
     
     <!-- Footer -->
-    <footer class="bg-dark-surface border-t border-dark-card mt-20">
-      <div class="max-w-6xl mx-auto px-6 py-12">
-        <div class="flex flex-col md:flex-row justify-between items-center">
-          <div class="mb-4 md:mb-0">
-            <p class="text-dark-text-secondary">
-              © 2025 Bryan Perez. All rights reserved.
-            </p>
+    <footer class="mt-24 border-t border-white/5 bg-dark-surface/80 backdrop-blur-xl">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-12">
+        <div class="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
+          <div class="space-y-3">
+            <p class="text-sm uppercase tracking-[0.25em] text-dark-text-secondary">Crafting digital experiences</p>
+            <p class="text-responsive-md font-semibold">Building thoughtful software, research, and playful experiences.</p>
+            <div class="flex gap-3">
+              <a href="mailto:perez.bryan24@outlook.com" class="cta-ghost">Email</a>
+              <a href="/contact" class="cta-solid">Start a project</a>
+            </div>
           </div>
-          <div class="flex space-x-6">
-            <a href="https://github.com/BryanPMX" target="_blank" class="text-dark-text-secondary hover:text-accent transition-colors">
-              GitHub
-            </a>
-            <a href="https://linkedin.com/in/brpmx" target="_blank" class="text-dark-text-secondary hover:text-accent transition-colors">
-              LinkedIn
-            </a>
+          <div>
+            <h3 class="text-sm font-semibold tracking-wide text-dark-text-secondary mb-3">Navigate</h3>
+            <div class="grid grid-cols-2 gap-2 text-sm text-dark-text-secondary">
+              <a href="/" class="footer-link">Home</a>
+              <a href="/projects" class="footer-link">Projects</a>
+              <a href="/research" class="footer-link">Research</a>
+              <a href="/games" class="footer-link">Games</a>
+              <a href="/about" class="footer-link">About</a>
+              <a href="/contact" class="footer-link">Contact</a>
+            </div>
           </div>
+          <div>
+            <h3 class="text-sm font-semibold tracking-wide text-dark-text-secondary mb-3">Connect</h3>
+            <div class="flex flex-wrap gap-3">
+              <a href="https://github.com/BryanPMX" target="_blank" class="social-pill">GitHub</a>
+              <a href="https://linkedin.com/in/brpmx" target="_blank" class="social-pill">LinkedIn</a>
+              <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="social-pill">Resume</a>
+            </div>
+          </div>
+        </div>
+        <div class="mt-10 flex flex-col gap-2 border-t border-white/5 pt-6 text-sm text-dark-text-secondary sm:flex-row sm:items-center sm:justify-between">
+          <span>© 2025 Bryan Perez. All rights reserved.</span>
+          <span class="flex items-center gap-2 text-xs uppercase tracking-[0.3em]">El Paso, TX · Remote Ready</span>
         </div>
       </div>
     </footer>
 
     <style>
-      .nav-link {
-        @apply text-dark-text-secondary hover:text-dark-text transition-colors duration-200 font-medium;
+      .nav-pill {
+        @apply relative px-4 py-2 text-sm font-semibold text-dark-text-secondary rounded-full transition-all duration-200;
       }
-      
+      .nav-pill::after {
+        content: '';
+        @apply absolute inset-x-3 bottom-1 h-0.5 rounded-full bg-gradient-to-r from-accent to-accent-purple opacity-0 transition-opacity duration-200;
+      }
+      .nav-pill:hover {
+        @apply text-dark-text;
+      }
+      .nav-pill.active {
+        @apply text-dark-text;
+      }
+      .nav-pill.active::after {
+        @apply opacity-100;
+      }
+
       .nav-link-mobile {
-        @apply text-dark-text-secondary hover:text-dark-text transition-colors duration-200 font-medium py-2 px-4 rounded-lg hover:bg-dark-surface;
+        @apply block rounded-xl px-4 py-3 text-sm font-semibold text-dark-text-secondary transition-all duration-200 hover:bg-white/5 hover:text-white;
       }
-      
-      .nav-link.active {
-        @apply text-accent;
+
+      .cta-solid {
+        @apply inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent to-accent-purple px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/30 transition-all duration-200 hover:shadow-accent/40 hover:-translate-y-0.5;
+      }
+      .cta-ghost {
+        @apply inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-dark-text transition-all duration-200 hover:border-accent hover:text-white hover:-translate-y-0.5;
+      }
+      .footer-link {
+        @apply rounded-lg px-3 py-2 transition-colors hover:text-white hover:bg-white/5;
+      }
+      .social-pill {
+        @apply rounded-full border border-white/10 px-4 py-2 text-sm text-dark-text-secondary transition-all hover:border-accent hover:text-white hover:-translate-y-0.5;
       }
     </style>
 
     <script>
-      // Mobile menu toggle
+      const nav = document.getElementById('nav-bar');
       const mobileMenuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
-      
+
+      // Mobile menu accordion
       if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('hidden');
+          const isOpen = mobileMenu.style.gridTemplateRows === '1fr';
+          mobileMenu.style.gridTemplateRows = isOpen ? '0fr' : '1fr';
+          mobileMenuBtn.classList.toggle('border-accent', !isOpen);
         });
       }
       
       // Set active nav link
       const currentPath = window.location.pathname;
-      const navLinks = document.querySelectorAll('.nav-link, .nav-link-mobile');
+      const navLinks = document.querySelectorAll('.nav-pill, .nav-link-mobile');
       
       navLinks.forEach(link => {
         if (link.getAttribute('href') === currentPath) {
           link.classList.add('active');
         }
       });
+
+      // Elevate nav on scroll
+      const handleScroll = () => {
+        if (!nav) return;
+        if (window.scrollY > 12) {
+          nav.classList.add('shadow-[0_18px_60px_-30px_rgba(0,0,0,0.75)]', 'border-white/10');
+        } else {
+          nav.classList.remove('shadow-[0_18px_60px_-30px_rgba(0,0,0,0.75)]', 'border-white/10');
+        }
+      };
+
+      document.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
     </script>
   </body>
 </html>

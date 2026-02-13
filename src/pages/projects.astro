@@ -41,98 +41,89 @@ const projects = [
   <div class="min-h-screen">
     <!-- Header Section -->
     <section class="py-20 px-6">
-      <div class="max-w-6xl mx-auto text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-dark-text to-dark-text-secondary bg-clip-text text-transparent">
-          My Projects
-        </h1>
-        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto mb-8">
-          A showcase of software solutions including personal projects and authorized work demonstrations.
-          Each project highlights different technologies, architectures, and problem-solving approaches.
+      <div class="max-w-6xl mx-auto flex flex-col gap-6 text-center">
+        <div class="inline-flex items-center justify-center gap-2 self-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
+          Case studies · End-to-end delivery
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-semibold text-gradient">Projects that balance speed, reliability, and polish.</h1>
+        <p class="text-lg text-dark-text-secondary max-w-3xl self-center">
+          Real shipped work across civic tech, cybersecurity, finance modernizations, and games. Each project pairs robust architecture with tactile UI.
         </p>
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Case Management</span>
-          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">Cybersecurity</span>
-          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Game Development</span>
-          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Full-Stack Solutions</span>
+        <div class="flex flex-wrap justify-center gap-3">
+          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Go · Next.js · PostgreSQL</span>
+          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">FastAPI · Neo4j · Docker</span>
+          <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">WebSockets · CI/CD</span>
         </div>
       </div>
     </section>
 
-    <!-- Projects Carousel -->
+    <!-- Projects Grid -->
     <section class="pb-20 px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="relative">
-          <!-- Carousel Container -->
-          <div class="overflow-hidden px-2">
-            <div
-              id="projects-carousel"
-              class="flex transition-transform duration-500 ease-in-out -mx-2"
-              style="transform: translateX(0%);"
-            >
-              {projects.map((project, index) => (
-                <div class="flex-shrink-0 w-full sm:w-1/2 px-1">
-                  <ProjectCard
-                    title={project.title}
-                    description={project.description}
-                    image={project.image}
-                    technologies={project.technologies}
-                    githubUrl={project.githubUrl}
-                    liveUrl={project.liveUrl}
-                    type="project"
-                  />
-                </div>
-              ))}
-            </div>
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            image={project.image}
+            technologies={project.technologies}
+            githubUrl={project.githubUrl}
+            liveUrl={project.liveUrl}
+            type="project"
+          />
+        ))}
+      </div>
+    </section>
+
+    <!-- Delivery Principles -->
+    <section class="py-20 px-6 bg-dark-surface/70">
+      <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.1fr] items-center">
+        <div class="space-y-4">
+          <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">How I deliver</p>
+          <h2 class="text-3xl lg:text-4xl font-semibold">Intentional processes that keep momentum.</h2>
+          <p class="text-dark-text-secondary">
+            From kickoff to launch, I keep teams aligned with concise docs, observable systems, and frequent demos. Reliability first, then refinement.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-dark-text-secondary">RFCs & architecture notes</span>
+            <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-dark-text-secondary">Automated QA + CI/CD</span>
+            <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-dark-text-secondary">Performance budgets</span>
           </div>
-
-          <!-- Navigation Arrows -->
-          <button
-            id="prev-btn"
-            class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-dark-card hover:bg-dark-bg text-dark-text p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-            disabled
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-            </svg>
-          </button>
-
-          <button
-            id="next-btn"
-            class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-dark-card hover:bg-dark-bg text-dark-text p-3 rounded-full shadow-lg transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-          </button>
-
-          <!-- Dots Indicator -->
-          <div class="flex justify-center mt-8 space-x-2">
-            <div id="dots-container" class="flex space-x-2">
-              <!-- Dots will be generated by JavaScript -->
+        </div>
+        <div class="grid gap-4 md:grid-cols-2">
+          {[
+            { title: 'Discovery → Prototype', copy: 'Rapid technical spikes with measurable benchmarks before full build.' },
+            { title: 'Production Guardrails', copy: 'Auth, RBAC, telemetry, and load testing baked into the foundation.' },
+            { title: 'Design & Motion', copy: 'Micro-interactions and visual systems that stay consistent across pages.' },
+            { title: 'Knowledge Transfer', copy: 'Lightweight docs, runnable demos, and handoff sessions to keep teams shipping.' }
+          ].map((item) => (
+            <div class="panel p-4 gradient-border">
+              <h3 class="text-lg font-semibold mb-2">{item.title}</h3>
+              <p class="text-sm text-dark-text-secondary leading-relaxed">{item.copy}</p>
             </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
 
     <!-- Call to Action -->
-    <section class="py-20 px-6 bg-dark-surface">
-      <div class="max-w-4xl mx-auto text-center">
-        <h2 class="text-3xl lg:text-4xl font-bold mb-6">Interested in Working Together?</h2>
-        <p class="text-xl text-dark-text-secondary mb-8 max-w-2xl mx-auto">
-          I'm always excited to collaborate on interesting projects and explore new opportunities.
+    <section class="py-20 px-6">
+      <div class="max-w-5xl mx-auto panel gradient-border p-10 text-center space-y-6">
+        <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Let’s collaborate</p>
+        <h2 class="text-3xl lg:text-4xl font-semibold">Have an idea or platform that needs shipping?</h2>
+        <p class="text-dark-text-secondary max-w-3xl mx-auto">
+          I join teams as a builder, not just a consultant—shipping features, establishing foundations, and leaving teams with lasting systems.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href="/contact" 
-            class="bg-accent hover:bg-accent-hover text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+            class="cta-solid"
           >
             Get In Touch
           </a>
           <a 
             href="/assets/Bryan Resume 2025.pdf" 
             target="_blank"
-            class="border border-accent text-accent hover:bg-accent hover:text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105"
+            class="cta-ghost"
           >
             View Resume
           </a>
@@ -141,149 +132,3 @@ const projects = [
     </section>
   </div>
 </Layout>
-
-<!-- Modal for Live Demos -->
-<div id="modal-container"></div>
-
-<script>
-  import Modal from '../components/Modal.tsx';
-  import { createRoot } from 'react-dom/client';
-  import React from 'react';
-
-  // Modal state management
-  let modalRoot: any = null;
-
-  function openModal(url: string, title: string) {
-    const container = document.getElementById('modal-container');
-    if (!container) return;
-
-    if (!modalRoot) {
-      modalRoot = createRoot(container);
-    }
-
-    const closeModal = () => {
-      modalRoot.render(React.createElement('div'));
-    };
-
-    modalRoot.render(
-      React.createElement(Modal, {
-        isOpen: true,
-        onClose: closeModal,
-        title: title,
-        url: url
-      })
-    );
-  }
-
-  // Projects Carousel Functionality
-  class ProjectsCarousel {
-    constructor() {
-      this.carousel = document.getElementById('projects-carousel');
-      this.prevBtn = document.getElementById('prev-btn');
-      this.nextBtn = document.getElementById('next-btn');
-      this.dotsContainer = document.getElementById('dots-container');
-      this.currentSlide = 0;
-      this.slidesToShow = 2; // Always show 2 projects at a time
-      this.totalSlides = 4; // We have 4 projects
-      this.totalGroups = Math.ceil(this.totalSlides / this.slidesToShow); // 2 groups
-
-      this.init();
-    }
-
-    getSlidesToShow() {
-      return 2; // Always show 2 projects at a time
-    }
-
-    init() {
-      this.createDots();
-      this.updateButtons();
-      this.addEventListeners();
-      this.updateCarousel();
-      window.addEventListener('resize', () => this.handleResize());
-    }
-
-    createDots() {
-      this.dotsContainer.innerHTML = '';
-
-      for (let i = 0; i < this.totalGroups; i++) {
-        const dot = document.createElement('button');
-        dot.className = `w-3 h-3 rounded-full transition-all duration-200 ${
-          i === this.currentSlide ? 'bg-accent' : 'bg-dark-surface'
-        }`;
-        dot.addEventListener('click', () => this.goToSlide(i));
-        this.dotsContainer.appendChild(dot);
-      }
-    }
-
-    updateButtons() {
-      this.prevBtn.disabled = this.currentSlide === 0;
-      this.nextBtn.disabled = this.currentSlide === this.totalGroups - 1;
-    }
-
-    addEventListeners() {
-      this.prevBtn.addEventListener('click', () => this.prevSlide());
-      this.nextBtn.addEventListener('click', () => this.nextSlide());
-    }
-
-    prevSlide() {
-      if (this.currentSlide > 0) {
-        this.currentSlide--;
-        this.updateCarousel();
-      }
-    }
-
-    nextSlide() {
-      const totalDots = Math.ceil(this.totalSlides / this.slidesToShow);
-      if (this.currentSlide < totalDots - 1) {
-        this.currentSlide++;
-        this.updateCarousel();
-      }
-    }
-
-    goToSlide(slideIndex) {
-      this.currentSlide = slideIndex;
-      this.updateCarousel();
-    }
-
-    updateCarousel() {
-      const translateX = -this.currentSlide * 100; // Move by 100% for each group of 2 projects
-      this.carousel.style.transform = `translateX(${translateX}%)`;
-
-      // Update dots
-      const dots = this.dotsContainer.querySelectorAll('button');
-      dots.forEach((dot, index) => {
-        dot.className = `w-3 h-3 rounded-full transition-all duration-200 ${
-          index === this.currentSlide ? 'bg-accent' : 'bg-dark-surface'
-        }`;
-      });
-
-      this.updateButtons();
-    }
-
-    handleResize() {
-      // No need to handle resize since we always show 2 projects
-      // The responsive design is handled by CSS (w-full sm:w-1/2)
-    }
-  }
-
-  // Initialize everything when DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
-    // Initialize carousel
-    new ProjectsCarousel();
-
-    // Add event listeners to live demo buttons
-    const liveDemoButtons = document.querySelectorAll('.live-demo-btn');
-
-    liveDemoButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault();
-        const url = (e.target as HTMLButtonElement).dataset.url;
-        const title = (e.target as HTMLButtonElement).dataset.title;
-
-        if (url && title) {
-          openModal(url, title);
-        }
-      });
-    });
-  });
-</script>

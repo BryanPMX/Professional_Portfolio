@@ -6,142 +6,151 @@ import Layout from '../layouts/Layout.astro';
   <div class="min-h-screen">
     <!-- Header Section -->
     <section class="py-20 px-6">
-      <div class="max-w-6xl mx-auto text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold mb-6 bg-gradient-to-r from-accent to-accent-purple bg-clip-text text-transparent">
-          Research
-        </h1>
-        <p class="text-xl text-dark-text-secondary max-w-3xl mx-auto mb-8">
-          Exploring cutting-edge topics in computer science through academic research,
-          publications, and innovative problem-solving approaches.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4 mb-12">
-          <span class="px-4 py-2 bg-accent/20 text-accent rounded-full font-medium">Computer Science</span>
-          <span class="px-4 py-2 bg-accent-purple/20 text-accent-purple rounded-full font-medium">AI & Machine Learning</span>
-          <span class="px-4 py-2 bg-dark-surface text-dark-text rounded-full font-medium">Academic Research</span>
+      <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
+        <div class="space-y-4">
+          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
+            Research · ML · Algorithms
+          </div>
+          <h1 class="text-4xl lg:text-5xl font-semibold text-gradient-accent leading-tight">
+            Practical research bridging ML, optimization, and engineered systems.
+          </h1>
+          <p class="text-lg text-dark-text-secondary">
+            I explore applied machine learning and algorithm design with tight feedback loops, reproducible experiments, and production-aware code.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Reinforcement Learning</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">MIR / SVM</span>
+            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Optimization</span>
+          </div>
+        </div>
+        <div class="panel gradient-border p-6">
+          <div class="grid gap-4 sm:grid-cols-2">
+            {[
+              { title: 'Reproducibility', value: 'Deterministic seeds + checkpoints' },
+              { title: 'Observability', value: 'TensorBoard + custom metrics' },
+              { title: 'Comparisons', value: 'Multi-seed baselines & ablations' },
+              { title: 'Delivery', value: 'Exportable notebooks + code' }
+            ].map((item) => (
+              <div class="rounded-xl border border-white/5 bg-white/5 p-4">
+                <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.title}</p>
+                <p class="text-sm font-semibold mt-1">{item.value}</p>
+              </div>
+            ))}
+          </div>
+          <p class="mt-4 text-sm text-dark-text-secondary">Experiments pair rigorous baselines with clean, documented implementations.</p>
         </div>
       </div>
     </section>
 
     <!-- Research Areas -->
     <section class="pb-20 px-6">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">Research Areas</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Research Area 1 -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface hover:border-accent/50 transition-all duration-200 hover:scale-105">
-            <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-              </svg>
+      <div class="max-w-6xl mx-auto space-y-10">
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Focus Areas</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              title: 'Machine Learning & AI',
+              copy: 'Music key detection via SVM with feature engineering (chroma, MFCCs, spectral analysis).',
+              tags: ['SVM Classification', 'Feature Engineering', 'MIR'],
+              iconStroke: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'
+            },
+            {
+              title: 'Reinforcement Learning',
+              copy: 'DQN, PPO, and prioritized replay on LunarLander with curriculum learning & reward shaping.',
+              tags: ['Deep Q-Networks', 'Policy Optimization', 'Experience Replay'],
+              iconStroke: 'M13 10V3L4 14h7v7l9-11h-7z'
+            },
+            {
+              title: 'Algorithm Optimization',
+              copy: 'Performance tuning, curriculum strategies, and comparative algorithm analysis with benchmarks.',
+              tags: ['Hyperparameter Tuning', 'Curriculum Learning', 'Benchmarking'],
+              iconStroke: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z'
+            }
+          ].map((item, idx) => (
+            <div class="panel gradient-border p-6 space-y-4">
+              <div class="flex items-center gap-3">
+                <div class={`grid h-12 w-12 place-items-center rounded-xl ${idx === 1 ? 'bg-accent-purple/20 text-accent-purple' : 'bg-accent/20 text-accent'}`}>
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.iconStroke} />
+                  </svg>
+                </div>
+                <div>
+                  <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Area</p>
+                  <h3 class="text-lg font-semibold">{item.title}</h3>
+                </div>
+              </div>
+              <p class="text-sm text-dark-text-secondary leading-relaxed">{item.copy}</p>
+              <div class="flex flex-wrap gap-2">
+                {item.tags.map((tag) => (
+                  <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-dark-text-secondary">{tag}</span>
+                ))}
+              </div>
             </div>
-            <h3 class="text-xl font-semibold mb-2">Machine Learning & AI</h3>
-            <p class="text-dark-text-secondary mb-4">Developing SVM-based music key detection systems and exploring advanced AI algorithms for real-world applications.</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">SVM Classification</span>
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Music Information Retrieval</span>
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Feature Engineering</span>
-            </div>
-          </div>
-
-          <!-- Research Area 2 -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface hover:border-accent-purple/50 transition-all duration-200 hover:scale-105">
-            <div class="w-12 h-12 bg-accent-purple/20 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Reinforcement Learning</h3>
-            <p class="text-dark-text-secondary mb-4">Implementing advanced RL algorithms including DQN, PPO, and prioritized experience replay on complex environments.</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Deep Q-Networks</span>
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Policy Optimization</span>
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Experience Replay</span>
-            </div>
-          </div>
-
-          <!-- Research Area 3 -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface hover:border-accent/50 transition-all duration-200 hover:scale-105">
-            <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center mb-4">
-              <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Algorithm Optimization</h3>
-            <p class="text-dark-text-secondary mb-4">Researching performance optimization techniques, curriculum learning, and comparative algorithm analysis.</p>
-            <div class="flex flex-wrap gap-2">
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Hyperparameter Tuning</span>
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Curriculum Learning</span>
-              <span class="px-3 py-1 bg-dark-bg rounded-full text-sm">Performance Benchmarking</span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
 
     <!-- Research Projects -->
-    <section class="py-20 px-6 bg-dark-surface">
-      <div class="max-w-6xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-16">Research Projects</h2>
+    <section class="py-20 px-6 bg-dark-surface/70">
+      <div class="max-w-6xl mx-auto space-y-8">
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Selected Research</h2>
         <div class="space-y-8">
           <!-- Music Key Detection Research -->
-          <div class="bg-dark-card p-8 rounded-xl border border-dark-surface">
+          <div class="panel gradient-border p-6">
             <div class="flex flex-col lg:flex-row lg:items-start gap-6">
               <div class="flex-shrink-0">
-                <div class="w-16 h-16 bg-accent/20 rounded-lg flex items-center justify-center">
+                <div class="w-16 h-16 bg-accent/20 rounded-lg grid place-items-center">
                   <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/>
                   </svg>
                 </div>
               </div>
-              <div class="flex-1">
-                <h3 class="text-2xl font-bold mb-2">Music Key Detection using SVM Classification</h3>
-                <p class="text-accent mb-3">Machine Learning Research Project • 2024</p>
-                <p class="text-dark-text-secondary mb-4">
-                  Machine learning system for detecting musical keys using SVM classification with support for 24 major and minor keys.
-                  Implemented comprehensive audio feature extraction pipeline including chroma features, MFCCs, spectral analysis,
-                  and rhythm detection. Achieved 67.12% accuracy through optimized PCA reduction and hyperparameter tuning.
+              <div class="flex-1 space-y-3">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h3 class="text-2xl font-semibold">Music Key Detection using SVM Classification</h3>
+                  <span class="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">2024</span>
+                </div>
+                <p class="text-dark-text-secondary">
+                  Built an SVM classifier supporting 24 keys with feature extraction (chroma, MFCCs, spectral features) and PCA reduction. Achieved 67.12% accuracy after hyperparameter tuning and cross-validation.
                 </p>
-                <div class="flex flex-wrap gap-2 mb-4">
-                  <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">SVM Classification</span>
-                  <span class="px-3 py-1 bg-accent-purple/20 text-accent-purple rounded-full text-sm">Audio Processing</span>
-                  <span class="px-3 py-1 bg-dark-surface text-dark-text rounded-full text-sm">Feature Engineering</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="rounded-full bg-accent/15 text-accent px-3 py-1 text-xs">SVM</span>
+                  <span class="rounded-full bg-accent-purple/15 text-accent-purple px-3 py-1 text-xs">Audio Processing</span>
+                  <span class="rounded-full bg-white/5 text-dark-text px-3 py-1 text-xs">Feature Engineering</span>
                 </div>
                 <div class="flex gap-4">
-                  <a href="https://github.com/BryanPMX/svm-music-key-detection">
-                    View Research →
-                  </a>
+                  <a href="https://github.com/BryanPMX/svm-music-key-detection" class="cta-ghost">View Research</a>
                 </div>
               </div>
             </div>
           </div>
 
           <!-- Reinforcement Learning Research -->
-          <div class="bg-dark-card p-8 rounded-xl border border-dark-surface">
+          <div class="panel gradient-border p-6">
             <div class="flex flex-col lg:flex-row lg:items-start gap-6">
               <div class="flex-shrink-0">
-                <div class="w-16 h-16 bg-accent-purple/20 rounded-lg flex items-center justify-center">
+                <div class="w-16 h-16 bg-accent-purple/20 rounded-lg grid place-items-center">
                   <svg class="w-8 h-8 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                   </svg>
                 </div>
               </div>
-              <div class="flex-1">
-                <h3 class="text-2xl font-bold mb-2">Advanced Reinforcement Learning on Lunar Lander</h3>
-                <p class="text-accent-purple mb-3">Machine Learning Research Project • 2024</p>
-                <p class="text-dark-text-secondary mb-4">
-                  Comprehensive reinforcement learning framework implementing DQN, PPO, and advanced techniques on LunarLander-v2.
-                  Features prioritized experience replay, curriculum learning, reward shaping, and comparative algorithm analysis.
-                  Includes professional-grade experimental infrastructure with multi-seed evaluation and TensorBoard integration.
+              <div class="flex-1 space-y-3">
+                <div class="flex flex-wrap items-center gap-3">
+                  <h3 class="text-2xl font-semibold">Advanced Reinforcement Learning on Lunar Lander</h3>
+                  <span class="rounded-full border border-accent-purple/40 bg-accent-purple/10 px-3 py-1 text-xs font-semibold text-accent-purple">2024</span>
+                </div>
+                <p class="text-dark-text-secondary">
+                  Implemented DQN, PPO, and enhanced techniques with prioritized replay, curriculum learning, reward shaping, and multi-seed benchmarking. Instrumented with TensorBoard for reproducibility and comparative analysis.
                 </p>
-                <div class="flex flex-wrap gap-2 mb-4">
-                  <span class="px-3 py-1 bg-accent/20 text-accent rounded-full text-sm">Deep RL</span>
-                  <span class="px-3 py-1 bg-accent-purple/20 text-accent-purple rounded-full text-sm">Algorithm Comparison</span>
-                  <span class="px-3 py-1 bg-dark-surface text-dark-text rounded-full text-sm">Experimental Design</span>
+                <div class="flex flex-wrap gap-2">
+                  <span class="rounded-full bg-accent/15 text-accent px-3 py-1 text-xs">Deep RL</span>
+                  <span class="rounded-full bg-accent-purple/15 text-accent-purple px-3 py-1 text-xs">Algorithm Comparison</span>
+                  <span class="rounded-full bg-white/5 text-dark-text px-3 py-1 text-xs">Experimental Design</span>
                 </div>
                 <div class="flex gap-4">
-                  <a href="https://github.com/BryanPMX/gymnasium-RL-research">
-                    View Research →
-                  </a>
+                  <a href="https://github.com/BryanPMX/gymnasium-RL-research" class="cta-ghost">View Research</a>
                 </div>
               </div>
             </div>
@@ -149,7 +158,5 @@ import Layout from '../layouts/Layout.astro';
         </div>
       </div>
     </section>
-
-
   </div>
 </Layout>

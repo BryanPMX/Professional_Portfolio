@@ -6,21 +6,100 @@ import Layout from '../layouts/Layout.astro';
   <div class="min-h-screen">
     <!-- Header Section -->
     <section class="py-20 px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-4xl lg:text-5xl font-bold mb-6">Get In Touch</h1>
-        <p class="text-xl text-dark-text-secondary max-w-2xl mx-auto">
-          I'm always interested in new opportunities, collaborations, and interesting projects. 
-          Let's connect and discuss how we can work together!
+      <div class="max-w-5xl mx-auto text-center space-y-4">
+        <div class="inline-flex items-center justify-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
+          Let's collaborate
+        </div>
+        <h1 class="text-4xl lg:text-5xl font-semibold text-gradient-accent">Tell me about your project, research, or game idea.</h1>
+        <p class="text-lg text-dark-text-secondary max-w-3xl mx-auto">
+          I respond within 24 hours. Prefer email? Reach me directly at <a href="mailto:perez.bryan24@outlook.com" class="text-accent underline">perez.bryan24@outlook.com</a>.
         </p>
       </div>
     </section>
 
     <!-- Contact Form & Info -->
     <section class="pb-20 px-6">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-8">
+        <!-- Contact Information -->
+        <div class="panel gradient-border p-6 space-y-6">
+          <div class="space-y-2">
+            <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Direct contact</p>
+            <h2 class="text-2xl font-semibold">Ways to reach me</h2>
+            <p class="text-sm text-dark-text-secondary">Pick the channel that works best for you—I'm flexible.</p>
+          </div>
+          
+          <div class="space-y-3">
+            <a 
+              href="mailto:perez.bryan24@outlook.com"
+              class="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-accent transition-colors"
+            >
+              <div class="h-12 w-12 rounded-lg bg-accent/20 grid place-items-center text-accent">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold">Personal Email</p>
+                <p class="text-dark-text-secondary text-sm">perez.bryan24@outlook.com</p>
+              </div>
+            </a>
+            <a 
+              href="mailto:bperez21@miners.utep.edu"
+              class="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-accent transition-colors"
+            >
+              <div class="h-12 w-12 rounded-lg bg-accent/20 grid place-items-center text-accent">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="font-semibold">University Email</p>
+                <p class="text-dark-text-secondary text-sm">bperez21@miners.utep.edu</p>
+              </div>
+            </a>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Availability</p>
+              <p class="text-sm font-semibold">Accepting new work</p>
+            </div>
+            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Response time</p>
+              <p class="text-sm font-semibold">Under 24 hours</p>
+            </div>
+          </div>
+
+          <div class="space-y-3">
+            <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Connect</p>
+            <div class="flex flex-wrap gap-3">
+              <a 
+                href="https://github.com/BryanPMX" 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-pill"
+              >
+                GitHub
+              </a>
+              <a 
+                href="https://linkedin.com/in/brpmx" 
+                target="_blank"
+                rel="noopener noreferrer"
+                class="social-pill"
+              >
+                LinkedIn
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- Contact Form -->
-        <div class="bg-dark-surface p-8 rounded-xl border border-dark-surface">
-          <h2 class="text-2xl font-bold mb-6 text-accent">Send a Message</h2>
+        <div class="panel gradient-border p-6">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-semibold">Send a Message</h2>
+            <span class="rounded-full bg-green-500/15 px-3 py-1 text-xs font-semibold text-green-300">Open</span>
+          </div>
           <form id="contact-form" class="space-y-6">
             <div>
               <label for="name" class="block text-sm font-medium mb-2">Name *</label>
@@ -29,38 +108,40 @@ import Layout from '../layouts/Layout.astro';
                 id="name" 
                 name="name" 
                 required
-                class="w-full px-4 py-3 bg-dark-card border border-dark-surface rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text"
+                class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text"
                 placeholder="Your full name"
               />
             </div>
             
-            <div>
-              <label for="email" class="block text-sm font-medium mb-2">Email *</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required
-                class="w-full px-4 py-3 bg-dark-card border border-dark-surface rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text"
-                placeholder="your.email@example.com"
-              />
-            </div>
-            
-            <div>
-              <label for="subject" class="block text-sm font-medium mb-2">Subject *</label>
-              <select 
-                id="subject" 
-                name="subject" 
-                required
-                class="w-full px-4 py-3 bg-dark-card border border-dark-surface rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text"
-              >
-                <option value="">Select a subject</option>
-                <option value="job-opportunity">Job Opportunity</option>
-                <option value="project-collaboration">Project Collaboration</option>
-                <option value="freelance-work">Freelance Work</option>
-                <option value="general-inquiry">General Inquiry</option>
-                <option value="other">Other</option>
-              </select>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="email" class="block text-sm font-medium mb-2">Email *</label>
+                <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required
+                  class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text"
+                  placeholder="your.email@example.com"
+                />
+              </div>
+              <div>
+                <label for="subject" class="block text-sm font-medium mb-2">Subject *</label>
+                <select 
+                  id="subject" 
+                  name="subject" 
+                  required
+                  class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text"
+                >
+                  <option value="">Select a subject</option>
+                  <option value="job-opportunity">Job Opportunity</option>
+                  <option value="project-collaboration">Project Collaboration</option>
+                  <option value="freelance-work">Freelance Work</option>
+                  <option value="game-idea">Game Idea</option>
+                  <option value="research">Research</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
             </div>
             
             <div>
@@ -70,14 +151,14 @@ import Layout from '../layouts/Layout.astro';
                 name="message" 
                 rows="6" 
                 required
-                class="w-full px-4 py-3 bg-dark-card border border-dark-surface rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text resize-none"
+                class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text resize-none"
                 placeholder="Tell me about your project or opportunity..."
               ></textarea>
             </div>
             
             <button 
               type="submit"
-              class="w-full bg-accent hover:bg-accent-hover text-white py-3 rounded-lg font-semibold transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+              class="w-full cta-solid disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <span class="submit-text">Send Message</span>
               <span class="loading-text hidden">Sending...</span>
@@ -85,148 +166,33 @@ import Layout from '../layouts/Layout.astro';
           </form>
           
           <!-- Form Status Messages -->
-          <div id="form-success" class="hidden mt-4 p-4 bg-green-500/20 border border-green-500/50 rounded-lg">
-            <p class="text-green-400">Message sent successfully! I'll get back to you soon.</p>
+          <div id="form-success" class="hidden mt-4 p-4 rounded-lg border border-green-500/40 bg-green-500/10">
+            <p class="text-green-300">Message sent successfully! I'll get back to you soon.</p>
           </div>
 
-          <div id="form-error" class="hidden mt-4 p-4 bg-red-500/20 border border-red-500/50 rounded-lg">
-            <p class="text-red-400">There was an error sending your message. Please try again or use the direct email below.</p>
-          </div>
-        </div>
-
-        <!-- Contact Information -->
-        <div class="space-y-8">
-          <!-- Direct Contact -->
-          <div class="bg-dark-surface p-8 rounded-xl border border-dark-surface">
-            <h2 class="text-2xl font-bold mb-6 text-accent-purple">Direct Contact</h2>
-            
-            <div class="space-y-4">
-              <a 
-                href="mailto:perez.bryan24@outlook.com"
-                class="flex items-center gap-4 p-4 bg-dark-card rounded-lg border border-dark-surface hover:border-accent transition-colors group"
-              >
-                <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium">Personal Email</p>
-                  <p class="text-dark-text-secondary">perez.bryan24@outlook.com</p>
-                </div>
-              </a>
-              
-              <a 
-                href="mailto:bperez21@miners.utep.edu"
-                class="flex items-center gap-4 p-4 bg-dark-card rounded-lg border border-dark-surface hover:border-accent transition-colors group"
-              >
-                <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-                  <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium">University Email</p>
-                  <p class="text-dark-text-secondary">bperez21@miners.utep.edu</p>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <!-- Social Links -->
-          <div class="bg-dark-surface p-8 rounded-xl border border-dark-surface">
-            <h2 class="text-2xl font-bold mb-6 text-accent-purple">Connect Online</h2>
-            
-            <div class="space-y-4">
-              <a 
-                href="https://github.com/BryanPMX" 
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center gap-4 p-4 bg-dark-card rounded-lg border border-dark-surface hover:border-accent transition-colors group"
-              >
-                <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-                  <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.374 0 0 5.373 0 12 0 17.302 3.438 21.8 8.207 23.387c.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium">GitHub</p>
-                  <p class="text-dark-text-secondary">@BryanPMX</p>
-                </div>
-              </a>
-              
-              <a 
-                href="https://linkedin.com/in/brpmx" 
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex items-center gap-4 p-4 bg-dark-card rounded-lg border border-dark-surface hover:border-accent transition-colors group"
-              >
-                <div class="w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center group-hover:bg-accent/30 transition-colors">
-                  <svg class="w-6 h-6 text-accent" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium">LinkedIn</p>
-                  <p class="text-dark-text-secondary">@brpmx</p>
-                </div>
-              </a>
-            </div>
-          </div>
-
-          <!-- Availability -->
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <h3 class="text-lg font-semibold mb-4 text-accent">Current Availability</h3>
-            <div class="flex items-center gap-3">
-              <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-              <span class="text-dark-text-secondary">Available for new opportunities</span>
-            </div>
-            <p class="text-sm text-dark-text-secondary mt-3">
-              I typically respond to messages within 24 hours.
-            </p>
+          <div id="form-error" class="hidden mt-4 p-4 rounded-lg border border-red-500/40 bg-red-500/10">
+            <p class="text-red-300">There was an error sending your message. Please try again or email me directly.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- FAQ Section -->
-    <section class="py-20 px-6 bg-dark-surface">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-3xl lg:text-4xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-        
-        <div class="space-y-6">
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <h3 class="text-lg font-semibold mb-2 text-accent">What type of projects are you interested in?</h3>
-            <p class="text-dark-text-secondary">
-              I'm passionate about full-stack web development, interactive applications, and innovative software solutions. 
-              I particularly enjoy projects that involve modern web technologies, game development, or complex problem-solving.
-            </p>
-          </div>
-          
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <h3 class="text-lg font-semibold mb-2 text-accent">Are you available for freelance work?</h3>
-            <p class="text-dark-text-secondary">
-              Yes! I'm open to freelance projects that align with my skills and interests. I prefer projects that allow me to 
-              learn new technologies and contribute meaningfully to the final product.
-            </p>
-          </div>
-          
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <h3 class="text-lg font-semibold mb-2 text-accent">What's your preferred tech stack?</h3>
-            <p class="text-dark-text-secondary">
-              I work primarily with JavaScript/TypeScript, React, Go, Python, and modern CSS frameworks like Tailwind. 
-              However, I'm always eager to learn and work with new technologies that fit the project requirements.
-            </p>
-          </div>
-          
-          <div class="bg-dark-card p-6 rounded-xl border border-dark-surface">
-            <h3 class="text-lg font-semibold mb-2 text-accent">How quickly can you start on a new project?</h3>
-            <p class="text-dark-text-secondary">
-              My availability varies depending on current commitments and academic schedule. Generally, I can start discussing 
-              project details immediately and begin work within 1-2 weeks for most projects.
-            </p>
-          </div>
+    <section class="py-20 px-6 bg-dark-surface/70">
+      <div class="max-w-5xl mx-auto space-y-6">
+        <h2 class="text-3xl lg:text-4xl font-semibold text-center">FAQ</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {[
+            { q: 'What type of projects are you interested in?', a: 'Full-stack web platforms, interactive applications, ML tooling, and browser-native games.' },
+            { q: 'Are you available for freelance work?', a: 'Yes—short engagements to multi-month builds. I prefer projects with measurable outcomes.' },
+            { q: 'Preferred tech stack?', a: 'TypeScript/React/Next, Go or Python backends, PostgreSQL/Neo4j, Tailwind, Astro.' },
+            { q: 'How quickly can you start?', a: 'I can begin discovery immediately and start implementation within 1–2 weeks depending on scope.' }
+          ].map((item) => (
+            <div class="panel gradient-border p-4">
+              <h3 class="text-lg font-semibold mb-1">{item.q}</h3>
+              <p class="text-sm text-dark-text-secondary leading-relaxed">{item.a}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -261,11 +227,8 @@ import Layout from '../layouts/Layout.astro';
         // Simulate form submission (replace with actual endpoint)
         await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // For demo purposes, we'll show success
-        // In a real implementation, you'd send the form data to your backend
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-        
         console.log('Form data:', data);
         
         // Show success message

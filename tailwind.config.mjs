@@ -16,8 +16,9 @@ export default {
         'accent-purple-hover': '#7c3aed'
       },
       fontFamily: {
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
-        'mono': ['JetBrains Mono', 'monospace']
+        'sans': ['"Sora"', 'system-ui', 'sans-serif'],
+        'mono': ['"JetBrains Mono"', 'monospace'],
+        'display': ['"Sora"', 'system-ui', 'sans-serif']
       },
       animation: {
         'fade-in': 'fadeIn 0.8s ease-in-out',
