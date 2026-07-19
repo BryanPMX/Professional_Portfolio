@@ -10,6 +10,7 @@ export interface ProjectMediaSlot {
   label: string;
   alt: string;
   brief: string;
+  caption?: string;
 }
 
 export interface Project {
@@ -85,8 +86,8 @@ export const projects: readonly Project[] = [
       'Owned deployments across AWS, Vercel, and self-hosted Docker/PostgreSQL environments.',
     ],
     architecture:
-      'A Go/PostgreSQL backend serves dedicated Next.js, Flutter, and SvelteKit clients. WebSockets support timely updates; S3-compatible storage and Stripe webhooks cover documents and payments.',
-    quality: ['Role-based access', 'Rate limiting', 'Health checks', 'Smoke and integration tests', 'Performance tests', 'S3 storage'],
+      'A Go/PostgreSQL backend serves dedicated Next.js, Flutter, and SvelteKit clients. Versioned transactional migrations protect schema changes, WebSockets support timely updates, and interchangeable S3 or local storage adapters handle documents.',
+    quality: ['Role and office scoping', 'Internal/client visibility', 'Transactional migrations', 'Health and readiness checks', 'Go test suite', 'Next.js production build'],
     technologies: ['Go', 'PostgreSQL', 'Next.js', 'Flutter', 'SvelteKit', 'WebSockets', 'AWS', 'Docker'],
     metrics: [
       { value: '7', label: 'user roles' },
@@ -94,12 +95,31 @@ export const projects: readonly Project[] = [
       { value: '24 / 130+', label: 'tables / indexes' },
     ],
     media: [
-      { filename: 'hero.webp', label: 'Role-aware operations', alt: 'CAF role-aware dashboard showing a sanitized case overview', brief: 'Show the dashboard and the operational hierarchy without client information.' },
-      { filename: 'workflow.webp', label: 'Case lifecycle', alt: 'CAF case timeline with sanitized appointments, documents, and updates', brief: 'Show a coherent intake-to-follow-up workflow across the case timeline.' },
-      { filename: 'quality.webp', label: 'Cross-surface delivery', alt: 'CAF admin and mobile client experiences displayed side by side', brief: 'Show how the admin and client surfaces share one platform while serving different roles.' },
+      {
+        filename: 'hero.webp',
+        label: 'Role-aware operations',
+        alt: 'CAF administrator dashboard with fictional totals for staff, clients, cases, appointments, and notifications',
+        brief: 'The administrator view consolidates people, cases, appointments, and notifications into one operational overview.',
+        caption: 'A role-aware Spanish-language dashboard gives administrators a single view of fictional local demo activity across staff, clients, cases, appointments, and notifications.',
+      },
+      {
+        filename: 'workflow.webp',
+        label: 'Case lifecycle',
+        alt: 'CAF fictional case workspace showing case details, legal process stages, history, documents, and tasks',
+        brief: 'A single case workspace makes the legal process stage and the surrounding operational context visible.',
+        caption: 'The fictional case workspace keeps core details, the five-stage process, history, documents, and tasks in one inspectable workflow.',
+      },
+      {
+        filename: 'quality.webp',
+        label: 'Visibility boundaries',
+        alt: 'CAF fictional case history showing separate internal staff and client-visible comments',
+        brief: 'Explicit visibility controls separate staff-only context from updates that clients are allowed to see.',
+        caption: 'Timeline entries visibly distinguish internal staff notes from client-visible updates, reinforcing privacy boundaries in the operational UI.',
+      },
     ],
-    captureFocus: ['Role-aware dashboard', 'Case timeline', 'Document workflow', 'Admin and Flutter client parity'],
-    confidentiality: 'Use fictional records only. Redact names, case details, document contents, payment data, identifiers, and internal URLs.',
+    captureFocus: ['Role-aware dashboard', 'Five-stage case workflow', 'Internal/client visibility controls', 'Document and task workspace'],
+    confidentiality: 'All displayed names, records, counts, and case details are fictional local demo data created for the portfolio capture.',
+    repository: 'https://github.com/BryanPMX/CAF',
   },
   {
     slug: 'entorno35',
@@ -174,4 +194,3 @@ export const featuredProjects = projects.slice(0, 4);
 export function getProject(slug: string): Project | undefined {
   return projects.find((project) => project.slug === slug);
 }
-

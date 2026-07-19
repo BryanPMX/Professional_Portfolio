@@ -1,5 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import { projects, type Project } from '../../data/projects';
 
@@ -9,6 +11,13 @@ interface Props { project: Project; }
 const { project } = Astro.props;
 const currentIndex = projects.findIndex((item) => item.slug === project.slug);
 const nextProject = projects[(currentIndex + 1) % projects.length];
+const projectImageModules = import.meta.glob<{ default: ImageMetadata }>('/src/assets/projects/**/*.{webp,png,jpg,jpeg}', { eager: true });
+const mediaItems = project.media.map((media) => ({
+  ...media,
+  image: projectImageModules[`/src/assets/projects/${project.slug}/${media.filename}`]?.default,
+}));
+const readyMediaCount = mediaItems.filter((media) => media.image).length;
+const mediaComplete = readyMediaCount === mediaItems.length;
 const projectJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'SoftwareSourceCode',
@@ -29,6 +38,11 @@ const projectJsonLd = {
           <p class="eyebrow">{project.kicker}</p>
           <h1 class="page-title">{project.title}</h1>
           <p class="lede">{project.summary}</p>
+          {project.repository && (
+            <div class="case-actions">
+              <a href={project.repository} class="button button-secondary" target="_blank" rel="noopener noreferrer">View repository ↗</a>
+            </div>
+          )}
         </div>
         <dl class="case-meta surface">
           <div><dt>Role</dt><dd>{project.role}</dd></div>
@@ -80,31 +94,56 @@ const projectJsonLd = {
 
     <section class="media-section section-pad shell">
       <div class="media-heading reveal">
-        <div><p class="eyebrow">Product evidence</p><h2 class="section-title">Media capture is queued.</h2></div>
-        <p class="lede">These slots are intentionally honest placeholders. Project-specific agents will run the development containers, capture sanitized workflows, and replace them without changing the layout.</p>
+        <div>
+          <p class="eyebrow">Product evidence</p>
+          <h2 class="section-title">{mediaComplete ? 'Inside the operating workflow.' : readyMediaCount ? 'Evidence package in progress.' : 'Media capture is queued.'}</h2>
+        </div>
+        <p class="lede">
+          {mediaComplete
+            ? 'These sanitized local captures show how administrators scan operations, move a fictional case through its lifecycle, and control what information is visible to clients.'
+            : 'Unfilled slots remain honest placeholders until project-specific agents capture sanitized workflows from the development environment.'}
+        </p>
       </div>
 
       <div class="media-grid">
-        {project.media.map((media, index) => (
+        {mediaItems.map((media, index) => (
           <figure class:list={['media-item reveal', { featured: index === 0 }]}>
-            <div class="media-placeholder">
-              <div class="media-placeholder__content">
-                <div class="media-placeholder__icon" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
-                <strong>{media.label}</strong>
-                <p>{media.brief}</p>
-                <code>{media.filename}</code>
+            {media.image ? (
+              <div class="media-frame">
+                <Image
+                  src={media.image}
+                  alt={media.alt}
+                  widths={[720, 1200, 1600]}
+                  sizes="(max-width: 800px) calc(100vw - 2.3rem), (max-width: 1280px) 50vw, 608px"
+                  format="webp"
+                  quality={84}
+                  loading="lazy"
+                  decoding="async"
+                  class="project-media"
+                />
               </div>
-            </div>
-            <figcaption><strong>Planned capture:</strong> {media.alt}</figcaption>
+            ) : (
+              <div class="media-placeholder">
+                <div class="media-placeholder__content">
+                  <div class="media-placeholder__icon" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
+                  <strong>{media.label}</strong>
+                  <p>{media.brief}</p>
+                  <code>{media.filename}</code>
+                </div>
+              </div>
+            )}
+            <figcaption><strong>{media.label}.</strong> {media.caption ?? `Planned capture: ${media.alt}`}</figcaption>
           </figure>
         ))}
       </div>
 
-      <aside class="capture-brief surface reveal">
-        <div><p class="eyebrow">Agent capture brief</p><h2>What the evidence package must show</h2></div>
-        <ul>{project.captureFocus.map((item) => <li>{item}</li>)}</ul>
-        <a href="https://github.com/BryanPMX/Professional_Portfolio/blob/main/PROJECT_MEDIA_CAPTURE_PROMPT.md" class="button button-secondary" target="_blank" rel="noopener noreferrer">Open full capture prompt ↗</a>
-      </aside>
+      {!mediaComplete && (
+        <aside class="capture-brief surface reveal">
+          <div><p class="eyebrow">Agent capture brief</p><h2>What the evidence package must show</h2></div>
+          <ul>{project.captureFocus.map((item) => <li>{item}</li>)}</ul>
+          <a href="https://github.com/BryanPMX/Professional_Portfolio/blob/main/PROJECT_MEDIA_CAPTURE_PROMPT.md" class="button button-secondary" target="_blank" rel="noopener noreferrer">Open full capture prompt ↗</a>
+        </aside>
+      )}
     </section>
 
     <section class="next-project section-rule">
@@ -123,6 +162,7 @@ const projectJsonLd = {
   .case-hero { padding-top: clamp(4.5rem,9vw,8rem); }
   .case-hero__grid { display: grid; grid-template-columns: minmax(0,1.22fr) minmax(19rem,.78fr); gap: clamp(3rem,8vw,8rem); align-items: end; }
   .case-hero h1 { margin: 1rem 0 1.2rem; }
+  .case-actions { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.6rem; }
   .case-meta { margin: 0; padding: 1.2rem; }
   .case-meta div { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; border-bottom: 1px solid var(--line); padding: .85rem .2rem; }
   .case-meta div:last-child { border-bottom: 0; }
@@ -160,7 +200,9 @@ const projectJsonLd = {
   .media-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
   .media-item { margin: 0; }
   .media-item.featured { grid-column: 1/-1; }
-  .media-item.featured .media-placeholder { aspect-ratio: 16/7; }
+  .media-frame { overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: #eef2f5; box-shadow: 0 2rem 5rem -2.5rem rgba(0,0,0,.8); }
+  .project-media { width: 100%; height: auto; aspect-ratio: 16/10; object-fit: cover; }
+  .media-item.featured .media-placeholder { aspect-ratio: 16/10; }
   .media-placeholder__content strong { display: block; font-size: 1rem; }
   .media-placeholder__content p { margin: .6rem 0; color: var(--muted); font-size: .73rem; }
   .media-placeholder__content code { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
@@ -181,7 +223,6 @@ const projectJsonLd = {
     .narrative-block { padding-left: 0; }
     .media-heading { display: grid; }
     .media-item.featured { grid-column: auto; }
-    .media-item.featured .media-placeholder { aspect-ratio: 16/10; }
   }
   @media (max-width: 560px) { .case-metrics { grid-template-columns: 1fr; } .case-metrics div { border-right: 0; border-bottom: 1px solid var(--line); padding-left: 0; } .quality-grid { grid-template-columns: 1fr; } }
 </style>
