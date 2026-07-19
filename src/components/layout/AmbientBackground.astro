@@ -1,0 +1,104 @@
+<div class="ambient-background" aria-hidden="true">
+  <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="network-line" x1="0" x2="1">
+        <stop offset="0" stop-color="#67e8d2" stop-opacity="0" />
+        <stop offset="0.5" stop-color="#67e8d2" stop-opacity="0.32" />
+        <stop offset="1" stop-color="#a99bff" stop-opacity="0" />
+      </linearGradient>
+      <radialGradient id="node-fill">
+        <stop offset="0" stop-color="#d7fff8" />
+        <stop offset="0.2" stop-color="#67e8d2" />
+        <stop offset="1" stop-color="#67e8d2" stop-opacity="0" />
+      </radialGradient>
+    </defs>
+    <g class="network network-a">
+      <path d="M-40 215 C 240 42, 405 376, 718 180 S 1170 48, 1510 270" />
+      <path d="M120 650 C 355 500, 570 735, 845 548 S 1230 400, 1490 618" />
+      <path d="M320 -40 C 410 202, 580 240, 670 520 S 830 790, 970 940" />
+      <circle cx="252" cy="173" r="7" />
+      <circle cx="712" cy="184" r="7" />
+      <circle cx="1184" cy="135" r="7" />
+      <circle cx="405" cy="590" r="7" />
+      <circle cx="846" cy="548" r="7" />
+      <circle cx="1288" cy="515" r="7" />
+    </g>
+    <g class="network network-b">
+      <path d="M-80 460 C 290 280, 488 490, 730 380 S 1110 260, 1530 430" />
+      <circle cx="170" cy="374" r="5" />
+      <circle cx="729" cy="381" r="5" />
+      <circle cx="1082" cy="315" r="5" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .ambient-background {
+    position: fixed;
+    z-index: -2;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  svg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.56;
+  }
+
+  .network path {
+    fill: none;
+    stroke: url(#network-line);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .network circle {
+    fill: url(#node-fill);
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  .network-a {
+    animation: network-drift 20s ease-in-out infinite alternate;
+  }
+
+  .network-b {
+    opacity: 0.5;
+    animation: network-drift-reverse 25s ease-in-out infinite alternate;
+  }
+
+  .network circle {
+    animation: node-pulse 4.5s ease-in-out infinite;
+  }
+
+  .network circle:nth-of-type(2n) {
+    animation-delay: -2s;
+  }
+
+  @keyframes network-drift {
+    to { transform: translate3d(1.8rem, -1rem, 0); }
+  }
+
+  @keyframes network-drift-reverse {
+    to { transform: translate3d(-1.4rem, 1.2rem, 0); }
+  }
+
+  @keyframes node-pulse {
+    50% { opacity: 0.38; transform: scale(0.65); }
+  }
+
+  :global(html.motion-paused) .network,
+  :global(html.motion-paused) .network circle {
+    animation-play-state: paused;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .network,
+    .network circle {
+      animation: none;
+    }
+  }
+</style>
+

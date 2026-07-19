@@ -1,21 +1,10 @@
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
-import react from '@astrojs/react';
 
-// https://astro.build/config
 export default defineConfig({
-  integrations: [
-    tailwind(),
-    react()
-  ],
+  integrations: [tailwind()],
   output: 'static',
-  site: 'https://your-portfolio-name.vercel.app', // Update this after deployment
   build: {
     assets: 'assets'
-  },
-  vite: {
-    optimizeDeps: {
-      include: ['react', 'react-dom']
-    }
   }
 });

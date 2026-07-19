@@ -1,0 +1,254 @@
+---
+import { navigation, profile } from '../../data/profile';
+
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) => href === '/' ? currentPath === '/' : currentPath.startsWith(href);
+---
+
+<header class="site-header no-print">
+  <nav class="nav-shell" aria-label="Primary navigation">
+    <a class="brand" href="/" aria-label="Bryan Perez, home">
+      <span class="brand-mark">BP</span>
+      <span class="brand-copy">
+        <strong>Bryan Perez</strong>
+        <small>AI & software engineering</small>
+      </span>
+    </a>
+
+    <div class="desktop-nav">
+      {navigation.map((item) => (
+        <a href={item.href} class:list={['nav-link', { active: isActive(item.href) }]} aria-current={isActive(item.href) ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </div>
+
+    <div class="nav-actions">
+      <button class="motion-toggle" type="button" data-motion-toggle aria-pressed="false" title="Pause ambient motion">
+        <span class="motion-toggle__dot"></span>
+        <span class="motion-toggle__label">Pause motion</span>
+      </button>
+      <a href={profile.resumeHref} class="button button-secondary resume-link" target="_blank" rel="noopener noreferrer">Résumé</a>
+      <a href="/contact" class="button button-primary contact-link">Contact</a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-controls="mobile-navigation" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="mobile-navigation" class="mobile-nav" hidden inert>
+    <div class="mobile-nav__inner">
+      {navigation.map((item) => (
+        <a href={item.href} class:list={['mobile-link', { active: isActive(item.href) }]} aria-current={isActive(item.href) ? 'page' : undefined}>
+          <span>{item.label}</span><span aria-hidden="true">↗</span>
+        </a>
+      ))}
+      <div class="mobile-nav__actions">
+        <a href={profile.resumeHref} class="button button-secondary" target="_blank" rel="noopener noreferrer">Résumé</a>
+        <a href="/contact" class="button button-primary">Contact</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0.85rem var(--page-gutter) 0;
+  }
+
+  .nav-shell {
+    display: flex;
+    width: min(100%, var(--content-width));
+    min-height: 4.25rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-inline: auto;
+    border: 1px solid var(--line);
+    border-radius: 1.1rem;
+    padding: 0.55rem 0.65rem 0.55rem 0.75rem;
+    background: rgba(8, 11, 16, 0.78);
+    box-shadow: 0 1.5rem 5rem -2.75rem rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(1.25rem) saturate(130%);
+  }
+
+  .brand {
+    display: flex;
+    min-width: max-content;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: 0.7rem;
+  }
+
+  .brand-mark {
+    display: grid;
+    width: 2.65rem;
+    height: 2.65rem;
+    place-items: center;
+    border: 1px solid rgba(103, 232, 210, 0.32);
+    border-radius: 0.75rem;
+    background: rgba(103, 232, 210, 0.08);
+    color: var(--signal);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .brand-copy {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+
+  .brand-copy strong {
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .brand-copy small {
+    margin-top: 0.2rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+  }
+
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+  }
+
+  .nav-link {
+    position: relative;
+    border-radius: 999px;
+    padding: 0.62rem 0.76rem;
+    color: var(--muted);
+    font-size: 0.76rem;
+    transition: color 160ms ease, background 160ms ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    background: rgba(255, 255, 255, 0.045);
+    color: var(--ink);
+  }
+
+  .nav-link.active::after {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.2rem;
+    left: 0.75rem;
+    height: 1px;
+    content: '';
+    background: var(--signal);
+  }
+
+  .nav-actions {
+    display: flex;
+    min-width: max-content;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .motion-toggle {
+    display: inline-flex;
+    min-height: 2.5rem;
+    align-items: center;
+    gap: 0.45rem;
+    border: 0;
+    border-radius: 999px;
+    padding: 0.55rem 0.7rem;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+  }
+
+  .motion-toggle:hover {
+    color: var(--ink);
+  }
+
+  .motion-toggle__dot {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: var(--signal);
+    box-shadow: 0 0 0.8rem rgba(103, 232, 210, 0.62);
+  }
+
+  .motion-toggle[aria-pressed='true'] .motion-toggle__dot {
+    background: var(--muted);
+    box-shadow: none;
+  }
+
+  .menu-toggle {
+    display: none;
+    width: 2.85rem;
+    height: 2.85rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 1rem;
+    height: 1px;
+    margin: 0.28rem auto;
+    background: var(--ink);
+    transition: transform 180ms ease;
+  }
+
+  .menu-toggle[aria-expanded='true'] span:first-child { transform: translateY(0.14rem) rotate(45deg); }
+  .menu-toggle[aria-expanded='true'] span:last-child { transform: translateY(-0.14rem) rotate(-45deg); }
+
+  .mobile-nav {
+    width: min(100%, var(--content-width));
+    margin: 0.45rem auto 0;
+    border: 1px solid var(--line);
+    border-radius: 1rem;
+    background: rgba(8, 11, 16, 0.96);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(1.25rem);
+  }
+
+  .mobile-nav__inner {
+    padding: 0.6rem;
+  }
+
+  .mobile-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding: 0.85rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .mobile-link.active { color: var(--signal); }
+  .mobile-nav__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; padding-top: 0.65rem; }
+
+  @media (max-width: 1040px) {
+    .desktop-nav,
+    .motion-toggle,
+    .contact-link { display: none; }
+    .menu-toggle { display: block; }
+  }
+
+  @media (max-width: 540px) {
+    .site-header { padding-top: 0.55rem; }
+    .brand-copy small,
+    .resume-link { display: none; }
+    .nav-shell { min-height: 3.9rem; }
+  }
+</style>
+

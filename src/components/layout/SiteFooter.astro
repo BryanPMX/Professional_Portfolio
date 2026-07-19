@@ -1,0 +1,123 @@
+---
+import { navigation, profile } from '../../data/profile';
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-intro">
+      <p class="eyebrow">Available for the right team</p>
+      <h2>Let’s build systems people can trust.</h2>
+      <p>Agent workflows, secure platforms, and product engineering from architecture through deployment.</p>
+      <div class="footer-actions">
+        <a href={`mailto:${profile.email}`} class="button button-primary">Email Bryan <span aria-hidden="true">↗</span></a>
+        <a href={profile.resumeHref} class="button button-secondary" target="_blank" rel="noopener noreferrer">View résumé</a>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <div>
+        <p class="footer-label">Explore</p>
+        {navigation.map((item) => <a href={item.href}>{item.label}</a>)}
+        <a href="/contact">Contact</a>
+      </div>
+      <div>
+        <p class="footer-label">Connect</p>
+        <a href={profile.github} target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href={profile.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+        <a href={`mailto:${profile.email}`}>Email ↗</a>
+        <a href={profile.phoneHref}>Phone</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="shell footer-bottom">
+    <span>© {new Date().getFullYear()} Bryan Perez</span>
+    <span>{profile.location} · {profile.timezone}</span>
+    <span>Built with Astro</span>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--line);
+    padding-top: clamp(4.5rem, 8vw, 7rem);
+    background: rgba(10, 14, 20, 0.72);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(18rem, 0.7fr);
+    gap: clamp(3rem, 8vw, 8rem);
+  }
+
+  .footer-intro h2 {
+    max-width: 14ch;
+    margin: 1.2rem 0 1rem;
+    font-size: clamp(2rem, 4.5vw, 4rem);
+    font-weight: 600;
+    letter-spacing: -0.055em;
+    line-height: 1.04;
+  }
+
+  .footer-intro > p:last-of-type {
+    max-width: 38rem;
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .footer-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 2rem;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .footer-links > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.62rem;
+  }
+
+  .footer-label {
+    margin: 0 0 0.55rem;
+    color: var(--signal);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .footer-links a {
+    color: var(--muted);
+    font-size: 0.82rem;
+    transition: color 160ms ease;
+  }
+
+  .footer-links a:hover { color: var(--ink); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 5rem;
+    border-top: 1px solid var(--line);
+    padding-block: 1.4rem;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.62rem;
+  }
+
+  @media (max-width: 760px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom { align-items: flex-start; flex-direction: column; }
+  }
+</style>
+

@@ -1,242 +1,158 @@
 ---
+import AmbientBackground from '../components/layout/AmbientBackground.astro';
+import SiteFooter from '../components/layout/SiteFooter.astro';
+import SiteHeader from '../components/layout/SiteHeader.astro';
+import { profile } from '../data/profile';
+import '../styles/global.css';
+
 export interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = "Bryan Perez - Software Engineer" } = Astro.props;
+const {
+  title,
+  description = profile.summary,
+  image = '/assets/profile-pic.png',
+} = Astro.props;
+
+const fullTitle = title.includes(profile.name) ? title : `${title} | ${profile.name}`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const socialImage = Astro.site ? new URL(image, Astro.site) : undefined;
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.role,
+  email: `mailto:${profile.email}`,
+  telephone: profile.phone,
+  address: { '@type': 'PostalAddress', addressLocality: 'El Paso', addressRegion: 'TX', addressCountry: 'US' },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'The University of Texas at El Paso' },
+  sameAs: [profile.github, profile.linkedin],
+};
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#080b10" />
+    <meta name="color-scheme" content="dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-    <title>{title}</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {socialImage && <meta property="og:image" content={socialImage} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    <title>{fullTitle}</title>
   </head>
-  <body class="bg-dark-bg text-dark-text min-h-screen antialiased">
-    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-accent text-white px-3 py-2 rounded-md shadow-lg">Skip to content</a>
-
-    <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-      <div class="absolute -left-40 -top-40 h-96 w-96 bg-accent/10 blur-3xl rounded-full animate-[pulse_8s_ease-in-out_infinite]"></div>
-      <div class="absolute right-[-10%] top-20 h-[28rem] w-[28rem] bg-accent-purple/10 blur-[110px] rounded-full"></div>
-      <div class="absolute bottom-0 left-1/3 h-72 w-72 bg-white/5 blur-3xl rounded-full"></div>
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_10%_20%,rgba(59,130,246,0.08),transparent_25%),radial-gradient(circle_at_80%_0%,rgba(139,92,246,0.08),transparent_20%),radial-gradient(circle_at_50%_90%,rgba(255,255,255,0.05),transparent_25%)]"></div>
-    </div>
-
-    <nav class="fixed top-0 left-0 right-0 z-50">
-      <div id="nav-bar" class="mx-auto max-w-6xl px-4 sm:px-6 py-4 mt-4 rounded-2xl border border-white/5 bg-dark-surface/70 backdrop-blur-xl shadow-[0_25px_80px_-25px_rgba(0,0,0,0.55)] transition-all">
-        <div class="flex items-center justify-between gap-4">
-          <a href="/" class="group flex items-center gap-3 text-lg font-semibold tracking-tight">
-            <span class="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-accent to-accent-purple text-white shadow-lg shadow-accent/30 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">BP</span>
-            <div class="flex flex-col leading-tight">
-              <span class="text-sm uppercase tracking-[0.28em] text-dark-text-secondary">Portfolio</span>
-              <span class="text-lg">Bryan Perez</span>
-            </div>
-          </a>
-
-          <div class="hidden lg:flex items-center gap-2">
-            <div class="flex rounded-full bg-dark-bg/80 border border-white/5 p-1">
-              {[
-                { href: '/', label: 'Home' },
-                { href: '/projects', label: 'Projects' },
-                { href: '/research', label: 'Research' },
-                { href: '/games', label: 'Games' },
-                { href: '/about', label: 'About' },
-                { href: '/contact', label: 'Contact' }
-              ].map((item) => (
-                <a href={item.href} class="nav-pill">{item.label}</a>
-              ))}
-            </div>
-            <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Resume</a>
-            <a href="/contact" class="cta-solid">Hire me</a>
-          </div>
-
-          <button id="mobile-menu-btn" class="lg:hidden inline-flex items-center justify-center rounded-xl border border-white/10 bg-dark-bg/80 p-3 text-dark-text hover:border-accent transition-all" aria-label="Toggle menu">
-            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
-          </button>
-        </div>
-
-        <div id="mobile-menu" class="grid grid-rows-[0fr] transition-[grid-template-rows] duration-300 lg:hidden">
-          <div class="overflow-hidden">
-            <div class="mt-4 space-y-2 rounded-2xl border border-white/5 bg-dark-bg/80 p-3 shadow-lg">
-              {[
-                { href: '/', label: 'Home' },
-                { href: '/projects', label: 'Projects' },
-                { href: '/research', label: 'Research' },
-                { href: '/games', label: 'Games' },
-                { href: '/about', label: 'About' },
-                { href: '/contact', label: 'Contact' }
-              ].map((item) => (
-                <a href={item.href} class="nav-link-mobile">{item.label}</a>
-              ))}
-              <div class="grid grid-cols-2 gap-2 pt-2">
-                <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost text-center">Resume</a>
-                <a href="/contact" class="cta-solid text-center">Hire me</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <main id="main-content" class="pt-32">
+  <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <AmbientBackground />
+    <SiteHeader />
+    <main id="main-content">
       <slot />
     </main>
-
-    <footer class="mt-24 border-t border-white/5 bg-dark-surface/80 backdrop-blur-xl">
-      <div class="mx-auto max-w-6xl px-4 sm:px-6 py-12">
-        <div class="grid gap-10 md:grid-cols-[1.2fr_1fr_1fr] md:items-start">
-          <div class="space-y-3 text-center md:text-left">
-            <p class="text-sm uppercase tracking-[0.25em] text-dark-text-secondary">Build fast. Build right.</p>
-            <p class="text-responsive-md font-semibold">Secure systems, clean UX, and AI-aware engineering.</p>
-            <div class="flex gap-3 justify-center md:justify-start">
-              <a href="mailto:perez.bryan24@outlook.com" class="cta-ghost">Email</a>
-              <a href="/contact" class="cta-solid">Start</a>
-            </div>
-          </div>
-          <div class="text-center">
-            <h3 class="text-sm font-semibold tracking-wide text-dark-text-secondary mb-3">Navigate</h3>
-            <div class="grid grid-cols-2 gap-2 text-sm text-dark-text-secondary justify-items-center">
-              <a href="/" class="footer-link">Home</a>
-              <a href="/projects" class="footer-link">Projects</a>
-              <a href="/research" class="footer-link">Research</a>
-              <a href="/games" class="footer-link">Games</a>
-              <a href="/about" class="footer-link">About</a>
-              <a href="/contact" class="footer-link">Contact</a>
-            </div>
-          </div>
-          <div class="text-center">
-            <h3 class="text-sm font-semibold tracking-wide text-dark-text-secondary mb-3">Connect</h3>
-            <div class="flex flex-wrap gap-3 justify-center">
-              <a href="https://github.com/BryanPMX" target="_blank" class="social-pill">GitHub</a>
-              <a href="https://linkedin.com/in/brpmx" target="_blank" class="social-pill">LinkedIn</a>
-              <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="social-pill">Resume</a>
-            </div>
-          </div>
-        </div>
-        <div class="mt-10 flex flex-col gap-2 border-t border-white/5 pt-6 text-sm text-dark-text-secondary sm:flex-row sm:items-center sm:justify-between">
-          <span>© 2026 Bryan Perez. All rights reserved.</span>
-          <span class="flex items-center gap-2 text-xs uppercase tracking-[0.3em]">El Paso, TX</span>
-        </div>
-      </div>
-    </footer>
-
-    <style>
-      .nav-pill {
-        @apply relative px-4 py-2 text-sm font-semibold text-dark-text-secondary rounded-full transition-all duration-200;
-      }
-      .nav-pill::after {
-        content: '';
-        @apply absolute inset-x-3 bottom-1 h-0.5 rounded-full bg-gradient-to-r from-accent to-accent-purple opacity-0 transition-opacity duration-200;
-      }
-      .nav-pill:hover {
-        @apply text-dark-text;
-      }
-      .nav-pill.active {
-        @apply text-dark-text;
-      }
-      .nav-pill.active::after {
-        @apply opacity-100;
-      }
-
-      .nav-link-mobile {
-        @apply block rounded-xl px-4 py-3 text-sm font-semibold text-dark-text-secondary transition-all duration-200 hover:bg-white/5 hover:text-white;
-      }
-
-      .cta-solid {
-        @apply inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-accent to-accent-purple px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-accent/30 transition-all duration-200 hover:shadow-accent/40 hover:-translate-y-0.5;
-      }
-      .cta-ghost {
-        @apply inline-flex items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-semibold text-dark-text transition-all duration-200 hover:border-accent hover:text-white hover:-translate-y-0.5;
-      }
-      .footer-link {
-        @apply rounded-lg px-3 py-2 transition-colors hover:text-white hover:bg-white/5;
-      }
-      .social-pill {
-        @apply rounded-full border border-white/10 px-4 py-2 text-sm text-dark-text-secondary transition-all hover:border-accent hover:text-white hover:-translate-y-0.5;
-      }
-    </style>
+    <SiteFooter />
 
     <script>
-      const nav = document.getElementById('nav-bar');
-      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-      const mobileMenu = document.getElementById('mobile-menu');
+      const root = document.documentElement;
+      const menuButton = document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const mobileNavigation = document.querySelector<HTMLElement>('#mobile-navigation');
+      const motionButton = document.querySelector<HTMLButtonElement>('[data-motion-toggle]');
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener('click', () => {
-          const isOpen = mobileMenu.style.gridTemplateRows === '1fr';
-          mobileMenu.style.gridTemplateRows = isOpen ? '0fr' : '1fr';
-          mobileMenuBtn.classList.toggle('border-accent', !isOpen);
-        });
+      const setMenu = (open: boolean) => {
+        if (!menuButton || !mobileNavigation) return;
+        menuButton.setAttribute('aria-expanded', String(open));
+        menuButton.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+        mobileNavigation.hidden = !open;
+        mobileNavigation.inert = !open;
+      };
+
+      menuButton?.addEventListener('click', () => setMenu(menuButton.getAttribute('aria-expanded') !== 'true'));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+          setMenu(false);
+          menuButton.focus();
+        }
+      });
+      document.addEventListener('click', (event) => {
+        if (menuButton?.getAttribute('aria-expanded') !== 'true') return;
+        const target = event.target as Node;
+        if (!mobileNavigation?.contains(target) && !menuButton.contains(target)) setMenu(false);
+      });
+
+      const savedMotion = localStorage.getItem('portfolio-motion');
+      const motionPaused = savedMotion ? savedMotion === 'paused' : prefersReducedMotion.matches;
+      const setMotion = (paused: boolean) => {
+        root.classList.toggle('motion-paused', paused);
+        motionButton?.setAttribute('aria-pressed', String(paused));
+        motionButton?.setAttribute('title', paused ? 'Resume ambient motion' : 'Pause ambient motion');
+        const label = motionButton?.querySelector('.motion-toggle__label');
+        if (label) label.textContent = paused ? 'Resume motion' : 'Pause motion';
+      };
+      setMotion(motionPaused);
+      motionButton?.addEventListener('click', () => {
+        const paused = !root.classList.contains('motion-paused');
+        setMotion(paused);
+        localStorage.setItem('portfolio-motion', paused ? 'paused' : 'running');
+      });
+
+      if (!prefersReducedMotion.matches) {
+        let pointerFrame = 0;
+        document.addEventListener('pointermove', (event) => {
+          if (pointerFrame) return;
+          pointerFrame = requestAnimationFrame(() => {
+            root.style.setProperty('--mx', `${event.clientX}px`);
+            root.style.setProperty('--my', `${event.clientY}px`);
+            pointerFrame = 0;
+          });
+        }, { passive: true });
       }
 
-      const currentPath = window.location.pathname;
-      const navLinks = document.querySelectorAll('.nav-pill, .nav-link-mobile');
-
-      navLinks.forEach((link) => {
-        if (link.getAttribute('href') === currentPath) {
-          link.classList.add('active');
-        }
-      });
-
-      const handleScroll = () => {
-        if (!nav) return;
-        if (window.scrollY > 12) {
-          nav.classList.add('shadow-[0_18px_60px_-30px_rgba(0,0,0,0.75)]', 'border-white/10');
-        } else {
-          nav.classList.remove('shadow-[0_18px_60px_-30px_rgba(0,0,0,0.75)]', 'border-white/10');
-        }
-      };
-
-      const setupReveal = () => {
-        const nodes = document.querySelectorAll('.reveal-on-scroll');
-        if (!nodes.length) return;
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.12 }
-        );
-
-        nodes.forEach((node) => observer.observe(node));
-      };
-
-      const setupCardGlow = () => {
-        const cards = document.querySelectorAll('.interactive-card');
-        cards.forEach((card) => {
-          card.addEventListener('mousemove', (event) => {
-            const mouseEvent = event as MouseEvent;
-            const htmlCard = card as HTMLElement;
-            const rect = card.getBoundingClientRect();
-            const x = mouseEvent.clientX - rect.left;
-            const y = mouseEvent.clientY - rect.top;
-            htmlCard.style.setProperty('--mx', `${x}px`);
-            htmlCard.style.setProperty('--my', `${y}px`);
+      const reveals = [...document.querySelectorAll<HTMLElement>('.reveal')];
+      if (prefersReducedMotion.matches || !('IntersectionObserver' in window)) {
+        reveals.forEach((element) => element.classList.add('is-visible'));
+      } else {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
           });
-        });
-      };
-
-      document.addEventListener('scroll', handleScroll, { passive: true });
-      window.addEventListener('load', () => {
-        setupReveal();
-        setupCardGlow();
-      });
-
-      handleScroll();
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        reveals.forEach((element) => observer.observe(element));
+      }
     </script>
   </body>
 </html>
+
+<style is:global>
+  main { min-height: 72vh; padding-top: 6.5rem; }
+  .skip-link {
+    position: fixed;
+    z-index: 100;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 0.5rem;
+    background: var(--signal);
+    color: #05110f;
+    font-weight: 600;
+    transform: translateY(-180%);
+  }
+  .skip-link:focus { transform: none; }
+</style>
