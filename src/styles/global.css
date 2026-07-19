@@ -133,7 +133,7 @@ section,
 .display-title {
   max-width: 16ch;
   margin: 0;
-  font-size: clamp(2.85rem, 7vw, 6.7rem);
+  font-size: clamp(2.55rem, 5.6vw, 5.4rem);
   font-weight: 600;
   letter-spacing: -0.065em;
   line-height: 0.98;
@@ -142,7 +142,7 @@ section,
 
 .page-title {
   margin: 0;
-  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-size: clamp(2.15rem, 4.5vw, 4rem);
   font-weight: 600;
   letter-spacing: -0.055em;
   line-height: 1.02;
@@ -151,7 +151,7 @@ section,
 
 .section-title {
   margin: 0;
-  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-size: clamp(1.75rem, 3.6vw, 2.8rem);
   font-weight: 600;
   letter-spacing: -0.045em;
   line-height: 1.08;
@@ -162,7 +162,7 @@ section,
   max-width: 42rem;
   margin: 0;
   color: var(--muted);
-  font-size: clamp(1.05rem, 1.8vw, 1.28rem);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
   line-height: 1.75;
 }
 
@@ -263,7 +263,7 @@ section,
 .metric-value {
   display: block;
   color: var(--ink);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.35rem, 2.5vw, 1.9rem);
   font-weight: 600;
   letter-spacing: -0.045em;
   line-height: 1;
@@ -402,4 +402,3 @@ section,
     color: black !important;
   }
 }
-

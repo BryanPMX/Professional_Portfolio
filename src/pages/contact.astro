@@ -62,11 +62,11 @@ import { profile } from '../data/profile';
   .contact-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
   .contact-card { display: grid; min-height: 15rem; grid-template-columns: 1fr auto; padding: clamp(1.4rem,3vw,2rem); }
   .contact-card > span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
-  .contact-card strong { grid-column: 1/-1; align-self: end; overflow-wrap: anywhere; font-size: clamp(1.1rem,2.6vw,1.7rem); letter-spacing: -.035em; }
+  .contact-card strong { grid-column: 1/-1; align-self: end; overflow-wrap: anywhere; font-size: clamp(1rem,2.1vw,1.45rem); letter-spacing: -.03em; }
   .contact-card p { margin: .55rem 0 0; color: var(--muted); font-size: .72rem; }
   .contact-card i { grid-column: 2; grid-row: 1; color: var(--muted); font-size: 1.2rem; font-style: normal; }
   .contact-detail { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: clamp(3rem,8vw,8rem); }
-  .availability-panel h2 { margin: 1.2rem 0 2rem; font-size: clamp(2rem,4vw,3.5rem); letter-spacing: -.05em; line-height: 1.12; }
+  .availability-panel h2 { margin: 1.2rem 0 2rem; font-size: clamp(1.75rem,3.2vw,2.8rem); letter-spacing: -.045em; line-height: 1.15; }
   dl { margin: 0; }
   dl div { display: grid; grid-template-columns: 7rem 1fr; border-top: 1px solid var(--line); padding: .8rem 0; }
   dt { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .62rem; text-transform: uppercase; }
@@ -79,4 +79,3 @@ import { profile } from '../data/profile';
   .message-guide strong { color: var(--ink); }
   @media (max-width: 760px) { .contact-hero,.contact-grid,.contact-detail { grid-template-columns: 1fr; } }
 </style>
-
