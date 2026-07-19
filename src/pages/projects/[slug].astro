@@ -1,0 +1,188 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '../../layouts/Layout.astro';
+import { projects, type Project } from '../../data/projects';
+
+export const getStaticPaths = (() => projects.map((project) => ({ params: { slug: project.slug }, props: { project } }))) satisfies GetStaticPaths;
+
+interface Props { project: Project; }
+const { project } = Astro.props;
+const currentIndex = projects.findIndex((item) => item.slug === project.slug);
+const nextProject = projects[(currentIndex + 1) % projects.length];
+const projectJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareSourceCode',
+  name: project.title,
+  description: project.summary,
+  author: { '@type': 'Person', name: 'Bryan Perez' },
+  programmingLanguage: project.technologies,
+};
+---
+
+<Layout title={`${project.title} Case Study`} description={`${project.kicker}. ${project.summary}`}>
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(projectJsonLd)} />
+  <article>
+    <header class="case-hero section-pad shell reveal is-visible">
+      <a href="/projects" class="back-link">← Selected work</a>
+      <div class="case-hero__grid">
+        <div>
+          <p class="eyebrow">{project.kicker}</p>
+          <h1 class="page-title">{project.title}</h1>
+          <p class="lede">{project.summary}</p>
+        </div>
+        <dl class="case-meta surface">
+          <div><dt>Role</dt><dd>{project.role}</dd></div>
+          <div><dt>Timeline</dt><dd>{project.period}</dd></div>
+          <div><dt>Visibility</dt><dd>{project.status === 'private' ? 'Private / sanitized' : project.status === 'production' ? 'Production system' : 'Independent project'}</dd></div>
+        </dl>
+      </div>
+
+      <div class="case-metrics">
+        {project.metrics.map((metric) => <div><strong>{metric.value}</strong><span>{metric.label}</span></div>)}
+      </div>
+    </header>
+
+    <section class="case-content section-rule section-pad">
+      <div class="shell narrative-grid">
+        <div class="narrative-label reveal"><span>01</span><p>Context</p></div>
+        <div class="narrative-block reveal">
+          <p class="eyebrow">The problem</p>
+          <h2>{project.problem}</h2>
+          {project.confidentiality && <aside><strong>Confidentiality note</strong><p>{project.confidentiality}</p></aside>}
+        </div>
+
+        <div class="narrative-label reveal"><span>02</span><p>Contribution</p></div>
+        <div class="narrative-block reveal">
+          <p class="eyebrow">Bryan’s ownership</p>
+          <ul class="ownership-list">
+            {project.ownership.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+
+        <div class="narrative-label reveal"><span>03</span><p>Architecture</p></div>
+        <div class="narrative-block reveal">
+          <p class="eyebrow">System shape</p>
+          <h2>{project.architecture}</h2>
+          <ul class="tag-list architecture-tags">
+            {project.technologies.map((technology) => <li class="tag">{technology}</li>)}
+          </ul>
+        </div>
+
+        <div class="narrative-label reveal"><span>04</span><p>Quality</p></div>
+        <div class="narrative-block reveal">
+          <p class="eyebrow">Trust, safety, and operations</p>
+          <div class="quality-grid">
+            {project.quality.map((item, index) => <div><span>0{index + 1}</span><strong>{item}</strong></div>)}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="media-section section-pad shell">
+      <div class="media-heading reveal">
+        <div><p class="eyebrow">Product evidence</p><h2 class="section-title">Media capture is queued.</h2></div>
+        <p class="lede">These slots are intentionally honest placeholders. Project-specific agents will run the development containers, capture sanitized workflows, and replace them without changing the layout.</p>
+      </div>
+
+      <div class="media-grid">
+        {project.media.map((media, index) => (
+          <figure class:list={['media-item reveal', { featured: index === 0 }]}>
+            <div class="media-placeholder">
+              <div class="media-placeholder__content">
+                <div class="media-placeholder__icon" aria-hidden="true">{String(index + 1).padStart(2, '0')}</div>
+                <strong>{media.label}</strong>
+                <p>{media.brief}</p>
+                <code>{media.filename}</code>
+              </div>
+            </div>
+            <figcaption><strong>Planned capture:</strong> {media.alt}</figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <aside class="capture-brief surface reveal">
+        <div><p class="eyebrow">Agent capture brief</p><h2>What the evidence package must show</h2></div>
+        <ul>{project.captureFocus.map((item) => <li>{item}</li>)}</ul>
+        <a href="/PROJECT_MEDIA_CAPTURE_PROMPT.md" class="button button-secondary">Open full capture prompt</a>
+      </aside>
+    </section>
+
+    <section class="next-project section-rule">
+      <a href={`/projects/${nextProject.slug}`} class="shell">
+        <span>Next case study</span>
+        <strong>{nextProject.title}</strong>
+        <i aria-hidden="true">→</i>
+      </a>
+    </section>
+  </article>
+</Layout>
+
+<style>
+  .back-link { display: inline-flex; margin-bottom: 2.5rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .7rem; }
+  .back-link:hover { color: var(--signal); }
+  .case-hero { padding-top: clamp(4.5rem,9vw,8rem); }
+  .case-hero__grid { display: grid; grid-template-columns: minmax(0,1.22fr) minmax(19rem,.78fr); gap: clamp(3rem,8vw,8rem); align-items: end; }
+  .case-hero h1 { margin: 1rem 0 1.2rem; }
+  .case-meta { margin: 0; padding: 1.2rem; }
+  .case-meta div { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; border-bottom: 1px solid var(--line); padding: .85rem .2rem; }
+  .case-meta div:last-child { border-bottom: 0; }
+  dt { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .62rem; text-transform: uppercase; }
+  dd { margin: 0; font-size: .73rem; line-height: 1.55; }
+  .case-metrics { display: grid; grid-template-columns: repeat(3,1fr); margin-top: clamp(3rem,7vw,6rem); border-top: 1px solid var(--line); }
+  .case-metrics div { border-right: 1px solid var(--line); padding: 1.6rem; }
+  .case-metrics div:first-child { padding-left: 0; }
+  .case-metrics div:last-child { border-right: 0; }
+  .case-metrics strong,.case-metrics span { display: block; }
+  .case-metrics strong { color: var(--signal); font-size: clamp(1.3rem,3vw,2.4rem); letter-spacing: -.045em; }
+  .case-metrics span { margin-top: .35rem; color: var(--muted); font-size: .68rem; }
+  .narrative-grid { display: grid; grid-template-columns: minmax(8rem,.32fr) minmax(0,.68fr); }
+  .narrative-label,.narrative-block { border-bottom: 1px solid var(--line); padding-block: clamp(2.5rem,6vw,5rem); }
+  .narrative-label { display: flex; gap: .75rem; padding-right: 2rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .65rem; }
+  .narrative-label span { color: var(--signal); }
+  .narrative-label p { margin: 0; }
+  .narrative-block { padding-left: clamp(1rem,5vw,5rem); }
+  .narrative-block h2 { max-width: 34ch; margin: 1.2rem 0 0; font-size: clamp(1.45rem,3vw,2.5rem); font-weight: 500; letter-spacing: -.035em; line-height: 1.35; }
+  aside { margin-top: 2rem; border-left: 2px solid var(--warm); padding: 1rem 1.2rem; background: rgba(255,181,107,.04); }
+  aside strong { font-size: .75rem; }
+  aside p { margin: .3rem 0 0; color: var(--muted); font-size: .72rem; }
+  .ownership-list { margin: 1.5rem 0 0; padding: 0; list-style: none; }
+  .ownership-list li { position: relative; border-top: 1px solid var(--line); padding: 1.1rem 0 1.1rem 1.6rem; color: var(--muted); font-size: .85rem; }
+  .ownership-list li::before { position: absolute; top: 1.5rem; left: .15rem; width: .42rem; height: .42rem; border-radius: 50%; content: ''; background: var(--signal); }
+  .architecture-tags { margin-top: 2rem; }
+  .quality-grid { display: grid; grid-template-columns: repeat(2,1fr); margin-top: 1.5rem; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .quality-grid div { min-height: 7.5rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1rem; }
+  .quality-grid span,.quality-grid strong { display: block; }
+  .quality-grid span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .58rem; }
+  .quality-grid strong { margin-top: 2rem; font-size: .78rem; }
+  .media-heading { display: flex; align-items: end; justify-content: space-between; gap: 3rem; margin-bottom: 2.5rem; }
+  .media-heading h2 { margin-top: 1rem; }
+  .media-heading .lede { max-width: 34rem; font-size: .9rem; }
+  .media-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+  .media-item { margin: 0; }
+  .media-item.featured { grid-column: 1/-1; }
+  .media-item.featured .media-placeholder { aspect-ratio: 16/7; }
+  .media-placeholder__content strong { display: block; font-size: 1rem; }
+  .media-placeholder__content p { margin: .6rem 0; color: var(--muted); font-size: .73rem; }
+  .media-placeholder__content code { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
+  figcaption { margin-top: .7rem; color: var(--muted); font-size: .68rem; }
+  figcaption strong { color: var(--ink); }
+  .capture-brief { display: grid; grid-template-columns: 1fr 1fr auto; gap: 2rem; align-items: center; margin-top: 4rem; padding: clamp(1.5rem,4vw,2.5rem); border-left: 1px solid var(--line); background: linear-gradient(145deg, rgba(103,232,210,.06), rgba(12,17,24,.86)); }
+  .capture-brief h2 { margin: .8rem 0 0; font-size: 1.25rem; }
+  .capture-brief ul { margin: 0; padding-left: 1.1rem; color: var(--muted); font-size: .72rem; }
+  .capture-brief .button { margin-top: 0; }
+  .next-project a { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 1rem; padding-block: 2.2rem; }
+  .next-project span { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .65rem; }
+  .next-project strong { font-size: clamp(1.1rem,2.5vw,1.7rem); }
+  .next-project i { color: var(--signal); font-size: 1.5rem; font-style: normal; transition: transform 180ms ease; }
+  .next-project a:hover i { transform: translateX(.4rem); }
+  @media (max-width: 800px) {
+    .case-hero__grid,.narrative-grid,.media-grid,.capture-brief { grid-template-columns: 1fr; }
+    .narrative-label { padding-bottom: 0; border-bottom: 0; }
+    .narrative-block { padding-left: 0; }
+    .media-heading { display: grid; }
+    .media-item.featured { grid-column: auto; }
+    .media-item.featured .media-placeholder { aspect-ratio: 16/10; }
+  }
+  @media (max-width: 560px) { .case-metrics { grid-template-columns: 1fr; } .case-metrics div { border-right: 0; border-bottom: 1px solid var(--line); padding-left: 0; } .quality-grid { grid-template-columns: 1fr; } }
+</style>
+

@@ -1,99 +1,61 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-
-const projects = [
-  {
-    title: 'CAF Case Management',
-    description: 'Internal case platform that replaced manual flow with React/TypeScript, RBAC, and automated reporting.',
-    image: '/assets/project-3.png',
-    technologies: ['React', 'TypeScript', 'PostgreSQL', 'RBAC', 'Docker'],
-    liveUrl: '#'
-  },
-  {
-    title: 'DEM Bravo',
-    description: 'Offline-first cyber graph platform using FastAPI + Neo4j with query sanitization to block injection paths.',
-    image: '/assets/project-1.png',
-    technologies: ['FastAPI', 'Neo4j', 'SvelteKit', 'Docker', 'Python'],
-    githubUrl: 'https://github.com/ChristianDees/CS4311_DEM_Bravo_Fall2025',
-    liveUrl: '#'
-  },
-  {
-    title: 'Bank of Miners',
-    description: 'Legacy banking system rebuilt as a web app with custom BST logic, Spring Boot APIs, and React UI.',
-    image: '/assets/project-2.png',
-    technologies: ['Java', 'Spring Boot', 'React', 'Docker', 'PostgreSQL'],
-    githubUrl: 'https://github.com/BryanPMX/bank-system',
-    liveUrl: '#'
-  }
-];
+import { projects } from '../data/projects';
 ---
 
-<Layout title="Projects - Bryan Perez">
-  <div class="min-h-screen">
-    <section class="py-20 px-6 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto flex flex-col gap-6 text-center">
-        <div class="badge-glass self-center">Case studies | Shipped systems</div>
-        <h1 class="text-4xl lg:text-5xl font-semibold text-gradient">Work that ships and holds up.</h1>
-        <p class="text-lg text-dark-text-secondary max-w-3xl self-center">
-          Real delivery across civic tech, cybersecurity, and platform modernization.
-        </p>
-      </div>
-    </section>
-
-    <section class="pb-20 px-6 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-        {projects.map((project) => (
-          <ProjectCard
-            title={project.title}
-            description={project.description}
-            image={project.image}
-            technologies={project.technologies}
-            githubUrl={project.githubUrl}
-            liveUrl={project.liveUrl}
-            type="project"
-          />
-        ))}
-      </div>
-    </section>
-
-    <section class="py-20 px-6 bg-dark-surface/70 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1fr_1.1fr] items-center">
-        <div class="space-y-4">
-          <p class="badge-glass w-fit">Delivery model</p>
-          <h2 class="text-3xl lg:text-4xl font-semibold">Simple process. Strong outcomes.</h2>
-          <p class="text-dark-text-secondary">
-            I keep momentum with clear specs, weekly demos, and secure production standards.
-          </p>
-        </div>
-        <div class="grid gap-4 md:grid-cols-2">
-          {[
-            { title: 'Scope fast', copy: 'Define goals, risks, and constraints early.' },
-            { title: 'Build safely', copy: 'Ship with auth, tests, and release guardrails.' },
-            { title: 'Polish UI', copy: 'Refine interaction without sacrificing speed.' },
-            { title: 'Handoff cleanly', copy: 'Leave docs and maintainable architecture.' }
-          ].map((item) => (
-            <div class="panel gradient-border interactive-card p-4">
-              <h3 class="text-lg font-semibold mb-2">{item.title}</h3>
-              <p class="text-sm text-dark-text-secondary leading-relaxed">{item.copy}</p>
-            </div>
-          ))}
+<Layout title="Selected Work" description="Selected AI, full-stack, platform, and infrastructure case studies by Bryan Perez.">
+  <section class="work-hero section-pad shell reveal is-visible">
+    <p class="eyebrow">Selected work · 2023–2026</p>
+    <div class="work-hero__grid">
+      <h1 class="page-title">Systems designed to hold up <span class="signal-text">under pressure.</span></h1>
+      <div>
+        <p class="lede">The projects below lead with the problem, Bryan’s ownership, architecture, controls, and evidence—not a wall of technology logos.</p>
+        <div class="scan-key">
+          <span><i class="production"></i> Production</span>
+          <span><i class="private"></i> Private</span>
+          <span><i class="personal"></i> Independent</span>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="py-20 px-6 reveal-on-scroll">
-      <div class="max-w-5xl mx-auto panel gradient-border interactive-card p-10 text-center space-y-6">
-        <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Collaboration</p>
-        <h2 class="text-3xl lg:text-4xl font-semibold">Need a builder on your team?</h2>
-        <p class="text-dark-text-secondary max-w-3xl mx-auto">
-          I can join to design, implement, and stabilize the next release.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/contact" class="cta-solid">Contact me</a>
-          <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Resume</a>
-        </div>
-      </div>
-    </section>
-  </div>
+  <section class="work-list section-pad section-rule">
+    <div class="shell projects-grid">
+      {projects.map((project, index) => <ProjectCard project={project} index={index} />)}
+    </div>
+  </section>
+
+  <section class="case-study-standard section-pad shell reveal">
+    <div>
+      <p class="eyebrow">How to read the work</p>
+      <h2 class="section-title">Every case study follows the same evidence contract.</h2>
+    </div>
+    <ol>
+      <li><span>01</span><div><strong>Context and problem</strong><p>Who the system serves, the constraints it faced, and why it needed to exist.</p></div></li>
+      <li><span>02</span><div><strong>Ownership and decisions</strong><p>What Bryan personally built, where the team contributed, and the tradeoffs behind the architecture.</p></div></li>
+      <li><span>03</span><div><strong>Quality and evidence</strong><p>Security, reliability, tests, observability, scale, and recruiter-facing product media.</p></div></li>
+    </ol>
+  </section>
 </Layout>
+
+<style>
+  .work-hero { padding-top: clamp(5rem,10vw,8.5rem); }
+  .work-hero__grid { display: grid; grid-template-columns: minmax(0,1.18fr) minmax(19rem,.82fr); gap: clamp(3rem,8vw,8rem); align-items: end; margin-top: 1.4rem; }
+  .work-hero__grid .lede { font-size: 1rem; }
+  .scan-key { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
+  .scan-key span { display: flex; align-items: center; gap: .38rem; }
+  .scan-key i { width: .45rem; height: .45rem; border-radius: 50%; background: var(--signal); }
+  .scan-key .private { background: var(--warm); }
+  .scan-key .personal { background: var(--violet); }
+  .projects-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 1.1rem; }
+  .case-study-standard { display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr); gap: clamp(3rem,8vw,8rem); }
+  .case-study-standard h2 { margin-top: 1rem; }
+  ol { margin: 0; border-top: 1px solid var(--line); padding: 0; list-style: none; }
+  li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1.2rem; border-bottom: 1px solid var(--line); padding: 1.5rem 0; }
+  li > span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .65rem; }
+  li strong { font-size: .92rem; }
+  li p { margin: .5rem 0 0; color: var(--muted); font-size: .78rem; }
+  @media (max-width: 760px) { .work-hero__grid, .projects-grid, .case-study-standard { grid-template-columns: 1fr; } }
+</style>
+
