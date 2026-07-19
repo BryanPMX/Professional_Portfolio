@@ -14,7 +14,7 @@ export interface Props {
 const {
   title,
   description = profile.summary,
-  image = '/assets/profile-pic.png',
+  image = '/assets/profile-pic.webp',
 } = Astro.props;
 
 const fullTitle = title.includes(profile.name) ? title : `${title} | ${profile.name}`;

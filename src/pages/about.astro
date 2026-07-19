@@ -22,7 +22,7 @@ import { profile, skillGroups } from '../data/profile';
   <section class="portrait-section section-rule section-pad">
     <div class="shell portrait-grid">
       <div class="portrait-card surface reveal">
-        <img src="/assets/profile-pic.png" alt="Portrait of Bryan Perez" width="640" height="640" loading="eager" decoding="async" />
+        <img src="/assets/profile-pic.webp" alt="Portrait of Bryan Perez" width="640" height="640" loading="eager" decoding="async" />
         <div class="portrait-caption"><span>{profile.name}</span><span>{profile.location}</span></div>
       </div>
       <div class="principles reveal">
@@ -144,4 +144,3 @@ import { profile, skillGroups } from '../data/profile';
   .skill-row h3 { margin: 0; font-size: .88rem; text-transform: capitalize; }
   @media (max-width: 800px) { .about-hero,.portrait-grid,.timeline-heading,.education-grid,.skills-heading { grid-template-columns: 1fr; } .principle-grid { grid-template-columns: 1fr; } .principle-grid > div { border-right: 0; border-bottom: 1px solid var(--line); padding-inline: 0; } .skill-row { grid-template-columns: 2rem 1fr; } .skill-row .tag-list { grid-column: 2; } }
 </style>
-

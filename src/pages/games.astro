@@ -2,8 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 
 const experiments = [
-  { title: 'Space Invaders', summary: 'A browser-native shooter focused on wave logic, collision feedback, particles, and a clear game-state loop.', href: '/games/space-invaders', source: 'https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/space-invaders.astro', image: '/assets/space-invaders.png', alt: 'Space Invaders browser game with player ship, enemies, score, and lives' },
-  { title: 'Snake', summary: 'A compact arcade loop with deterministic grid movement, progressive speed, score persistence, and keyboard controls.', href: '/games/snake', source: 'https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/snake.astro', image: '/assets/snake-game.png', alt: 'Snake browser game on a dark grid with score and controls' },
+  { title: 'Space Invaders', summary: 'A browser-native shooter focused on wave logic, collision feedback, particles, and a clear game-state loop.', href: '/games/space-invaders', source: 'https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/space-invaders.astro', image: '/assets/space-invaders.webp', alt: 'Space Invaders browser game with player ship, enemies, score, and lives' },
+  { title: 'Snake', summary: 'A compact arcade loop with deterministic grid movement, progressive speed, score persistence, and keyboard controls.', href: '/games/snake', source: 'https://github.com/BryanPMX/Professional_Portfolio/blob/main/src/pages/games/snake.astro', image: '/assets/snake-game.webp', alt: 'Snake browser game on a dark grid with score and controls' },
 ];
 ---
 
@@ -54,4 +54,3 @@ const experiments = [
   .lab-note > div p { margin: 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 1.2rem; color: var(--muted); font-size: .72rem; }
   @media (max-width: 760px) { .lab-hero,.lab-grid,.lab-note { grid-template-columns: 1fr; } .lab-note > div { grid-column: 1; } }
 </style>
-
