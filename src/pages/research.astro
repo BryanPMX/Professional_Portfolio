@@ -1,136 +1,102 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const studies = [
+  {
+    index: '01',
+    title: 'Music-key classification with SVM',
+    question: 'How effectively can engineered audio features and dimensionality reduction distinguish musical keys?',
+    method: 'Extracted audio features, reduced feature space with PCA, and tuned an SVM classifier across a 24-key classification problem.',
+    evidence: ['Audio feature extraction', 'Principal component analysis', 'SVM classification', 'Model tuning'],
+    caution: 'The portfolio intentionally avoids presenting a headline accuracy without the dataset, baseline, split strategy, and per-class results alongside it.',
+    repository: 'https://github.com/BryanPMX/svm-music-key-detection',
+  },
+  {
+    index: '02',
+    title: 'LunarLander reinforcement learning',
+    question: 'How do DQN and PPO behave under reward shaping, replay, and repeated evaluation?',
+    method: 'Compared DQN and PPO experiments using replay buffers, reward shaping, and multi-seed evaluation to separate algorithm behavior from a lucky run.',
+    evidence: ['DQN', 'PPO', 'Replay buffers', 'Reward shaping', 'Multi-seed evaluation'],
+    caution: 'The useful output is the experimental method and failure analysis—not a cherry-picked episode recording.',
+    repository: 'https://github.com/BryanPMX/gymnasium-RL-research',
+  },
+];
 ---
 
-<Layout title="Research - Bryan Perez">
-  <div class="min-h-screen">
-    <section class="py-20 px-6 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-center">
-        <div class="space-y-4">
-          <div class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-dark-text-secondary">
-            Research | ML | Benchmarking
-          </div>
-          <h1 class="text-4xl lg:text-5xl font-semibold text-gradient-accent leading-tight">
-            Research built for real engineering use.
-          </h1>
-          <p class="text-lg text-dark-text-secondary">
-            I run reproducible experiments in ML and optimization, then translate findings into practical systems.
-          </p>
-          <div class="flex flex-wrap gap-3">
-            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Reinforcement Learning</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Music ML</span>
-            <span class="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-dark-text-secondary">Algorithm Analysis</span>
-          </div>
-        </div>
-        <div class="panel gradient-border interactive-card p-6">
-          <div class="grid gap-4 sm:grid-cols-2">
-            {[
-              { title: 'Method', value: 'Reproducible runs' },
-              { title: 'Metrics', value: 'Tracked and comparable' },
-              { title: 'Validation', value: 'Baseline + ablations' },
-              { title: 'Output', value: 'Code + report ready' }
-            ].map((item) => (
-              <div class="rounded-xl border border-white/5 bg-white/5 p-4">
-                <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.title}</p>
-                <p class="text-sm font-semibold mt-1">{item.value}</p>
-              </div>
-            ))}
-          </div>
-          <p class="mt-4 text-sm text-dark-text-secondary">Each study favors repeatability over one-off results.</p>
-        </div>
-      </div>
-    </section>
+<Layout title="Applied ML Research" description="Applied machine-learning research in music-key classification and reinforcement learning by Bryan Perez.">
+  <section class="research-hero section-pad shell reveal is-visible">
+    <div>
+      <p class="eyebrow">Applied ML research</p>
+      <h1 class="page-title">Experiments built to expose <span class="signal-text">what the model misses.</span></h1>
+    </div>
+    <p class="lede">Research is most useful when the setup, baseline, evaluation method, and limitations are visible. These studies support my production AI work with disciplined experimentation.</p>
+  </section>
 
-    <section class="pb-20 px-6 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto space-y-10">
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Focus Areas</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {[
-            {
-              title: 'Music ML',
-              copy: 'SVM key classification with chroma, MFCC, and spectral features.',
-              tags: ['SVM', 'Feature engineering', 'Audio analysis'],
-              iconStroke: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z'
-            },
-            {
-              title: 'Deep RL',
-              copy: 'DQN and PPO on LunarLander with replay and curriculum strategies.',
-              tags: ['DQN', 'PPO', 'Reward shaping'],
-              iconStroke: 'M13 10V3L4 14h7v7l9-11h-7z'
-            },
-            {
-              title: 'Optimization',
-              copy: 'Hyperparameter tuning and benchmark-driven model comparison.',
-              tags: ['Tuning', 'Benchmarking', 'Comparative analysis'],
-              iconStroke: 'M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z'
-            }
-          ].map((item, idx) => (
-            <div class="panel gradient-border interactive-card p-6 space-y-4">
-              <div class="flex items-center gap-3">
-                <div class={`grid h-12 w-12 place-items-center rounded-xl ${idx === 1 ? 'bg-accent-purple/20 text-accent-purple' : 'bg-accent/20 text-accent'}`}>
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={item.iconStroke} />
-                  </svg>
-                </div>
-                <h3 class="text-lg font-semibold">{item.title}</h3>
-              </div>
-              <p class="text-sm text-dark-text-secondary leading-relaxed">{item.copy}</p>
-              <div class="flex flex-wrap gap-2">
-                {item.tags.map((tag) => (
-                  <span class="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-dark-text-secondary">{tag}</span>
-                ))}
-              </div>
+  <section class="study-section section-rule section-pad">
+    <div class="shell study-list">
+      {studies.map((study) => (
+        <article class="study reveal">
+          <div class="study-index">{study.index}</div>
+          <div class="study-main">
+            <p class="eyebrow">Research study</p>
+            <h2>{study.title}</h2>
+            <p class="question">{study.question}</p>
+            <div class="study-detail">
+              <div><span>Method</span><p>{study.method}</p></div>
+              <div><span>Interpretation guardrail</span><p>{study.caution}</p></div>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 px-6 bg-dark-surface/70 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto space-y-8">
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Selected Research</h2>
-        <div class="space-y-8">
-          <div class="panel gradient-border interactive-card p-6">
-            <div class="flex flex-col lg:flex-row lg:items-start gap-6">
-              <div class="w-16 h-16 bg-accent/20 rounded-lg grid place-items-center flex-shrink-0">
-                <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" />
-                </svg>
-              </div>
-              <div class="space-y-3">
-                <div class="flex flex-wrap items-center gap-3">
-                  <h3 class="text-2xl font-semibold">Music Key Detection with SVM</h3>
-                  <span class="rounded-full border border-accent/40 bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">2024</span>
-                </div>
-                <p class="text-dark-text-secondary">
-                  Built a 24-key classifier with PCA and tuning. Final accuracy: 67.12%.
-                </p>
-                <a href="https://github.com/BryanPMX/svm-music-key-detection" class="cta-ghost">View repo</a>
-              </div>
-            </div>
+            <ul class="tag-list">{study.evidence.map((item) => <li class="tag">{item}</li>)}</ul>
+            <a href={study.repository} class="button button-secondary" target="_blank" rel="noopener noreferrer">View repository ↗</a>
           </div>
-
-          <div class="panel gradient-border interactive-card p-6">
-            <div class="flex flex-col lg:flex-row lg:items-start gap-6">
-              <div class="w-16 h-16 bg-accent-purple/20 rounded-lg grid place-items-center flex-shrink-0">
-                <svg class="w-8 h-8 text-accent-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
-              <div class="space-y-3">
-                <div class="flex flex-wrap items-center gap-3">
-                  <h3 class="text-2xl font-semibold">Advanced RL on LunarLander</h3>
-                  <span class="rounded-full border border-accent-purple/40 bg-accent-purple/10 px-3 py-1 text-xs font-semibold text-accent-purple">2024</span>
-                </div>
-                <p class="text-dark-text-secondary">
-                  Compared DQN and PPO with replay, shaping, and multi-seed evaluation.
-                </p>
-                <a href="https://github.com/BryanPMX/gymnasium-RL-research" class="cta-ghost">View repo</a>
-              </div>
-            </div>
+          <div class="study-visual" aria-hidden="true">
+            <div class="axis axis-x"></div><div class="axis axis-y"></div>
+            <span style="--x:18%;--y:58%"></span><span style="--x:35%;--y:32%"></span><span style="--x:51%;--y:46%"></span><span style="--x:67%;--y:20%"></span><span style="--x:81%;--y:37%"></span>
+            <svg viewBox="0 0 100 70"><path d="M4 58 C22 55 25 32 42 38 S62 48 72 25 S88 18 97 10" /></svg>
           </div>
-        </div>
-      </div>
-    </section>
-  </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="research-principles section-pad shell reveal">
+    <div><p class="eyebrow">Evaluation principles</p><h2 class="section-title">The same habits transfer to agent systems.</h2></div>
+    <div class="principles-grid">
+      <div><span>01</span><strong>Repeat the run</strong><p>Use multiple seeds or stable evaluation sets instead of trusting one impressive trace.</p></div>
+      <div><span>02</span><strong>Keep the baseline</strong><p>Improvement only means something when the comparison and measurement remain visible.</p></div>
+      <div><span>03</span><strong>Inspect failure</strong><p>Confusion, reward hacking, and weak edge cases teach more than a single aggregate score.</p></div>
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .research-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(20rem,.9fr); gap: clamp(3rem,8vw,8rem); align-items: end; padding-top: clamp(5rem,10vw,8.5rem); }
+  .research-hero h1 { margin-top: 1rem; }
+  .research-hero .lede { font-size: 1rem; }
+  .study-list { display: grid; gap: 1rem; }
+  .study { display: grid; grid-template-columns: 3rem minmax(0,1.15fr) minmax(17rem,.85fr); gap: clamp(1rem,4vw,3rem); border: 1px solid var(--line); border-radius: 1.2rem; padding: clamp(1.2rem,4vw,2.5rem); background: rgba(12,17,24,.72); }
+  .study-index { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .65rem; }
+  .study h2 { margin: 1rem 0 .8rem; font-size: clamp(1.6rem,3.5vw,2.7rem); letter-spacing: -.045em; line-height: 1.1; }
+  .question { margin: 0; color: var(--ink); font-size: .9rem; }
+  .study-detail { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.8rem 0; }
+  .study-detail span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .61rem; text-transform: uppercase; }
+  .study-detail p { margin: .5rem 0 0; color: var(--muted); font-size: .72rem; }
+  .study .button { margin-top: 1.6rem; }
+  .study-visual { position: relative; align-self: stretch; min-height: 20rem; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: radial-gradient(circle at 70% 20%,rgba(169,155,255,.1),transparent 35%),#0a0f16; }
+  .study-visual::before { position: absolute; inset: 0; content: ''; opacity: .35; background-image: linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px); background-size: 2.5rem 2.5rem; }
+  .axis { position: absolute; z-index: 1; background: rgba(255,255,255,.3); }
+  .axis-x { right: 10%; bottom: 14%; left: 12%; height: 1px; }
+  .axis-y { top: 12%; bottom: 14%; left: 12%; width: 1px; }
+  .study-visual span { position: absolute; z-index: 2; top: var(--y); left: var(--x); width: .48rem; height: .48rem; border-radius: 50%; background: var(--signal); box-shadow: 0 0 .8rem rgba(103,232,210,.6); }
+  .study-visual svg { position: absolute; z-index: 1; right: 8%; bottom: 13%; left: 12%; width: 80%; height: 72%; overflow: visible; }
+  .study-visual path { fill: none; stroke: var(--violet); stroke-width: .6; opacity: .8; }
+  .research-principles { display: grid; grid-template-columns: minmax(0,.8fr) minmax(0,1.2fr); gap: clamp(3rem,8vw,8rem); }
+  .research-principles h2 { margin-top: 1rem; }
+  .principles-grid { border-top: 1px solid var(--line); }
+  .principles-grid > div { display: grid; grid-template-columns: 2.5rem 11rem 1fr; gap: 1rem; border-bottom: 1px solid var(--line); padding: 1.35rem 0; }
+  .principles-grid span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
+  .principles-grid strong { font-size: .78rem; }
+  .principles-grid p { margin: 0; color: var(--muted); font-size: .72rem; }
+  @media (max-width: 850px) { .research-hero,.study,.research-principles { grid-template-columns: 1fr; } .study-visual { min-height: 16rem; } }
+  @media (max-width: 560px) { .study-detail { grid-template-columns: 1fr; } .principles-grid > div { grid-template-columns: 2rem 1fr; } .principles-grid p { grid-column: 2; } }
+</style>
+

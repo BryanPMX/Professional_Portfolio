@@ -1,137 +1,147 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { education, experience } from '../data/experience';
+import { profile, skillGroups } from '../data/profile';
 ---
 
-<Layout title="About - Bryan Perez">
-  <div class="min-h-screen">
-    <section class="py-20 px-6 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1.05fr_0.95fr] items-center">
-        <div class="space-y-5">
-          <div class="badge-glass">Software Engineer | Security-minded | AI-aware</div>
-          <h1 class="text-4xl lg:text-5xl font-semibold text-gradient leading-tight">
-            I build dependable software that teams can grow on.
-          </h1>
-          <p class="text-lg text-dark-text-secondary">
-            My work spans full-stack delivery, secure backend design, and AI-assisted code quality.
-          </p>
-          <div class="grid grid-cols-3 gap-4">
-            {[
-              { label: 'Focus', value: 'Secure platforms' },
-              { label: 'Stack', value: 'Go / TS / Python' },
-              { label: 'Style', value: 'Ship weekly' }
-            ].map((item) => (
-              <div class="panel gradient-border interactive-card p-4 text-center">
-                <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">{item.label}</p>
-                <p class="text-lg font-semibold mt-1">{item.value}</p>
-              </div>
-            ))}
-          </div>
-          <div class="flex flex-wrap gap-3">
-            <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-ghost">Resume</a>
-            <a href="/contact" class="cta-solid">Contact</a>
-          </div>
-        </div>
-        <div class="panel gradient-border interactive-card p-6 max-w-sm justify-self-center">
-          <div class="relative overflow-hidden rounded-2xl border border-white/10">
-            <img src="/assets/profile-pic.png" alt="Bryan Perez" class="w-full h-full object-cover" />
-          </div>
-          <div class="mt-4 flex flex-wrap gap-2">
-            <span class="badge-glass">El Paso, TX</span>
-            <span class="badge-glass">Remote / On-site</span>
-          </div>
+<Layout title="Experience & Background" description="Bryan Perez's AI engineering, software engineering, education, and technical background.">
+  <section class="about-hero section-pad shell reveal is-visible">
+    <div>
+      <p class="eyebrow">Experience & background</p>
+      <h1 class="page-title">A product engineer who likes the <span class="signal-text">hard seams.</span></h1>
+    </div>
+    <div>
+      <p class="lede">The places where an agent hands work to a person, a client crosses a security boundary, or a deployment has to survive real usage—that is where I do my best work.</p>
+      <div class="about-links">
+        <a href={profile.resumeHref} class="button button-primary" target="_blank" rel="noopener noreferrer">View résumé</a>
+        <a href={profile.linkedin} class="button button-secondary" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="portrait-section section-rule section-pad">
+    <div class="shell portrait-grid">
+      <div class="portrait-card surface reveal">
+        <img src="/assets/profile-pic.png" alt="Portrait of Bryan Perez" width="640" height="640" loading="eager" decoding="async" />
+        <div class="portrait-caption"><span>{profile.name}</span><span>{profile.location}</span></div>
+      </div>
+      <div class="principles reveal">
+        <p class="eyebrow">How I work</p>
+        <blockquote>“Make the state visible. Make failure recoverable. Make the handoff obvious.”</blockquote>
+        <div class="principle-grid">
+          <div><span>01</span><strong>Start with the decision</strong><p>Architecture serves a user or operational choice, not the other way around.</p></div>
+          <div><span>02</span><strong>Design the failure path</strong><p>Retries, review, escalation, and recovery deserve first-class product treatment.</p></div>
+          <div><span>03</span><strong>Ship evidence</strong><p>Tests, traces, metrics, and documentation make quality inspectable.</p></div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="py-16 px-6 bg-dark-surface/70 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto space-y-8">
-        <div class="flex justify-center"><span class="badge-glass">Education</span></div>
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">UTEP, Computer Science</h2>
-        <div class="panel gradient-border interactive-card p-6 flex flex-col lg:flex-row gap-6 items-center lg:items-start">
-          <div class="flex-shrink-0">
-            <img src="/assets/utep-logo.jpeg" alt="UTEP Logo" class="w-24 h-24 rounded-full border-2 border-accent object-cover" />
+  <section class="timeline-section section-pad shell">
+    <div class="timeline-heading reveal">
+      <p class="eyebrow">Professional timeline</p>
+      <h2 class="section-title">Production ownership across AI, web, mobile, data, and infrastructure.</h2>
+    </div>
+    <div class="timeline">
+      {experience.map((item, index) => (
+        <article class="timeline-item reveal">
+          <div class="timeline-marker"><span>0{index + 1}</span></div>
+          <div class="timeline-content">
+            <div class="timeline-meta"><span>{item.period}</span><span>{item.location}</span></div>
+            <h3>{item.role}</h3>
+            <p class="timeline-org">{item.organization}</p>
+            <p class="timeline-summary">{item.summary}</p>
+            <ul>{item.highlights.map((highlight) => <li>{highlight}</li>)}</ul>
+            <ul class="tag-list">{item.technologies.map((technology) => <li class="tag">{technology}</li>)}</ul>
           </div>
-          <div class="space-y-2">
-            <h3 class="text-xl font-semibold">B.S. Computer Science, Minor in Mathematics</h3>
-            <p class="text-lg text-accent">2021-2025 | GPA 3.5</p>
-            <p class="text-sm text-dark-text-secondary leading-relaxed">
-              Core depth: algorithms, databases, software engineering, AI/ML, and computer security.
-            </p>
-          </div>
-        </div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="education-section section-rule section-pad">
+    <div class="shell education-grid">
+      <div class="education-copy reveal">
+        <p class="eyebrow">Education</p>
+        <h2>{education.degree}</h2>
+        <p class="school">{education.school}</p>
+        <dl>
+          <div><dt>Minor</dt><dd>{education.minor}</dd></div>
+          <div><dt>Graduated</dt><dd>{education.year}</dd></div>
+          <div><dt>GPA</dt><dd>{education.gpa}</dd></div>
+        </dl>
       </div>
-    </section>
-
-    <section class="py-16 px-6 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto space-y-10">
-        <div class="text-center space-y-2">
-          <div class="flex justify-center"><span class="badge-glass">Skills</span></div>
-          <h2 class="text-3xl lg:text-4xl font-semibold">Core Stack</h2>
-          <p class="text-dark-text-secondary">Tools I use to ship production work.</p>
+      <div class="education-detail reveal">
+        <p class="eyebrow">Academic focus</p>
+        <p>Research included SVM music-key classification with audio feature extraction and PCA, plus LunarLander reinforcement-learning experiments with DQN, PPO, replay buffers, reward shaping, and multi-seed evaluation.</p>
+        <div>
+          <span>Coursework</span>
+          <ul class="tag-list">{education.coursework.map((course) => <li class="tag">{course}</li>)}</ul>
         </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="panel gradient-border interactive-card p-6 space-y-4">
-            <div class="badge-glass w-fit">Languages</div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              {['Go', 'TypeScript', 'JavaScript', 'Java', 'Python', 'C#', 'SQL', 'HTML/CSS'].map((lang) => (
-                <div class="flex items-center gap-2 text-dark-text-secondary"><span class="h-2 w-2 rounded-full bg-accent"></span>{lang}</div>
-              ))}
-            </div>
-          </div>
-          <div class="panel gradient-border interactive-card p-6 space-y-4">
-            <div class="badge-glass w-fit">Frontend and Frameworks</div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              {['React', 'Next.js', 'Astro', 'Tailwind', 'SvelteKit', 'Node.js'].map((item) => (
-                <div class="flex items-center gap-2 text-dark-text-secondary"><span class="h-2 w-2 rounded-full bg-accent-purple"></span>{item}</div>
-              ))}
-            </div>
-          </div>
-          <div class="panel gradient-border interactive-card p-6 space-y-4">
-            <div class="badge-glass w-fit">Architecture and DevOps</div>
-            <div class="grid grid-cols-2 gap-3 text-sm">
-              {['Microservices', 'REST APIs', 'CI/CD', 'AWS', 'Docker', 'Proxmox', 'PostgreSQL', 'Neo4j'].map((tool) => (
-                <div class="flex items-center gap-2 text-dark-text-secondary"><span class="h-2 w-2 rounded-full bg-accent"></span>{tool}</div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <a href="/research" class="button button-secondary">Explore research</a>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="py-16 px-6 bg-dark-surface/70 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto space-y-10">
-        <div class="flex justify-center"><span class="badge-glass">Experience</span></div>
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Recent Work</h2>
-        <div class="space-y-6">
-          <div class="panel gradient-border interactive-card p-6">
-            <h3 class="text-lg font-semibold">Centro de Apoyo para la Familia A.C.</h3>
-            <p class="text-sm text-accent">Full Stack Developer | 2023-present</p>
-            <p class="text-sm text-dark-text-secondary mt-2">
-              Led the platform shift from manual workflows to a React/TypeScript system with secure RBAC data handling and CI/CD-backed delivery.
-            </p>
-          </div>
-
-          <div class="panel gradient-border interactive-card p-6">
-            <h3 class="text-lg font-semibold">Outlier.ai</h3>
-            <p class="text-sm text-accent-purple">AI Engineer | 2024-present</p>
-            <p class="text-sm text-dark-text-secondary mt-2">
-              Evaluated AI-generated Java/Python code for quality, complexity, and correctness to improve model reasoning.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-16 px-6 reveal-on-scroll">
-      <div class="max-w-4xl mx-auto panel gradient-border interactive-card p-10 text-center space-y-4">
-        <h2 class="text-3xl lg:text-4xl font-semibold">Let’s build something useful.</h2>
-        <p class="text-lg text-dark-text-secondary">I can join as an engineer, technical lead, or delivery partner.</p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href="/assets/Bryan Resume 2025.pdf" target="_blank" class="cta-solid">View Resume</a>
-          <a href="/contact" class="cta-ghost">Start a conversation</a>
-        </div>
-      </div>
-    </section>
-  </div>
+  <section class="skills-section section-pad shell">
+    <div class="skills-heading reveal"><p class="eyebrow">Technical range</p><h2 class="section-title">Tools are grouped by the work they support.</h2></div>
+    <div class="skills-list">
+      {skillGroups.map((group, index) => (
+        <article class="skill-row reveal">
+          <span>0{index + 1}</span><h3>{group.label}</h3>
+          <ul class="tag-list">{group.skills.map((skill) => <li class="tag">{skill}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </section>
 </Layout>
+
+<style>
+  .about-hero { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(20rem,.9fr); gap: clamp(3rem,8vw,8rem); align-items: end; padding-top: clamp(5rem,10vw,8.5rem); }
+  .about-hero h1 { margin-top: 1rem; }
+  .about-hero .lede { font-size: 1rem; }
+  .about-links { display: flex; flex-wrap: wrap; gap: .65rem; margin-top: 1.6rem; }
+  .portrait-grid { display: grid; grid-template-columns: minmax(18rem,.68fr) minmax(0,1.32fr); gap: clamp(3rem,8vw,8rem); align-items: center; }
+  .portrait-card { overflow: hidden; }
+  .portrait-card img { width: 100%; aspect-ratio: 1; object-fit: cover; filter: saturate(.72) contrast(1.05); }
+  .portrait-caption { display: flex; align-items: center; justify-content: space-between; padding: .9rem 1rem; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .61rem; }
+  blockquote { max-width: 20ch; margin: 1.5rem 0 2.5rem; font-size: clamp(1.8rem,4vw,3.4rem); font-weight: 500; letter-spacing: -.045em; line-height: 1.2; }
+  .principle-grid { display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid var(--line); }
+  .principle-grid > div { border-right: 1px solid var(--line); padding: 1.2rem; }
+  .principle-grid > div:first-child { padding-left: 0; }
+  .principle-grid > div:last-child { border-right: 0; }
+  .principle-grid span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .6rem; }
+  .principle-grid strong { display: block; margin-top: 2.2rem; font-size: .78rem; }
+  .principle-grid p { margin: .5rem 0 0; color: var(--muted); font-size: .68rem; }
+  .timeline-heading { display: grid; grid-template-columns: .4fr .6fr; gap: 2rem; margin-bottom: 4rem; }
+  .timeline { max-width: 62rem; margin-left: auto; }
+  .timeline-item { display: grid; grid-template-columns: 5rem 1fr; }
+  .timeline-marker { position: relative; border-right: 1px solid var(--line); }
+  .timeline-marker::before { position: absolute; top: 2.2rem; right: -.35rem; width: .65rem; height: .65rem; border: 2px solid var(--canvas); border-radius: 50%; content: ''; background: var(--signal); box-shadow: 0 0 1rem rgba(103,232,210,.5); }
+  .timeline-marker span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
+  .timeline-content { border-bottom: 1px solid var(--line); padding: 0 0 3.5rem clamp(1.5rem,5vw,4rem); margin-bottom: 3.5rem; }
+  .timeline-meta { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
+  .timeline-content h3 { margin: 1.2rem 0 .15rem; font-size: clamp(1.5rem,3vw,2.4rem); letter-spacing: -.045em; }
+  .timeline-org { margin: 0; color: var(--signal); font-size: .82rem; }
+  .timeline-summary { max-width: 44rem; margin: 1rem 0; color: var(--muted); font-size: .88rem; }
+  .timeline-content > ul:not(.tag-list) { margin: 1.2rem 0 1.5rem; padding-left: 1rem; color: var(--muted); font-size: .78rem; }
+  .timeline-content > ul:not(.tag-list) li { margin-top: .55rem; padding-left: .3rem; }
+  .education-grid { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: clamp(3rem,8vw,8rem); }
+  .education-copy h2 { max-width: 14ch; margin: 1.2rem 0 .5rem; font-size: clamp(2rem,4vw,3.5rem); letter-spacing: -.05em; line-height: 1.1; }
+  .school { color: var(--signal); }
+  dl { margin-top: 2rem; }
+  dl div { display: grid; grid-template-columns: 7rem 1fr; border-top: 1px solid var(--line); padding: .75rem 0; }
+  dt { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .62rem; text-transform: uppercase; }
+  dd { margin: 0; font-size: .75rem; }
+  .education-detail { padding-top: .2rem; }
+  .education-detail > p:not(.eyebrow) { margin: 1.2rem 0 2rem; color: var(--muted); font-size: 1rem; line-height: 1.8; }
+  .education-detail > div > span { display: block; margin-bottom: .8rem; color: var(--ink); font-size: .75rem; }
+  .education-detail .button { margin-top: 2rem; }
+  .skills-heading { display: grid; grid-template-columns: .4fr .6fr; gap: 2rem; margin-bottom: 3rem; }
+  .skills-list { border-top: 1px solid var(--line); }
+  .skill-row { display: grid; grid-template-columns: 3rem minmax(12rem,.45fr) minmax(0,.55fr); gap: 1rem; align-items: start; border-bottom: 1px solid var(--line); padding: 1.5rem 0; }
+  .skill-row > span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
+  .skill-row h3 { margin: 0; font-size: .88rem; text-transform: capitalize; }
+  @media (max-width: 800px) { .about-hero,.portrait-grid,.timeline-heading,.education-grid,.skills-heading { grid-template-columns: 1fr; } .principle-grid { grid-template-columns: 1fr; } .principle-grid > div { border-right: 0; border-bottom: 1px solid var(--line); padding-inline: 0; } .skill-row { grid-template-columns: 2rem 1fr; } .skill-row .tag-list { grid-column: 2; } }
+</style>
+

@@ -1,198 +1,82 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { profile } from '../data/profile';
 ---
 
-<Layout title="Contact - Bryan Perez">
-  <div class="min-h-screen">
-    <section class="py-20 px-6 reveal-on-scroll">
-      <div class="max-w-5xl mx-auto text-center space-y-4">
-        <div class="badge-glass mx-auto">Let’s connect</div>
-        <h1 class="text-4xl lg:text-5xl font-semibold text-gradient-accent">Tell me what you want to build.</h1>
-        <p class="text-lg text-dark-text-secondary max-w-3xl mx-auto">
-          Email works fastest: <a href="mailto:perez.bryan24@outlook.com" class="text-accent underline">perez.bryan24@outlook.com</a>
-        </p>
-      </div>
-    </section>
+<Layout title="Contact" description="Contact Bryan Perez about software engineering, AI engineering, and product roles.">
+  <section class="contact-hero section-pad shell reveal is-visible">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h1 class="page-title">Let’s talk about the system your team needs to <span class="signal-text">trust next.</span></h1>
+    </div>
+    <div>
+      <p class="lede">The fastest route is email. Share the role or problem, the team context, and what success should look like.</p>
+      <a href={`mailto:${profile.email}?subject=Portfolio%20conversation`} class="email-link">{profile.email} <span aria-hidden="true">↗</span></a>
+    </div>
+  </section>
 
-    <section class="pb-20 px-6 reveal-on-scroll">
-      <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-8">
-        <div class="panel gradient-border interactive-card p-6 space-y-6">
-          <div class="space-y-2">
-            <p class="badge-glass w-fit">Direct contact</p>
-            <h2 class="text-2xl font-semibold">Reach me here</h2>
-            <p class="text-sm text-dark-text-secondary">Choose any channel below.</p>
-          </div>
+  <section class="contact-options section-rule section-pad">
+    <div class="shell contact-grid">
+      <a href={`mailto:${profile.email}?subject=Portfolio%20conversation`} class="contact-card surface hover-lift reveal">
+        <span>01 / Email</span><strong>{profile.email}</strong><p>Best for roles, project context, and detailed introductions.</p><i aria-hidden="true">↗</i>
+      </a>
+      <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" class="contact-card surface hover-lift reveal">
+        <span>02 / LinkedIn</span><strong>linkedin.com/in/brpmx</strong><p>Professional background, shared connections, and concise messages.</p><i aria-hidden="true">↗</i>
+      </a>
+      <a href={profile.github} target="_blank" rel="noopener noreferrer" class="contact-card surface hover-lift reveal">
+        <span>03 / GitHub</span><strong>github.com/BryanPMX</strong><p>Repositories, code history, and the implementation layer behind the work.</p><i aria-hidden="true">↗</i>
+      </a>
+      <a href={profile.phoneHref} class="contact-card surface hover-lift reveal">
+        <span>04 / Phone</span><strong>{profile.phone}</strong><p>For a scheduled conversation after an introduction.</p><i aria-hidden="true">↗</i>
+      </a>
+    </div>
+  </section>
 
-          <div class="space-y-3">
-            <a href="mailto:perez.bryan24@outlook.com" class="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-accent transition-colors">
-              <div class="h-12 w-12 rounded-lg bg-accent/20 grid place-items-center text-accent">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-              <div>
-                <p class="font-semibold">Personal Email</p>
-                <p class="text-dark-text-secondary text-sm">perez.bryan24@outlook.com</p>
-              </div>
-            </a>
-
-            <a href="mailto:bperez21@miners.utep.edu" class="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4 hover:border-accent transition-colors">
-              <div class="h-12 w-12 rounded-lg bg-accent/20 grid place-items-center text-accent">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                </svg>
-              </div>
-              <div>
-                <p class="font-semibold">University Email</p>
-                <p class="text-dark-text-secondary text-sm">bperez21@miners.utep.edu</p>
-              </div>
-            </a>
-
-            <div class="flex items-center gap-4 rounded-xl border border-white/10 bg-white/5 p-4">
-              <div class="h-12 w-12 rounded-lg bg-accent/20 grid place-items-center text-accent">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h2l2 5-2 1c.5 1.5 1.5 3.5 3 5s3.5 2.5 5 3l1-2 5 2v2a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-              </div>
-              <div>
-                <p class="font-semibold">Phone</p>
-                <p class="text-dark-text-secondary text-sm">(915) 887-1622</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-3">
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Status</p>
-              <p class="text-sm font-semibold">Open to work</p>
-            </div>
-            <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-              <p class="text-xs uppercase tracking-[0.2em] text-dark-text-secondary">Timezone</p>
-              <p class="text-sm font-semibold">US Mountain</p>
-            </div>
-          </div>
-
-          <div class="space-y-3">
-            <p class="text-sm uppercase tracking-[0.2em] text-dark-text-secondary">Links</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="https://github.com/BryanPMX" target="_blank" rel="noopener noreferrer" class="social-pill">GitHub</a>
-              <a href="https://linkedin.com/in/brpmx" target="_blank" rel="noopener noreferrer" class="social-pill">LinkedIn</a>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel gradient-border interactive-card p-6">
-          <div class="flex items-center justify-between mb-6">
-            <h2 class="text-2xl font-semibold">Send a message</h2>
-            <span class="rounded-full bg-green-500/15 px-3 py-1 text-xs font-semibold text-green-300">Open</span>
-          </div>
-          <form id="contact-form" class="space-y-6">
-            <div>
-              <label for="name" class="block text-sm font-medium mb-2">Name *</label>
-              <input type="text" id="name" name="name" required class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text" placeholder="Your name" />
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label for="email" class="block text-sm font-medium mb-2">Email *</label>
-                <input type="email" id="email" name="email" required class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text" placeholder="you@example.com" />
-              </div>
-              <div>
-                <label for="subject" class="block text-sm font-medium mb-2">Subject *</label>
-                <select id="subject" name="subject" required class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text">
-                  <option value="">Pick one</option>
-                  <option value="job-opportunity">Job Opportunity</option>
-                  <option value="project-collaboration">Project Collaboration</option>
-                  <option value="freelance-work">Freelance Work</option>
-                  <option value="game-idea">Game Idea</option>
-                  <option value="research">Research</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label for="message" class="block text-sm font-medium mb-2">Message *</label>
-              <textarea id="message" name="message" rows="6" required class="w-full px-4 py-3 bg-dark-card border border-white/10 rounded-lg focus:border-accent focus:outline-none transition-colors text-dark-text resize-none" placeholder="Scope, timeline, goals."></textarea>
-            </div>
-
-            <button type="submit" class="w-full cta-solid disabled:opacity-50 disabled:cursor-not-allowed">
-              <span class="submit-text">Send</span>
-              <span class="loading-text hidden">Sending...</span>
-            </button>
-          </form>
-
-          <div id="form-success" class="hidden mt-4 p-4 rounded-lg border border-green-500/40 bg-green-500/10">
-            <p class="text-green-300">Message sent. I will reply soon.</p>
-          </div>
-
-          <div id="form-error" class="hidden mt-4 p-4 rounded-lg border border-red-500/40 bg-red-500/10">
-            <p class="text-red-300">Send failed. Please email me directly.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 px-6 bg-dark-surface/70 reveal-on-scroll">
-      <div class="max-w-5xl mx-auto space-y-6">
-        <h2 class="text-3xl lg:text-4xl font-semibold text-center">Quick answers</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {[
-            { q: 'What projects?', a: 'Secure platforms, internal tools, ML workflows, and interactive web products.' },
-            { q: 'Freelance available?', a: 'Yes. From short audits to multi-month builds.' },
-            { q: 'Preferred stack?', a: 'TypeScript/React, Go or Python APIs, PostgreSQL/Neo4j, Docker.' },
-            { q: 'When can you start?', a: 'Discovery now. Build kickoff in 1-2 weeks, scope permitting.' }
-          ].map((item) => (
-            <details class="panel gradient-border interactive-card p-4">
-              <summary class="text-lg font-semibold cursor-pointer">{item.q}</summary>
-              <p class="text-sm text-dark-text-secondary leading-relaxed mt-3">{item.a}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  </div>
+  <section class="contact-detail section-pad shell">
+    <div class="availability-panel reveal">
+      <p class="eyebrow">Current status</p>
+      <h2>{profile.availability}.</h2>
+      <dl>
+        <div><dt>Location</dt><dd>{profile.location}</dd></div>
+        <div><dt>Timezone</dt><dd>{profile.timezone}</dd></div>
+        <div><dt>Focus</dt><dd>AI engineering · software engineering · full-stack product</dd></div>
+      </dl>
+    </div>
+    <div class="message-guide surface reveal">
+      <p class="eyebrow">A useful first message</p>
+      <ol>
+        <li><span>01</span><p><strong>Context</strong> — the role, product, or system your team is building.</p></li>
+        <li><span>02</span><p><strong>Constraint</strong> — the hardest technical or organizational boundary.</p></li>
+        <li><span>03</span><p><strong>Outcome</strong> — what a strong first 90 days or project result would look like.</p></li>
+      </ol>
+      <a href={`mailto:${profile.email}?subject=Portfolio%20conversation&body=Context%3A%0A%0AConstraint%3A%0A%0AOutcome%3A%0A`} class="button button-primary">Draft email</a>
+    </div>
+  </section>
 </Layout>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('contact-form') as HTMLFormElement | null;
-    const submitButton = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
-    const submitText = submitButton?.querySelector('.submit-text') as HTMLElement | null;
-    const loadingText = submitButton?.querySelector('.loading-text') as HTMLElement | null;
-    const successMessage = document.getElementById('form-success');
-    const errorMessage = document.getElementById('form-error');
+<style>
+  .contact-hero { display: grid; grid-template-columns: minmax(0,1.15fr) minmax(20rem,.85fr); gap: clamp(3rem,8vw,8rem); align-items: end; padding-top: clamp(5rem,10vw,8.5rem); }
+  .contact-hero h1 { margin-top: 1rem; }
+  .contact-hero .lede { font-size: 1rem; }
+  .email-link { display: inline-flex; gap: .5rem; margin-top: 1.4rem; border-bottom: 1px solid rgba(103,232,210,.45); padding-bottom: .25rem; color: var(--signal); font-size: clamp(.84rem,2vw,1rem); }
+  .contact-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+  .contact-card { display: grid; min-height: 15rem; grid-template-columns: 1fr auto; padding: clamp(1.4rem,3vw,2rem); }
+  .contact-card > span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .62rem; }
+  .contact-card strong { grid-column: 1/-1; align-self: end; overflow-wrap: anywhere; font-size: clamp(1.1rem,2.6vw,1.7rem); letter-spacing: -.035em; }
+  .contact-card p { margin: .55rem 0 0; color: var(--muted); font-size: .72rem; }
+  .contact-card i { grid-column: 2; grid-row: 1; color: var(--muted); font-size: 1.2rem; font-style: normal; }
+  .contact-detail { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: clamp(3rem,8vw,8rem); }
+  .availability-panel h2 { margin: 1.2rem 0 2rem; font-size: clamp(2rem,4vw,3.5rem); letter-spacing: -.05em; line-height: 1.12; }
+  dl { margin: 0; }
+  dl div { display: grid; grid-template-columns: 7rem 1fr; border-top: 1px solid var(--line); padding: .8rem 0; }
+  dt { color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: .62rem; text-transform: uppercase; }
+  dd { margin: 0; font-size: .72rem; }
+  .message-guide { padding: clamp(1.4rem,4vw,2.5rem); }
+  .message-guide ol { margin: 1.5rem 0 2rem; padding: 0; list-style: none; }
+  .message-guide li { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; border-top: 1px solid var(--line); padding: 1rem 0; }
+  .message-guide li > span { color: var(--signal); font-family: 'JetBrains Mono', monospace; font-size: .61rem; }
+  .message-guide p { margin: 0; color: var(--muted); font-size: .76rem; }
+  .message-guide strong { color: var(--ink); }
+  @media (max-width: 760px) { .contact-hero,.contact-grid,.contact-detail { grid-template-columns: 1fr; } }
+</style>
 
-    if (!form || !submitButton) return;
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      submitButton.disabled = true;
-      submitText?.classList.add('hidden');
-      loadingText?.classList.remove('hidden');
-
-      successMessage?.classList.add('hidden');
-      errorMessage?.classList.add('hidden');
-
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 1800));
-
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
-        console.log('Form data:', data);
-
-        successMessage?.classList.remove('hidden');
-        form.reset();
-      } catch (error) {
-        errorMessage?.classList.remove('hidden');
-        console.error('Form submission error:', error);
-      } finally {
-        submitButton.disabled = false;
-        submitText?.classList.remove('hidden');
-        loadingText?.classList.add('hidden');
-      }
-    });
-  });
-</script>
